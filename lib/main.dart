@@ -12,18 +12,23 @@ import 'package:hacktheway2023/config/messaging_service.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 
 void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   await MessagingServices.AwesomeNotificationsInit();
   FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
+
   MessagingServices.foregroundNotifications();
+  MessagingServices().getFCMToken();
 
   // To turn off landscape mode
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
 
-  ErrorWidget.builder =
-      (FlutterErrorDetails details) => const MaintenanceScreen();
-
+  // ErrorWidget.builder =
+  //     (FlutterErrorDetails details) => const MaintenanceScreen();
   runApp(const MyApp());
 }
 
@@ -51,31 +56,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [],
-      child: ScreenUtilInit(
-        designSize: const Size(360, 800),
-        minTextAdapt: true,
-        builder: (BuildContext context, Widget? child) {
-          return LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return OrientationBuilder(
-                builder: (BuildContext context, Orientation orientation) {
-                  SizeConfig().init(constraints, orientation);
-                  return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    title: 'Flutter Demo',
-                    theme: ThemeData(
-                      primarySwatch: Colors.blue,
-                    ),
-                    home: const MyHomePage(title: 'Flutter Demo Home Page'),
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(360, 800),
+      minTextAdapt: true,
+      builder: (BuildContext context, Widget? child) {
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return OrientationBuilder(
+              builder: (BuildContext context, Orientation orientation) {
+                SizeConfig().init(constraints, orientation);
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Flutter Demo',
+                  theme: ThemeData(
+                    primarySwatch: Colors.blue,
+                  ),
+                  home: const MyHomePage(title: 'Flutter Demo Home Page'),
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }
