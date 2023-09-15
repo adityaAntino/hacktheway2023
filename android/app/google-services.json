@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "486070291938",
+    "project_id": "hacktheway2023",
+    "storage_bucket": "hacktheway2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486070291938:android:e113694b428423dc2f3dbb",
+        "android_client_info": {
+          "package_name": "com.example.hacktheway2023"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtJ-L-5FlCtE4FgkvqCPPVgFHXqK6GzmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
