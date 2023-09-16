@@ -73,7 +73,7 @@ class _BuyScreenState extends State<BuyScreen> {
                 ),
                 SizedBox(height: 12 * SizeConfig.heightMultiplier!),
                 buildCategories(
-                  categoryTile: 'Categories',
+                  categoryTitle: 'Categories',
                   categories: [
                     {
                       'title': 'Mobile Phones',
@@ -110,7 +110,7 @@ class _BuyScreenState extends State<BuyScreen> {
                 ),
                 SizedBox(height: 12 * SizeConfig.heightMultiplier!),
                 buildCategories(
-                  categoryTile: 'Ending Soon',
+                  categoryTitle: 'Ending Soon',
                   categories: [
                     {
                       'title': 'One Plus Nord CE Lite 5G',
@@ -157,7 +157,7 @@ class _BuyScreenState extends State<BuyScreen> {
                 ),
                 SizedBox(height: 12 * SizeConfig.heightMultiplier!),
                 buildCategories(
-                  categoryTile: 'Popular',
+                  categoryTitle: 'Popular',
                   categories: [
                     {
                       'title': 'Mobile Phones',
@@ -202,7 +202,7 @@ class _BuyScreenState extends State<BuyScreen> {
   }
 
   Widget buildCategories({
-    required String categoryTile,
+    required String categoryTitle,
     required List<Map<String, String>> categories,
     required double imageHeight,
     required double imageWidth,
@@ -210,7 +210,7 @@ class _BuyScreenState extends State<BuyScreen> {
     String? amount,
   }) {
     return SizedBox(
-      height: (categoryTile.toLowerCase() == 'categories')
+      height: (categoryTitle.toLowerCase() == 'categories')
           ? imageHeight + 30 * SizeConfig.heightMultiplier!
           : imageHeight + 84 * SizeConfig.heightMultiplier!,
       child: ListView.separated(
@@ -221,14 +221,25 @@ class _BuyScreenState extends State<BuyScreen> {
         itemCount: categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return CategoryWidget(
-            title: categories[index]['title'] ?? '',
-            image:
-                categories[index]['image'] ?? ImagePath.placeHolderDisplayImage,
-            imageHeight: imageHeight,
-            imageWidth: imageWidth,
-            endsIn: categories[index]['endsIn'] ?? '',
-            amount: categories[index]['amount'] ?? '',
+          return GestureDetector(
+            onTap: () {
+              if (categoryTitle.toLowerCase() == 'categories') {
+                BulandDarwaza.pushNamed(
+                  context,
+                  routeName: RouteName.categoryScreen,
+                  arguments: {'title': categories[index]['title']},
+                );
+              }
+            },
+            child: CategoryWidget(
+              title: categories[index]['title'] ?? '',
+              image: categories[index]['image'] ??
+                  ImagePath.placeHolderDisplayImage,
+              imageHeight: imageHeight,
+              imageWidth: imageWidth,
+              endsIn: categories[index]['endsIn'] ?? '',
+              amount: categories[index]['amount'] ?? '',
+            ),
           );
         },
       ),

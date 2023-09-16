@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
                       fontFamily: 'Mulish',
                       scaffoldBackgroundColor: AppColors.kPureWhite,
                     ),
-                    home: const LoginScreen(),
+                    home: const DashboardScreeen(),
                   );
                 },
               );

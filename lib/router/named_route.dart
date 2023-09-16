@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hacktheway2023/features/buy_products/screen/category_screen.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/features/my_bids/screen/auction_detail_screen.dart';
 import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
@@ -10,6 +11,9 @@ abstract class RouteName {
   static const String loginScreen = '/loginScreen';
   static const String myProfileScreen = '/myProflileScreen';
   static const String dashboardScreen = '/dashboardScreen';
+
+  // BUY PRODUCTS
+  static const String categoryScreen = '/categoryScreen';
 
   ///MY BIDS
   static const String auctionDetailsScreen = '/auctionDetailsScreen';
@@ -43,6 +47,15 @@ mixin GenerateRoute {
           settings: settings,
         );
 
+      //BUY PRODUCUTS
+      case RouteName.categoryScreen:
+        arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (context) => CategoryScreen(
+            title: arguments['title'] as String,
+          ),
+          settings: settings,
+        );
       // case RouteName.pledgeSubmitScreen:
       //   arguments as Map<String, dynamic>;
       //   return MaterialPageRoute(
