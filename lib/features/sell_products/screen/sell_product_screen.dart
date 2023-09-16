@@ -7,6 +7,7 @@ import 'package:hacktheway2023/common/common_dialog.dart';
 import 'package:hacktheway2023/common/common_text_field.dart';
 import 'package:hacktheway2023/common/custom_screen_loader.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
+import 'package:hacktheway2023/common/success_alert_dialog.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/app_text_style.dart';
@@ -160,13 +161,19 @@ class _SellProductScreenState extends State<SellProductScreen> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return Container();
+                        return SuccessAlertDialog(
+                            description:
+                                'Your auction will start at the scheduled time.',
+                            title: 'Auction Placed',
+                            onTap: () {
+                              BulandDarwaza.pushReplacementNamed(context,
+                                  routeName: RouteName.dashboardScreen);
+                              context.read<SellProductsCubit>().resetState();
+                              Fluttertoast.showToast(
+                                  msg: 'Auction Placed Successfully');
+                            });
                       });
                 });
-                BulandDarwaza.pushReplacementNamed(context,
-                    routeName: RouteName.dashboardScreen);
-                Fluttertoast.showToast(msg: 'Auction Placed Successfully');
-                context.read<SellProductsCubit>().resetState();
               }
               if (state is StartAuctionError) {
                 Fluttertoast.showToast(msg: state.message);

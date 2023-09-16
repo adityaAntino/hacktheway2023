@@ -155,27 +155,32 @@ class ProductOverviewCard extends StatelessWidget {
 
               ///BID END TIME - isDetailed(FALSE)
               (!isDetailed)
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          bidEndTime,
-                          style: AppTextStyle.f14W500darkGreen500,
+                  ? Column(
+                    children: [
+                      SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              bidEndTime,
+                              style: AppTextStyle.f14W500darkGreen500,
+                            ),
+                            isBasePrice
+                                ? PrimaryButton(
+                                    onTap: onTap,
+                                    buttonColor: AppColors.kPureBlack,
+                                    buttonText: 'Bid Now',
+                                    borderRadius: 19,
+                                    outerVerticalPadding:
+                                        10 * SizeConfig.heightMultiplier!,
+                                    outerHorizontalPadding:
+                                        24 * SizeConfig.widthMultiplier!,
+                                  )
+                                : const SizedBox.shrink(),
+                          ],
                         ),
-                        isBasePrice
-                            ? PrimaryButton(
-                                onTap: onTap,
-                                buttonColor: AppColors.kPureBlack,
-                                buttonText: 'Bid Now',
-                                borderRadius: 19,
-                                outerVerticalPadding:
-                                    10 * SizeConfig.heightMultiplier!,
-                                outerHorizontalPadding:
-                                    24 * SizeConfig.widthMultiplier!,
-                              )
-                            : const SizedBox.shrink(),
-                      ],
-                    )
+                    ],
+                  )
                   : const SizedBox.shrink()
             ],
           ),

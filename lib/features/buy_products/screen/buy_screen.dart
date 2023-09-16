@@ -28,20 +28,7 @@ class _BuyScreenState extends State<BuyScreen> {
         appBarBgColor: AppColors.kPureBlack,
         parentContext: context,
         title: 'Auction Buddy',
-        actions: [
-          IconButton(
-            onPressed: () {
-              //TODO: navigate to notification screen
-            },
-            icon: const Icon(
-              Icons.notifications_outlined,
-              color: AppColors.kPureWhite,
-              size: 28,
-            ),
-          ),
-        ],
-        //TODO: change this profile icon with actual profile photo
-        leadingIcon: ImagePath.icProfile,
+        leadingIcon: ImagePath.appLogoSvg,
         isLead: false,
         isCustomLead: true,
         onLeadingTap: () {
