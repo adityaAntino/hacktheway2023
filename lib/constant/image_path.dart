@@ -12,6 +12,10 @@ class ImagePath {
   static String icBids = 'assets/images/my_bids_icon.svg';
   static String icProfile = 'assets/images/my_profile_icon.svg';
 
+  ///ONBOARDING
+  static String profileBgSvg = 'assets/images/profile_bg.svg';
+  static String userProfile = 'assets/images/user_profile.png';
+
   ///MY BIDS
   static String productImagePng = 'assets/images/product_image.png';
 

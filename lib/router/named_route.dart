@@ -5,7 +5,9 @@ import 'package:hacktheway2023/features/authentication/screen/login_screen.dart'
 import 'package:hacktheway2023/features/authentication/screen/verify_otp.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/features/my_bids/screen/auction_detail_screen.dart';
+import 'package:hacktheway2023/features/onboarding/screen/onboarding_screen.dart';
 import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
+import 'package:hacktheway2023/features/sell_products/modal/get_auctions_modal.dart';
 import 'package:hacktheway2023/features/sell_products/screen/sell_auction_detail_screen.dart';
 import 'package:hacktheway2023/features/sell_products/screen/sell_product_screen.dart';
 import 'package:hacktheway2023/main.dart';
@@ -23,6 +25,9 @@ abstract class RouteName {
   ///AUTHENTICATION
   static const String sendOtpScreen = '/sendOtpScreen';
   static const String verifyOtpScreen = '/verifyOtpScreen';
+
+  ///ONBOARDING
+  static const String onboardingScreen = '/onboardingScreen';
 
   ///MY BIDS
   static const String auctionDetailsScreen = '/auctionDetailsScreen';
@@ -59,6 +64,13 @@ mixin GenerateRoute {
           settings: settings,
         );
 
+        ///ONBOARDING
+      case RouteName.onboardingScreen:
+        return MaterialPageRoute(
+          builder: (context) => const OnboardingScreen(),
+          settings: settings,
+        );
+
       case RouteName.dashboardScreen:
         return MaterialPageRoute(
           builder: (context) => const DashboardScreeen(),
@@ -90,18 +102,20 @@ mixin GenerateRoute {
           settings: settings,
         );
 
-    ///SELL PRODUCT
+      ///SELL PRODUCT
       case RouteName.sellProductScreen:
         return MaterialPageRoute(
           builder: (context) => const SellProductScreen(),
           settings: settings,
         );
       case RouteName.sellAuctionDetailScreen:
+        arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (context) => const SellAuctionDetailScreen(),
+          builder: (context) => SellAuctionDetailScreen(
+            auctionDetail: arguments['auctionDetail'] as Datum,
+          ),
           settings: settings,
         );
-
 
       default:
         return MaterialPageRoute(

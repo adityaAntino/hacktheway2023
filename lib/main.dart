@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
+// import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +17,9 @@ import 'package:hacktheway2023/features/authentication/screen/splash_screen.dart
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
+import 'package:hacktheway2023/features/onboarding/cubit/onboarding_cubit.dart';
+import 'package:hacktheway2023/features/onboarding/cubit/onboarding_state.dart';
+import 'package:hacktheway2023/features/onboarding/screen/onboarding_screen.dart';
 import 'package:hacktheway2023/features/sell_products/cubit/sell_products_cubit.dart';
 import 'package:hacktheway2023/features/sell_products/cubit/sell_products_state.dart';
 import 'package:hacktheway2023/router/named_route.dart';
@@ -24,13 +27,13 @@ import 'package:hacktheway2023/router/named_route.dart';
 void main() async {
   setupGetIt();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
-  await MessagingServices.AwesomeNotificationsInit();
-  FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
-
-  MessagingServices.foregroundNotifications();
-  MessagingServices().getFCMToken();
+  // await Firebase.initializeApp();
+  //
+  // await MessagingServices.AwesomeNotificationsInit();
+  // FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
+  //
+  // MessagingServices.foregroundNotifications();
+  // MessagingServices().getFCMToken();
 
   // To turn off landscape mode
   await SystemChrome.setPreferredOrientations(
@@ -42,24 +45,24 @@ void main() async {
   runApp(const MyApp());
 }
 
-@pragma('vm:entry-point')
-Future<void> firebaseBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  log('Handling a background message: message');
-  final RemoteNotification? notification = message.notification;
-  final AndroidNotification? android = message.notification?.android;
-  final AppleNotification? appleNotification = message.notification?.apple;
-
-  if (notification != null &&
-      (android != null || appleNotification != null) == true) {
-    AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: 20,
-            channelKey: 'notifications',
-            title: message.notification?.title,
-            body: message.notification?.body));
-  }
-}
+// @pragma('vm:entry-point')
+// Future<void> firebaseBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   log('Handling a background message: message');
+//   final RemoteNotification? notification = message.notification;
+//   final AndroidNotification? android = message.notification?.android;
+//   final AppleNotification? appleNotification = message.notification?.apple;
+//
+//   if (notification != null &&
+//       (android != null || appleNotification != null) == true) {
+//     AwesomeNotifications().createNotification(
+//         content: NotificationContent(
+//             id: 20,
+//             channelKey: 'notifications',
+//             title: message.notification?.title,
+//             body: message.notification?.body));
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -72,6 +75,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (BuildContext context) =>
                 AuthenticationCubit(AuthInitial())),
+
+        ///ONBOARDING CUBIT
+        BlocProvider(
+            create: (BuildContext context) =>
+                OnboardingCubit(OnboardingInitial())),
 
         ///SELL PRODUCT - START AUCTION
         BlocProvider(
@@ -114,4 +122,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

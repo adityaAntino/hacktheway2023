@@ -35,7 +35,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       final SharedPreferences prefs = getIt<SharedPreferences>();
       prefs.setString(
           StringConstant.accessToken, verifyOtpResponse.data?.token ?? '');
-      emit(OtpSuccess());
+      emit(OtpSuccess(verifyOtpResponse: verifyOtpResponse));
     } else {
       emit(OtpFailed());
     }
