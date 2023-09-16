@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hacktheway2023/features/authentication/screen/login_screen.dart';
+import 'package:hacktheway2023/features/authentication/screen/verify_otp.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/features/my_bids/screen/auction_detail_screen.dart';
 import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
@@ -10,6 +12,10 @@ abstract class RouteName {
   static const String loginScreen = '/loginScreen';
   static const String myProfileScreen = '/myProflileScreen';
   static const String dashboardScreen = '/dashboardScreen';
+
+  ///AUTHENTICATION
+  static const String sendOtpScreen = '/sendOtpScreen';
+  static const String verifyOtpScreen = '/verifyOtpScreen';
 
   ///MY BIDS
   static const String auctionDetailsScreen = '/auctionDetailsScreen';
@@ -25,6 +31,23 @@ mixin GenerateRoute {
           builder: (context) => const MyHomePage(title: ''),
           settings: settings,
         );
+
+      ///AUTHENTICATION
+      case RouteName.sendOtpScreen:
+        return MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+          settings: settings,
+        );
+
+      case RouteName.verifyOtpScreen:
+        arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (context) => VerifyOtpScreen(
+            phoneNumber: arguments["phoneNumber"] as String,
+          ),
+          settings: settings,
+        );
+
       case RouteName.dashboardScreen:
         return MaterialPageRoute(
           builder: (context) => const DashboardScreeen(),

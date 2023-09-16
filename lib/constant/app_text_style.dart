@@ -68,4 +68,11 @@ class AppTextStyle {
     fontWeight: FontWeight.w500,
     color: AppColors.kPureBlack,
   );
+
+  static TextStyle f20W700Grey500 = TextStyle(
+    fontSize: 20 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w700,
+    color: AppColors.grey500,
+
+  );
 }

@@ -8,6 +8,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   final AuthenticationRepo _authenticationRepo = AuthenticationRepo();
 
+  void resetState(){
+    emit(AuthInitial());
+  }
+
   Future<void> sendOtp({required String phoneNumber}) async {
     emit(AuthLoading());
     final SendOtpResponse sendOtpResponse =
@@ -16,6 +20,17 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(AuthSuccess());
     } else {
       emit(AuthError());
+    }
+  }
+
+  Future<void> verifyOtp({required String phoneNo, required String otp}) async {
+    emit(AuthLoading());
+    final response =
+        await _authenticationRepo.verifyOtpRepo(phoneNo: phoneNo, otp: otp);
+    if (true) {
+      emit(OtpSuccess());
+    } else {
+      emit(OtpFailed());
     }
   }
 }
