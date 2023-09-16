@@ -1,4 +1,8 @@
 class ImagePath {
+  //PLACEHOLDER IMAGE
+  static String placeHolderDisplayImage =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/2048px-User_font_awesome.svg.png';
+
   ///DASHBOARD SCREEN
   static String icBuy = 'assets/images/buy_icon.svg';
   static String icSell = 'assets/images/sell_icon.svg';
