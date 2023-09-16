@@ -51,96 +51,168 @@ class _BuyScreenState extends State<BuyScreen> {
           );
         },
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16 * SizeConfig.widthMultiplier!,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16 * SizeConfig.heightMultiplier!),
+      body: ScrollConfiguration(
+        behavior: const ScrollBehavior().copyWith(overscroll: false),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 8 * SizeConfig.heightMultiplier!,
+              left: 16 * SizeConfig.widthMultiplier!,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16 * SizeConfig.heightMultiplier!),
 
-              // Categories
-              Text(
-                'Categories',
-                style: AppTextStyle.f18W500Black.copyWith(
-                  color: AppColors.kPureBlack,
+                // Categories
+                Text(
+                  'Categories',
+                  style: AppTextStyle.f18W500Black.copyWith(
+                    color: AppColors.kPureBlack,
+                  ),
                 ),
-              ),
-              SizedBox(height: 12 * SizeConfig.heightMultiplier!),
-              buildCategories(
-                [
-                  {
-                    'title': 'Mobile Phones',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                  {
-                    'title': 'Laptops',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                  {
-                    'title': 'Headphones',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                  {
-                    'title': 'Properties',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                  {
-                    'title': 'Computer Accessories',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                ],
-              ),
-              SizedBox(height: 30 * SizeConfig.heightMultiplier!),
+                SizedBox(height: 12 * SizeConfig.heightMultiplier!),
+                buildCategories(
+                  categoryTile: 'Categories',
+                  categories: [
+                    {
+                      'title': 'Mobile Phones',
+                      'image': ImagePath.placeHolderDisplayImage,
+                    },
+                    {
+                      'title': 'Laptops',
+                      'image': ImagePath.placeHolderDisplayImage,
+                    },
+                    {
+                      'title': 'Headphones',
+                      'image': ImagePath.placeHolderDisplayImage,
+                    },
+                    {
+                      'title': 'Properties',
+                      'image': ImagePath.placeHolderDisplayImage,
+                    },
+                    {
+                      'title': 'Computer Accessories',
+                      'image': ImagePath.placeHolderDisplayImage,
+                    },
+                  ],
+                  imageHeight: 74 * SizeConfig.heightMultiplier!,
+                  imageWidth: 74 * SizeConfig.widthMultiplier!,
+                ),
+                SizedBox(height: 30 * SizeConfig.heightMultiplier!),
 
-              // ENDING SOON
-              Text(
-                'Ending Soon',
-                style: AppTextStyle.f18W500Black.copyWith(
-                  color: AppColors.kPureBlack,
+                // ENDING SOON
+                Text(
+                  'Ending Soon',
+                  style: AppTextStyle.f18W500Black.copyWith(
+                    color: AppColors.kPureBlack,
+                  ),
                 ),
-              ),
-              SizedBox(height: 12 * SizeConfig.heightMultiplier!),
-              buildCategories(
-                [
-                  {
-                    'title': 'Mobile Phones',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                  {
-                    'title': 'Laptops',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                  {
-                    'title': 'Headphones',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                  {
-                    'title': 'Properties',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                  {
-                    'title': 'Computer Accessories',
-                    'image': ImagePath.placeHolderDisplayImage,
-                  },
-                ],
-              ),
-            ],
+                SizedBox(height: 12 * SizeConfig.heightMultiplier!),
+                buildCategories(
+                  categoryTile: 'Ending Soon',
+                  categories: [
+                    {
+                      'title': 'One Plus Nord CE Lite 5G',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                    {
+                      'title': 'Laptops',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                    {
+                      'title': 'Headphones',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                    {
+                      'title': 'Properties',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                    {
+                      'title': 'Computer Accessories',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                  ],
+                  imageHeight: 128 * SizeConfig.heightMultiplier!,
+                  imageWidth: 114 * SizeConfig.widthMultiplier!,
+                ),
+                SizedBox(height: 30 * SizeConfig.heightMultiplier!),
+
+                // POPULAR
+                Text(
+                  'Popular',
+                  style: AppTextStyle.f18W500Black.copyWith(
+                    color: AppColors.kPureBlack,
+                  ),
+                ),
+                SizedBox(height: 12 * SizeConfig.heightMultiplier!),
+                buildCategories(
+                  categoryTile: 'Popular',
+                  categories: [
+                    {
+                      'title': 'Mobile Phones',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                    {
+                      'title': 'Laptops',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                    {
+                      'title': 'Headphones',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                    {
+                      'title': 'Properties',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                    {
+                      'title': 'Computer Accessories',
+                      'image': ImagePath.placeHolderDisplayImage,
+                      'endsIn': '11h: 35m: 47s',
+                      'amount': '15,000',
+                    },
+                  ],
+                  imageHeight: 128 * SizeConfig.heightMultiplier!,
+                  imageWidth: 112 * SizeConfig.widthMultiplier!,
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget buildCategories(
-    List<Map<String, String>> categories, {
-    double? imageHeight,
-    double? imageWidth,
+  Widget buildCategories({
+    required String categoryTile,
+    required List<Map<String, String>> categories,
+    required double imageHeight,
+    required double imageWidth,
+    String? endsIn,
+    String? amount,
   }) {
     return SizedBox(
-      height: 136 * SizeConfig.heightMultiplier!,
+      height: (categoryTile.toLowerCase() == 'categories')
+          ? imageHeight + 30 * SizeConfig.heightMultiplier!
+          : imageHeight + 80 * SizeConfig.heightMultiplier!,
       child: ListView.separated(
         separatorBuilder: (context, index) {
           return SizedBox(width: 12 * SizeConfig.widthMultiplier!);
@@ -153,6 +225,10 @@ class _BuyScreenState extends State<BuyScreen> {
             title: categories[index]['title'] ?? '',
             image:
                 categories[index]['image'] ?? ImagePath.placeHolderDisplayImage,
+            imageHeight: imageHeight,
+            imageWidth: imageWidth,
+            endsIn: categories[index]['endsIn'] ?? '',
+            amount: categories[index]['amount'] ?? '',
           );
         },
       ),
