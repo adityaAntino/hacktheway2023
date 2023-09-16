@@ -90,6 +90,7 @@ class MyApp extends StatelessWidget {
                       scaffoldBackgroundColor: AppColors.kPureWhite,
                     ),
                     home: const SplashScreen(),
+
                   );
                 },
               );

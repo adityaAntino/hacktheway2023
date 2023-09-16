@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hacktheway2023/common/primary_button.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/app_text_style.dart';
@@ -13,6 +14,7 @@ class ProductOverviewCard extends StatelessWidget {
   final String bidEndTime;
   final Function() onTap;
   bool isDetailed;
+  bool isBasePrice;
   ProductOverviewCard({
     super.key,
     required this.imageUrl,
@@ -23,6 +25,7 @@ class ProductOverviewCard extends StatelessWidget {
     this.productDescription,
     this.ownerName,
     this.isDetailed = false,
+    this.isBasePrice = false,
   });
 
   @override
@@ -115,7 +118,7 @@ class ProductOverviewCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Biding price',
+                              isBasePrice ? 'Base Price' : 'Bidding Price',
                               style: AppTextStyle.f12W400grey80,
                             ),
                             Text(
@@ -136,7 +139,7 @@ class ProductOverviewCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Bidding Price: ',
+                              isBasePrice ? 'Base Price: ' : 'Bidding Price:',
                               style: AppTextStyle.f14W400Grey80,
                             ),
                             Text(
@@ -145,19 +148,28 @@ class ProductOverviewCard extends StatelessWidget {
                             )
                           ],
                         ),
-                        SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                        SizedBox(height: 2 * SizeConfig.heightMultiplier!),
                       ],
                     )
                   : const SizedBox.shrink(),
 
               ///BID END TIME - isDetailed(FALSE)
               (!isDetailed)
-                  ? Column(
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           bidEndTime,
                           style: AppTextStyle.f14W500darkGreen500,
                         ),
+                        isBasePrice
+                            ? PrimaryButton(
+                                onTap: onTap,
+                                buttonColor: AppColors.kPureBlack,
+                                buttonText: 'Bid Now',
+                                borderRadius: 12,
+                              )
+                            : const SizedBox.shrink(),
                       ],
                     )
                   : const SizedBox.shrink()
