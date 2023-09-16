@@ -5,6 +5,7 @@ import 'package:hacktheway2023/features/authentication/cubit/authentication_stat
 import 'package:hacktheway2023/features/authentication/modal/send_otp_response_modal.dart';
 import 'package:hacktheway2023/features/authentication/modal/verify_otp_response_modal.dart';
 import 'package:hacktheway2023/features/authentication/repository/authentication_repo.dart';
+import 'package:hacktheway2023/features/onboarding/modal/get_user_modal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
@@ -35,9 +36,19 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       final SharedPreferences prefs = getIt<SharedPreferences>();
       prefs.setString(
           StringConstant.accessToken, verifyOtpResponse.data?.token ?? '');
-      emit(OtpSuccess());
+      emit(OtpSuccess(verifyOtpResponse: verifyOtpResponse));
     } else {
       emit(OtpFailed());
+    }
+  }
+
+  Future<void> getUserDetails() async {
+    final GetUserDetails getUserDetails =
+        await _authenticationRepo.getUserDetailRepo();
+    if (getUserDetails.code == 200) {
+      emit(GetUserDetailSuccess(getUserDetails: getUserDetails));
+    } else {
+      emit(GetUserDetailError());
     }
   }
 }

@@ -45,7 +45,7 @@ class GetAllAuctionsModal {
 
 class Datum {
   String? id;
-  Auctioneer? auctioneer;
+  String? auctioneer;
   ItemDescription? itemDescription;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -66,7 +66,7 @@ class Datum {
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["_id"],
-        auctioneer: auctioneerValues.map[json["auctioneer"]]!,
+        auctioneer: json["auctioneer"],
         itemDescription: json["itemDescription"] == null
             ? null
             : ItemDescription.fromJson(json["itemDescription"]),
@@ -90,9 +90,9 @@ final auctioneerValues = EnumValues(
     {"65058506d77ff5623b1dec7e": Auctioneer.THE_65058506_D77_FF5623_B1_DEC7_E});
 
 class ItemDescription {
-  ItemName? itemName;
+  String? itemName;
   String? initialPrice;
-  ItemInfo? itemInfo;
+  String? itemInfo;
 
   ItemDescription({
     this.itemName,
@@ -102,19 +102,11 @@ class ItemDescription {
 
   factory ItemDescription.fromJson(Map<String, dynamic> json) =>
       ItemDescription(
-        itemName: itemNameValues.map[json["itemName"]]!,
+        itemName: json["itemName"],
         initialPrice: json["initialPrice"],
-        itemInfo: itemInfoValues.map[json["itemInfo"]]!,
+        itemInfo: json["itemInfo"],
       );
 }
-
-enum ItemInfo { THE_22_MALE }
-
-final itemInfoValues = EnumValues({"22 Male": ItemInfo.THE_22_MALE});
-
-enum ItemName { MANAS }
-
-final itemNameValues = EnumValues({"Manas": ItemName.MANAS});
 
 class WinningBid {
   String? user;

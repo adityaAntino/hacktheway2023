@@ -13,6 +13,12 @@ class ProductOverviewCard extends StatelessWidget {
   final String biddingPrice;
   final String bidEndTime;
   final Function() onTap;
+  String? status;
+  String highestBiddingPrice;
+  Function()? statusButtonOnTap;
+  String? statusButtonText;
+  Color? statusButtonColor;
+  Color? statusButtonTextColor;
   bool isDetailed;
   bool isBasePrice;
   ProductOverviewCard({
@@ -22,6 +28,12 @@ class ProductOverviewCard extends StatelessWidget {
     required this.biddingPrice,
     required this.bidEndTime,
     required this.onTap,
+    this.statusButtonOnTap,
+    this.status = '',
+    this.highestBiddingPrice = '',
+    this.statusButtonText = '',
+    this.statusButtonColor = AppColors.kPureBlack,
+    this.statusButtonTextColor = AppColors.kPureWhite,
     this.productDescription,
     this.ownerName,
     this.isDetailed = false,
@@ -118,11 +130,11 @@ class ProductOverviewCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              isBasePrice ? 'Base Price' : 'Bidding Price',
+                              'Base Price: ',
                               style: AppTextStyle.f12W400grey80,
                             ),
                             Text(
-                              biddingPrice,
+                              '₹ $biddingPrice',
                               style: AppTextStyle.f16W700Black0E,
                             ),
                           ],
@@ -132,6 +144,7 @@ class ProductOverviewCard extends StatelessWidget {
                     )
                   : const SizedBox.shrink(),
 
+
               ///BIDDING PRICE - isDetailed(FALSE)
               (!isDetailed)
                   ? Column(
@@ -139,11 +152,11 @@ class ProductOverviewCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              isBasePrice ? 'Base Price: ' : 'Bidding Price:',
+                               'Base Price: ',
                               style: AppTextStyle.f14W400Grey80,
                             ),
                             Text(
-                              biddingPrice,
+                              '₹ $biddingPrice',
                               style: AppTextStyle.f16W700Black0E,
                             )
                           ],
@@ -155,25 +168,36 @@ class ProductOverviewCard extends StatelessWidget {
 
               ///BID END TIME - isDetailed(FALSE)
               (!isDetailed)
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ? Column(
                       children: [
-                        Text(
-                          bidEndTime,
-                          style: AppTextStyle.f14W500darkGreen500,
+                        SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Ends at: ',
+                              style: AppTextStyle.f14W400Grey80,
+                            ),
+                            Text(
+                              bidEndTime,
+                              style: AppTextStyle.f14W500darkGreen500,
+                            ),
+                            const Spacer(),
+                            isBasePrice
+                                ? PrimaryButton(
+                                    onTap: statusButtonOnTap,
+                                    textColor: statusButtonTextColor ?? AppColors.kPureWhite,
+                                    buttonColor: statusButtonColor ?? AppColors.kPureBlack,
+                                    buttonText: statusButtonText ?? 'Bid Now',
+                                    borderRadius: 19,
+                                    outerVerticalPadding:
+                                        10 * SizeConfig.heightMultiplier!,
+                                    outerHorizontalPadding:
+                                        24 * SizeConfig.widthMultiplier!,
+                                  )
+                                : const SizedBox.shrink(),
+                          ],
                         ),
-                        isBasePrice
-                            ? PrimaryButton(
-                                onTap: onTap,
-                                buttonColor: AppColors.kPureBlack,
-                                buttonText: 'Bid Now',
-                                borderRadius: 19,
-                                outerVerticalPadding:
-                                    10 * SizeConfig.heightMultiplier!,
-                                outerHorizontalPadding:
-                                    24 * SizeConfig.widthMultiplier!,
-                              )
-                            : const SizedBox.shrink(),
                       ],
                     )
                   : const SizedBox.shrink()

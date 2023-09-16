@@ -1,12 +1,5 @@
-// To parse this JSON data, do
-//
-//     final verifyOtpResponse = verifyOtpResponseFromJson(jsonString);
 
-import 'dart:convert';
 
-VerifyOtpResponse verifyOtpResponseFromJson(String str) => VerifyOtpResponse.fromJson(json.decode(str));
-
-String verifyOtpResponseToJson(VerifyOtpResponse data) => json.encode(data.toJson());
 
 class VerifyOtpResponse {
   String? message;
@@ -40,16 +33,7 @@ class VerifyOtpResponse {
     time: json["time"]?.toDouble(),
   );
 
-  Map<String, dynamic> toJson() => {
-    "message": message,
-    "data": data?.toJson(),
-    "name": name,
-    "status": status,
-    "code": code,
-    "error": error?.toJson(),
-    "query": query?.toJson(),
-    "time": time,
-  };
+
 }
 
 class Data {
@@ -66,10 +50,7 @@ class Data {
     user: json["user"] == null ? null : User.fromJson(json["user"]),
   );
 
-  Map<String, dynamic> toJson() => {
-    "token": token,
-    "user": user?.toJson(),
-  };
+
 }
 
 class User {
@@ -79,6 +60,9 @@ class User {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;
+  String? email;
+  String? gender;
+  String? name;
 
   User({
     this.userType,
@@ -87,6 +71,9 @@ class User {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.email,
+    this.gender,
+    this.name,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -96,16 +83,12 @@ class User {
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
     updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
     v: json["__v"],
+    email: json["email"],
+    gender: json["gender"],
+    name: json["name"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "userType": userType,
-    "_id": id,
-    "mobileNo": mobileNo,
-    "createdAt": createdAt?.toIso8601String(),
-    "updatedAt": updatedAt?.toIso8601String(),
-    "__v": v,
-  };
+
 }
 
 class Error {
@@ -114,6 +97,5 @@ class Error {
   factory Error.fromJson(Map<String, dynamic> json) => Error(
   );
 
-  Map<String, dynamic> toJson() => {
-  };
+
 }

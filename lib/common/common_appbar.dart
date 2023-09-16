@@ -34,12 +34,12 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       title: Text(
         title,
+        textAlign: TextAlign.start,
         overflow: TextOverflow.fade,
         style: TextStyle(
           fontFamily: 'Mulish',
           fontSize: 20 * SizeConfig.textMultiplier!,
           fontWeight: FontWeight.w500,
-          //color: appBarBgColor == AppColors.kPureBlack ? AppColors.kPureWhite : AppColors.kPureBlack,
           color: appBarBgColor == AppColors.kPureBlack
               ? AppColors.kPureWhite
               : AppColors.kPureBlack,
@@ -54,6 +54,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Icon(
                   Icons.arrow_back_ios_new,
+                  size: 22,
                   color: appBarBgColor == AppColors.kPureBlack
                       ? AppColors.kPureWhite
                       : AppColors.kPureBlack,
@@ -61,12 +62,12 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : isCustomLead
-              ? SvgPicture.asset(
-                  leadingIcon ?? '',
-                  height: 12 * SizeConfig.heightMultiplier!,
-                  width: 30 * SizeConfig.widthMultiplier!,
-                  color: AppColors.kPureWhite,
-                )
+              ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset(
+                    leadingIcon ?? '',
+                  ),
+              )
               : null,
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
+import 'package:hacktheway2023/constant/app_text_style.dart';
 
 class CommonTextField extends StatelessWidget {
   final TextEditingController? textEditingController;
@@ -23,6 +24,7 @@ class CommonTextField extends StatelessWidget {
       keyboardType: textInputType ?? TextInputType.text,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: AppTextStyle.f14W600Black9A,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(2),
           borderSide: const BorderSide(width: 1, color: AppColors.grey3),
