@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hacktheway2023/common/commo_appbar.dart';
-import 'package:hacktheway2023/common/custom_screen_loader.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
@@ -30,27 +29,33 @@ class _CategoryScreenState extends State<CategoryScreen> {
           onRefresh: () async {
             //TODO: make api call for pull down to refresh
           },
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16 * SizeConfig.widthMultiplier!,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ProductOverviewCard(
-                    imageUrl: ImagePath.placeHolderDisplayImage,
-                    productName: 'Product Name',
-                    isBasePrice: true,
-                    biddingPrice: '₹15,000',
-                    bidEndTime: '11h: 35m: 47s',
-                    onTap: () {
-                      BulandDarwaza.pop(context);
-                    },
-                  ),
-                ],
-              ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16 * SizeConfig.widthMultiplier!,
+              vertical: 8 * SizeConfig.heightMultiplier!,
             ),
+            child: ListView.builder(
+                shrinkWrap: true,
+                // TODO: change the length of list
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 10 * SizeConfig.heightMultiplier!,
+                    ),
+                    child: ProductOverviewCard(
+                      imageUrl: ImagePath.placeHolderDisplayImage,
+                      productName: 'Product Name',
+                      isBasePrice: true,
+                      biddingPrice: '₹15,000',
+                      bidEndTime: '11h: 35m: 47s',
+                      onTap: () {
+                        //TODO: navigate to the actual product detail screen
+                        BulandDarwaza.pop(context);
+                      },
+                    ),
+                  );
+                }),
           ),
         ),
       ),
