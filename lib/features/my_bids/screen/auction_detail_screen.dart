@@ -3,30 +3,22 @@ import 'package:hacktheway2023/common/commo_appbar.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
-import 'package:hacktheway2023/constant/app_text_style.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
-import 'package:hacktheway2023/router/named_route.dart';
-import 'package:hacktheway2023/router/navigation_handler.dart';
 
-class MyBidsScreen extends StatefulWidget {
-  final bool isBack;
-  const MyBidsScreen({
-    Key? key,
-    this.isBack = true,
-  }) : super(key: key);
+class AuctionDetailScreen extends StatefulWidget {
+  const AuctionDetailScreen({super.key});
 
   @override
-  State<MyBidsScreen> createState() => _MyBidsScreenState();
+  State<AuctionDetailScreen> createState() => _AuctionDetailScreenState();
 }
 
-class _MyBidsScreenState extends State<MyBidsScreen> {
+class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
         parentContext: context,
-        isLead: false,
-        title: 'My Bids',
+        title: 'Auction Details',
         appBarBgColor: AppColors.kPureBlack,
       ),
       body: Padding(
@@ -38,16 +30,15 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ///Product Overview Card
               ProductOverviewCard(
-                onTap: () {
-                  BulandDarwaza.pushNamed(context,
-                      routeName: RouteName.auctionDetailsScreen);
-                },
+                onTap: () {},
+                isDetailed: true,
+                productDescription: 'Morbi sit amet risus ornare, venenatis est con dimentum, elementum urna In dictum.',
+                ownerName: 'Sourabh Singh',
                 imageUrl: ImagePath.productImagePng,
                 productName: 'OnePlus Nord CE 2 Lite 5G',
                 biddingPrice: '₹15,000',
-                bidEndTime: '11h : 35m : 47s ',
+                bidEndTime: '07h 25min',
               ),
             ],
           ),

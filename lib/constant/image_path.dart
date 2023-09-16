@@ -8,6 +8,11 @@ class ImagePath {
   static String icBids = 'assets/images/my_bids_icon.svg';
   static String icProfile = 'assets/images/my_profile_icon.svg';
 
+
+  ///MY BIDS
+  static String productImagePng = 'assets/images/product_image.png';
+
+
   ///LOTTIE
   static String maintenanceLottie = 'assets/lottie/maintenance_screen.json';
 }
