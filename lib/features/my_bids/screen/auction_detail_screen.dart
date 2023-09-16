@@ -3,9 +3,11 @@ import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/common_dialog.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
+import 'package:hacktheway2023/common/success_alert_dialog.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
+import 'package:hacktheway2023/router/navigation_handler.dart';
 
 class AuctionDetailScreen extends StatefulWidget {
   final bool isMyBid;
@@ -72,7 +74,7 @@ class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
             );
           },
           buttonColor: AppColors.kPureBlack,
-          buttonText: widget.isMyBid ? 'End Auction' : 'Place Bid',
+          buttonText: widget.isMyBid ? 'End Auction' : 'Bid Now',
         ),
       ),
     );
