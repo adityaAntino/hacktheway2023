@@ -64,6 +64,9 @@ class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
                   content: widget.isMyBid
                       ? 'Are you sure you want to end this auction?'
                       : 'Are you sure you want to place this bet?',
+                  onTap: (){
+
+                  },
                 );
               },
             );
