@@ -28,7 +28,7 @@ class AppTextStyle {
   );
 
   static TextStyle f14W400Black = TextStyle(
-    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontSize: 14 * SizeConfig.textMultiplier!,
     fontWeight: FontWeight.w400,
     color: AppColors.kPureBlack,
   );
