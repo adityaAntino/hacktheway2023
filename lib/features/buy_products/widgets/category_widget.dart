@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hacktheway2023/common/custom_cached_network_image.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
 import 'package:hacktheway2023/config/size_config.dart';
@@ -34,11 +35,17 @@ class CategoryWidget extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(10), // Clip rounded corners
-            child: CustomCachedNetworkImage(
-              imageUrl: image,
+            // child: CustomCachedNetworkImage(
+            //   imageUrl: image,
+            //   height: imageHeight,
+            //   width: imageWidth,
+            //   boxShape: BoxShape.rectangle,
+            // ),
+            child: Image.asset(
+              ImagePath.placeHolderDisplayImage,
               height: imageHeight,
               width: imageWidth,
-              boxShape: BoxShape.rectangle,
+              fit: BoxFit.fill,
             ),
           ),
           SizedBox(

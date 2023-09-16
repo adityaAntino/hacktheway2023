@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hacktheway2023/features/buy_products/screen/category_screen.dart';
 import 'package:hacktheway2023/features/authentication/screen/login_screen.dart';
 import 'package:hacktheway2023/features/authentication/screen/verify_otp.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
@@ -12,6 +13,9 @@ abstract class RouteName {
   static const String loginScreen = '/loginScreen';
   static const String myProfileScreen = '/myProflileScreen';
   static const String dashboardScreen = '/dashboardScreen';
+
+  // BUY PRODUCTS
+  static const String categoryScreen = '/categoryScreen';
 
   ///AUTHENTICATION
   static const String sendOtpScreen = '/sendOtpScreen';
@@ -66,6 +70,15 @@ mixin GenerateRoute {
           settings: settings,
         );
 
+      //BUY PRODUCUTS
+      case RouteName.categoryScreen:
+        arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (context) => CategoryScreen(
+            title: arguments['title'] as String,
+          ),
+          settings: settings,
+        );
       // case RouteName.pledgeSubmitScreen:
       //   arguments as Map<String, dynamic>;
       //   return MaterialPageRoute(
