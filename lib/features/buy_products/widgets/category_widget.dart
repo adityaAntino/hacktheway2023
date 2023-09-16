@@ -14,13 +14,15 @@ class CategoryWidget extends StatelessWidget {
   final double imageWidth;
   final String? endsIn;
   final String? amount;
-  const CategoryWidget({
+  bool isCategory;
+  CategoryWidget({
     required this.image,
     required this.title,
     required this.imageHeight,
     required this.imageWidth,
     this.endsIn,
     this.amount,
+    this.isCategory = false,
     super.key,
   });
 
@@ -31,18 +33,12 @@ class CategoryWidget extends StatelessWidget {
           ? imageWidth + 16 * SizeConfig.widthMultiplier!
           : imageWidth,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: (isCategory) ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(10), // Clip rounded corners
-            // child: CustomCachedNetworkImage(
-            //   imageUrl: image,
-            //   height: imageHeight,
-            //   width: imageWidth,
-            //   boxShape: BoxShape.rectangle,
-            // ),
             child: Image.asset(
-              ImagePath.placeHolderDisplayImage,
+              image,
               height: imageHeight,
               width: imageWidth,
               fit: BoxFit.fill,

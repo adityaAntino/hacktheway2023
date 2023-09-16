@@ -13,6 +13,12 @@ class ProductOverviewCard extends StatelessWidget {
   final String biddingPrice;
   final String bidEndTime;
   final Function() onTap;
+  String? status;
+  String highestBiddingPrice;
+  Function()? statusButtonOnTap;
+  String? statusButtonText;
+  Color? statusButtonColor;
+  Color? statusButtonTextColor;
   bool isDetailed;
   bool isBasePrice;
   ProductOverviewCard({
@@ -22,6 +28,12 @@ class ProductOverviewCard extends StatelessWidget {
     required this.biddingPrice,
     required this.bidEndTime,
     required this.onTap,
+    this.statusButtonOnTap,
+    this.status = '',
+    this.highestBiddingPrice = '',
+    this.statusButtonText = '',
+    this.statusButtonColor = AppColors.kPureBlack,
+    this.statusButtonTextColor = AppColors.kPureWhite,
     this.productDescription,
     this.ownerName,
     this.isDetailed = false,
@@ -118,7 +130,7 @@ class ProductOverviewCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              isBasePrice ? 'Base Price' : 'Bidding Price',
+                              'Base Price: ',
                               style: AppTextStyle.f12W400grey80,
                             ),
                             Text(
@@ -132,6 +144,7 @@ class ProductOverviewCard extends StatelessWidget {
                     )
                   : const SizedBox.shrink(),
 
+
               ///BIDDING PRICE - isDetailed(FALSE)
               (!isDetailed)
                   ? Column(
@@ -139,7 +152,7 @@ class ProductOverviewCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              isBasePrice ? 'Base Price: ' : 'Bidding Price:',
+                               'Base Price: ',
                               style: AppTextStyle.f14W400Grey80,
                             ),
                             Text(
@@ -172,9 +185,10 @@ class ProductOverviewCard extends StatelessWidget {
                             const Spacer(),
                             isBasePrice
                                 ? PrimaryButton(
-                                    onTap: onTap,
-                                    buttonColor: AppColors.kPureBlack,
-                                    buttonText: 'Bid Now',
+                                    onTap: statusButtonOnTap,
+                                    textColor: statusButtonTextColor ?? AppColors.kPureWhite,
+                                    buttonColor: statusButtonColor ?? AppColors.kPureBlack,
+                                    buttonText: statusButtonText ?? 'Bid Now',
                                     borderRadius: 19,
                                     outerVerticalPadding:
                                         10 * SizeConfig.heightMultiplier!,

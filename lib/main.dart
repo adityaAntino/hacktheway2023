@@ -1,14 +1,11 @@
 import 'dart:developer';
 
 // import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hacktheway2023/config/get_it.dart';
-import 'package:hacktheway2023/config/messaging_service.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/features/authentication/cubit/authentication_cubit.dart';
@@ -16,6 +13,7 @@ import 'package:hacktheway2023/features/authentication/cubit/authentication_stat
 import 'package:hacktheway2023/features/authentication/screen/splash_screen.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
+import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/features/my_bids/cubit/my_bids_cubit.dart';
 import 'package:hacktheway2023/features/my_bids/cubit/my_bids_state.dart';
 import 'package:hacktheway2023/features/onboarding/cubit/onboarding_cubit.dart';

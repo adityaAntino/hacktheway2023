@@ -60,27 +60,24 @@ class _BuyScreenState extends State<BuyScreen> {
                 ),
                 SizedBox(height: 12 * SizeConfig.heightMultiplier!),
                 buildCategories(
+                  isCategory: true,
                   categoryTitle: 'Categories',
                   categories: [
                     {
                       'title': 'Mobile Phones',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'image': ImagePath.mobileImage,
                     },
                     {
                       'title': 'Laptops',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'image': ImagePath.laptopImage,
                     },
                     {
                       'title': 'Headphones',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'image': ImagePath.headphoneImage,
                     },
                     {
                       'title': 'Properties',
-                      'image': ImagePath.placeHolderDisplayImage,
-                    },
-                    {
-                      'title': 'Computer Accessories',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'image': ImagePath.propertyImage,
                     },
                   ],
                   imageHeight: 100 * SizeConfig.heightMultiplier!,
@@ -101,31 +98,25 @@ class _BuyScreenState extends State<BuyScreen> {
                   categories: [
                     {
                       'title': 'One Plus Nord CE Lite 5G',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'image': ImagePath.mobileImage,
                       'endsIn': '11h: 35m: 47s',
                       'amount': '15,000',
                     },
                     {
                       'title': 'Laptops',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'image': ImagePath.laptopImage,
                       'endsIn': '11h: 35m: 47s',
                       'amount': '15,000',
                     },
                     {
                       'title': 'Headphones',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'image': ImagePath.headphoneImage,
                       'endsIn': '11h: 35m: 47s',
                       'amount': '15,000',
                     },
                     {
                       'title': 'Properties',
-                      'image': ImagePath.placeHolderDisplayImage,
-                      'endsIn': '11h: 35m: 47s',
-                      'amount': '15,000',
-                    },
-                    {
-                      'title': 'Computer Accessories',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'image': ImagePath.propertyImage,
                       'endsIn': '11h: 35m: 47s',
                       'amount': '15,000',
                     },
@@ -147,32 +138,26 @@ class _BuyScreenState extends State<BuyScreen> {
                   categoryTitle: 'Popular',
                   categories: [
                     {
-                      'title': 'Mobile Phones',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'title': 'Mobile Phone',
+                      'image': ImagePath.mobileImage,
                       'endsIn': '11h: 35m: 47s',
                       'amount': '15,000',
                     },
                     {
-                      'title': 'Laptops',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'title': 'Laptop',
+                      'image': ImagePath.laptopImage,
                       'endsIn': '11h: 35m: 47s',
                       'amount': '15,000',
                     },
                     {
-                      'title': 'Headphones',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'title': 'Headphone',
+                      'image': ImagePath.headphoneImage,
                       'endsIn': '11h: 35m: 47s',
                       'amount': '15,000',
                     },
                     {
-                      'title': 'Properties',
-                      'image': ImagePath.placeHolderDisplayImage,
-                      'endsIn': '11h: 35m: 47s',
-                      'amount': '15,000',
-                    },
-                    {
-                      'title': 'Computer Accessories',
-                      'image': ImagePath.placeHolderDisplayImage,
+                      'title': 'Property',
+                      'image': ImagePath.propertyImage,
                       'endsIn': '11h: 35m: 47s',
                       'amount': '15,000',
                     },
@@ -195,6 +180,7 @@ class _BuyScreenState extends State<BuyScreen> {
     required double imageWidth,
     String? endsIn,
     String? amount,
+    bool isCategory = false
   }) {
     return SizedBox(
       height: (categoryTitle.toLowerCase() == 'categories')
@@ -219,6 +205,7 @@ class _BuyScreenState extends State<BuyScreen> {
               }
             },
             child: CategoryWidget(
+              isCategory: isCategory,
               title: categories[index]['title'] ?? '',
               image: categories[index]['image'] ??
                   ImagePath.placeHolderDisplayImage,
