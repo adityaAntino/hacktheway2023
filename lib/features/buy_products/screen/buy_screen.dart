@@ -96,8 +96,8 @@ class _BuyScreenState extends State<BuyScreen> {
                       'image': ImagePath.placeHolderDisplayImage,
                     },
                   ],
-                  imageHeight: 74 * SizeConfig.heightMultiplier!,
-                  imageWidth: 74 * SizeConfig.widthMultiplier!,
+                  imageHeight: 100 * SizeConfig.heightMultiplier!,
+                  imageWidth: 90 * SizeConfig.widthMultiplier!,
                 ),
                 SizedBox(height: 30 * SizeConfig.heightMultiplier!),
 
@@ -143,8 +143,8 @@ class _BuyScreenState extends State<BuyScreen> {
                       'amount': '15,000',
                     },
                   ],
-                  imageHeight: 128 * SizeConfig.heightMultiplier!,
-                  imageWidth: 114 * SizeConfig.widthMultiplier!,
+                  imageHeight: 160 * SizeConfig.heightMultiplier!,
+                  imageWidth: 130 * SizeConfig.widthMultiplier!,
                 ),
                 SizedBox(height: 30 * SizeConfig.heightMultiplier!),
 
@@ -190,8 +190,8 @@ class _BuyScreenState extends State<BuyScreen> {
                       'amount': '15,000',
                     },
                   ],
-                  imageHeight: 128 * SizeConfig.heightMultiplier!,
-                  imageWidth: 112 * SizeConfig.widthMultiplier!,
+                  imageHeight: 170 * SizeConfig.heightMultiplier!,
+                  imageWidth: 135 * SizeConfig.widthMultiplier!,
                 ),
               ],
             ),
@@ -212,10 +212,10 @@ class _BuyScreenState extends State<BuyScreen> {
     return SizedBox(
       height: (categoryTile.toLowerCase() == 'categories')
           ? imageHeight + 30 * SizeConfig.heightMultiplier!
-          : imageHeight + 80 * SizeConfig.heightMultiplier!,
+          : imageHeight + 84 * SizeConfig.heightMultiplier!,
       child: ListView.separated(
         separatorBuilder: (context, index) {
-          return SizedBox(width: 12 * SizeConfig.widthMultiplier!);
+          return SizedBox(width: 8 * SizeConfig.widthMultiplier!);
         },
         shrinkWrap: true,
         itemCount: categories.length,
