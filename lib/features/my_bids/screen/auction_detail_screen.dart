@@ -10,7 +10,9 @@ import 'package:hacktheway2023/router/navigation_handler.dart';
 
 class AuctionDetailScreen extends StatefulWidget {
   final bool isMyBid;
-  const AuctionDetailScreen({required this.isMyBid, super.key});
+  final Map<String, dynamic>? productDetails;
+  const AuctionDetailScreen(
+      {required this.isMyBid, this.productDetails, super.key});
 
   @override
   State<AuctionDetailScreen> createState() => _AuctionDetailScreenState();
@@ -39,12 +41,14 @@ class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
                 onTap: () {},
                 isDetailed: true,
                 productDescription:
-                    'Morbi sit amet risus ornare, venenatis est con dimentum, elementum urna In dictum.',
-                ownerName: 'Sourabh Singh',
+                    widget.productDetails?['productDescription'] ??
+                        'Product XYZ',
+                ownerName: widget.productDetails?['ownerName'] ?? 'Owner Name',
                 imageUrl: ImagePath.productImagePng,
-                productName: 'OnePlus Nord CE 2 Lite 5G',
-                biddingPrice: '₹15,000',
-                bidEndTime: '07h 25min',
+                productName:
+                    widget.productDetails?['productName'] ?? 'Product XYZ',
+                biddingPrice: widget.productDetails?['basePrice'] ?? '00',
+                bidEndTime: widget.productDetails?['endTime'] ?? '00',
               ),
             ],
           ),
@@ -62,6 +66,10 @@ class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
                   BulandDarwaza.pushNamed(
                     context,
                     routeName: RouteName.placeABidScreen,
+                    arguments: {
+                      'id': widget.productDetails?['id'] ?? '-',
+                      'baseAmount': widget.productDetails?['basePrice'] ?? '00'
+                    },
                   );
                 },
                 buttonColor: AppColors.kPureBlack,

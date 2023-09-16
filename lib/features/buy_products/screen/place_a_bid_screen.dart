@@ -11,9 +11,16 @@ import 'package:hacktheway2023/constant/app_text_style.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
 import 'package:hacktheway2023/features/buy_products/widgets/bid_grid_list.dart';
+import 'package:hacktheway2023/router/navigation_handler.dart';
 
 class PlaceABidScreen extends StatefulWidget {
-  const PlaceABidScreen({super.key});
+  final String id;
+  final String baseAmount;
+  const PlaceABidScreen({
+    required this.id,
+    required this.baseAmount,
+    super.key,
+  });
 
   @override
   State<PlaceABidScreen> createState() => _PlaceABidScreenState();
@@ -64,7 +71,9 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                 SizedBox(height: 30 * SizeConfig.heightMultiplier!),
                 SizedBox(
                   height: 126 * SizeConfig.heightMultiplier!,
-                  child: const BidGridList(),
+                  child: BidGridList(
+                    basePrice: int.parse(widget.baseAmount),
+                  ),
                 ),
                 SizedBox(height: 16 * SizeConfig.heightMultiplier!),
                 Text(
@@ -83,14 +92,31 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16 * SizeConfig.widthMultiplier!,
-          vertical: 16 * SizeConfig.heightMultiplier!,
-        ),
-        child: BlocBuilder<BuyProductsCubit, BuyProductsState>(
-          builder: (context, state) {
-            return PrimaryButton(
+      bottomNavigationBar: BlocBuilder<BuyProductsCubit, BuyProductsState>(
+        builder: (context, state) {
+          // if (state is BidPlaced) {
+          //   showDialog(
+          //     context: context,
+          //     builder: (context) {
+          //       return SuccessAlertDialog(
+          //         description: 'Your Bid has been successfully placed!',
+          //         title: 'Bid Placed',
+          //         onTap: () {
+          //           BulandDarwaza.pushReplacementNamed(
+          //             context,
+          //             routeName: RouteName.categoryScreen,
+          //           );
+          //         },
+          //       );
+          //     },
+          //   );
+          // }
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16 * SizeConfig.widthMultiplier!,
+              vertical: 16 * SizeConfig.heightMultiplier!,
+            ),
+            child: PrimaryButton(
               fontSize: 18 * SizeConfig.textMultiplier!,
               onTap: () {
                 if (state is BidSet) {
@@ -103,8 +129,9 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                         onTap: () {
                           buyProductsCubit?.placeBid(
                             amount: amount,
-                            id: '',
+                            id: widget.id,
                           );
+                          BulandDarwaza.pop(context);
                         },
                       );
                     },
@@ -116,9 +143,9 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
               buttonColor:
                   (state is BidSet) ? AppColors.kPureBlack : AppColors.greyF5,
               buttonText: 'Place your bid',
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
