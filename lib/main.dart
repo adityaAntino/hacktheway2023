@@ -10,9 +10,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hacktheway2023/common/maintainance_screen.dart';
 import 'package:hacktheway2023/config/messaging_service.dart';
 import 'package:hacktheway2023/config/size_config.dart';
+import 'package:hacktheway2023/constant/app_colors.dart';
+import 'package:hacktheway2023/features/home_screen/screen/dashboard_screen.dart';
+import 'package:hacktheway2023/router/named_route.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -67,11 +69,14 @@ class MyApp extends StatelessWidget {
                 SizeConfig().init(constraints, orientation);
                 return MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  title: 'Flutter Demo',
+                  title: 'Auction Buddy',
+                  onGenerateRoute: GenerateRoute.generateRoute,
+                  initialRoute: '/',
                   theme: ThemeData(
-                    primarySwatch: Colors.blue,
+                    fontFamily: 'Mulish',
+                    scaffoldBackgroundColor: AppColors.kPureWhite,
                   ),
-                  home: const MyHomePage(title: 'Flutter Demo Home Page'),
+                  home: const DashboardScreeen(),
                 );
               },
             );
