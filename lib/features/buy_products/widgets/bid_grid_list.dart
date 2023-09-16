@@ -28,13 +28,10 @@ class _BidGridListState extends State<BidGridList> {
     3000,
   ];
   int selectedPriceIndex = -1;
+
   @override
   void initState() {
     super.initState();
-    for (var element in prices) {
-      element + widget.basePrice;
-    }
-    print('prices- $prices');
   }
 
   @override

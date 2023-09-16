@@ -6,6 +6,7 @@ import 'package:hacktheway2023/features/authentication/screen/verify_otp.dart';
 import 'package:hacktheway2023/features/buy_products/screen/place_a_bid_screen.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/features/my_bids/screen/auction_detail_screen.dart';
+import 'package:hacktheway2023/features/my_bids/screen/payment_screen.dart';
 import 'package:hacktheway2023/features/onboarding/screen/onboarding_screen.dart';
 import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
 import 'package:hacktheway2023/features/sell_products/modal/get_auctions_modal.dart';
@@ -33,6 +34,7 @@ abstract class RouteName {
 
   ///MY BIDS
   static const String auctionDetailsScreen = '/auctionDetailsScreen';
+  static const String paymentScreen = '/paymentScreen';
 
   ///SELL PRODUCT
   static const String sellProductScreen = '/sellProductScreen';
@@ -91,8 +93,16 @@ mixin GenerateRoute {
           builder: (context) => AuctionDetailScreen(
             isMyBid: arguments['isMyBid'] as bool,
             productDetails: arguments['productDetails'] as Map<String, dynamic>,
+            isWon: arguments['isWon'] as bool,
           ),
           settings: settings,
+        );
+      case RouteName.paymentScreen:
+        arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (context) => PaymentScreen(
+            amount: arguments['amount'] as String,
+          ),
         );
 
       //BUY PRODUCTS

@@ -23,8 +23,18 @@ class BuyProductsCubit extends Cubit<BuyProductsState> {
     }
   }
 
+  void emitState(state) {
+    emit(state);
+  }
+
   Future<void> placeBid({required int amount, required String id}) async {
     emit(PlaceBidLoading());
+    final result = await _buyProductsRepo.placeBid(amount: amount, id: id);
+    if (result.toLowerCase() == 'success') {
+      emit(PlaceBidSuccess());
+    } else {
+      emit(PlaceBidFailed());
+    }
   }
 
   Future<void> getAllAuctions() async {

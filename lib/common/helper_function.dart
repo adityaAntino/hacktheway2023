@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class HelperFunction{
+class HelperFunction {
   String parseAndFormatDateTime(String inputString) {
     try {
       // Define the input format for the given string
@@ -20,5 +20,19 @@ class HelperFunction{
       print("Error parsing or formatting the date: $e");
       return ''; // Handle the error as needed
     }
+  }
+
+  static String calculateGST(
+      {String? amount, bool? isTotalAmount, double? tax}) {
+    if (tax != null && amount != null) {
+      double amountInDouble = double.tryParse(amount) ?? 0.0;
+      if (isTotalAmount == true) {
+        double totalAmountWithGST =
+            (((18 / 100) * amountInDouble) + amountInDouble);
+        return NumberFormat('##,##,###.##').format(totalAmountWithGST);
+      }
+      return NumberFormat('##,##,###.##').format(((18 / 100) * amountInDouble));
+    }
+    return '0';
   }
 }
