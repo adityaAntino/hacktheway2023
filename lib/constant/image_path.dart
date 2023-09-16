@@ -22,4 +22,5 @@ class ImagePath {
   static String maintenanceLottie = 'assets/lottie/maintenance_screen.json';
   static String pushUpGuyLottie = 'assets/lottie/push_up_guy.json';
   static String successLottie = 'assets/lottie/success_lottie.json';
+  static String emptyStringLottie = 'assets/lottie/empty_screen.json';
 }
