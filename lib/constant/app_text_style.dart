@@ -33,6 +33,12 @@ class AppTextStyle {
     color: AppColors.black0E,
   );
 
+  static TextStyle f16W600Black0E = TextStyle(
+    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black0E,
+  );
+
   static TextStyle f16W700Black0E = TextStyle(
     fontSize: 16 * SizeConfig.textMultiplier!,
     fontWeight: FontWeight.w700,

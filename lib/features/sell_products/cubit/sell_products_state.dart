@@ -13,3 +13,16 @@ class StartAuctionError extends SellProductsState{
   StartAuctionError({required this.message});
 }
 
+///-----------CLOSE AUCTION
+
+class CloseAuctionLoading extends SellProductsState{}
+
+class CloseAuctionSuccess extends SellProductsState{}
+
+class CloseAuctionError extends SellProductsState{
+  final String message;
+  CloseAuctionError({required this.message});
+}
+
+
+

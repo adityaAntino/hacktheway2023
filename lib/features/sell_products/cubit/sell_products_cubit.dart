@@ -3,28 +3,43 @@ import 'package:hacktheway2023/features/sell_products/cubit/sell_products_state.
 import 'package:hacktheway2023/features/sell_products/modal/auction_start_response_modal.dart';
 import 'package:hacktheway2023/features/sell_products/repository/sell_product_repository.dart';
 
-class SellProductsCubit extends Cubit<SellProductsState>{
+class SellProductsCubit extends Cubit<SellProductsState> {
   SellProductsCubit(super.initialState);
 
   final SellProductRepository sellProductRepository = SellProductRepository();
 
-
-  void resetState(){
+  void resetState() {
     emit(StartAuctionInitial());
   }
 
-  Future<void> startAuction({required String productName,
-    required String basePrice,
-    required String description,
-    required String auctionEndTime}) async{
+  Future<void> startAuction(
+      {required String productName,
+      required String basePrice,
+      required String description,
+      required String auctionEndTime}) async {
     emit(StartAuctionLoading());
-    final AuctionStartResponseModal auctionStartResponseModal = await sellProductRepository.startAuctionRepo(productName: productName, basePrice: basePrice, description: description, auctionEndTime: auctionEndTime);
-    if(auctionStartResponseModal.code == 201){
+    final AuctionStartResponseModal auctionStartResponseModal =
+        await sellProductRepository.startAuctionRepo(
+            productName: productName,
+            basePrice: basePrice,
+            description: description,
+            auctionEndTime: auctionEndTime);
+    if (auctionStartResponseModal.code == 201) {
       emit(StartAuctionSuccess());
-    }else{
+    } else {
       emit(StartAuctionError(
-        message: auctionStartResponseModal.message ?? 'Please try again later'
-      ));
+          message:
+              auctionStartResponseModal.message ?? 'Please try again later'));
+    }
+  }
+
+  Future<void> closeAuction() async {
+    emit(CloseAuctionLoading());
+    final response = await sellProductRepository.closeAuction();
+    if (true) {
+      emit(CloseAuctionSuccess());
+    } else {
+      emit(CloseAuctionError(message: ''));
     }
   }
 }
