@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
+import 'package:hacktheway2023/common/custom_empty_screen.dart';
 import 'package:hacktheway2023/common/custom_screen_loader.dart';
 import 'package:hacktheway2023/common/helper_function.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
@@ -55,6 +56,9 @@ class _StartSellingState extends State<StartSelling> {
         builder: (context, state) {
           if (state is GetAuctionLoading) {
             return const CustomScreenLoader();
+          }
+          if(state is GetAuctionEmpty){
+            return CustomEmptyScreen(message: 'No Auctions available now');
           }
           return SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
