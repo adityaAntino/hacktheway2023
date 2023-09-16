@@ -57,7 +57,7 @@ class _StartSellingState extends State<StartSelling> {
           if (state is GetAuctionLoading) {
             return const CustomScreenLoader();
           }
-          if(state is GetAuctionEmpty){
+          if (state is GetAuctionEmpty) {
             return CustomEmptyScreen(message: 'No Auctions available now');
           }
           return SingleChildScrollView(
@@ -68,62 +68,75 @@ class _StartSellingState extends State<StartSelling> {
                 padding: EdgeInsets.symmetric(
                     vertical: 16.0 * SizeConfig.heightMultiplier!,
                     horizontal: 24.0 * SizeConfig.widthMultiplier!),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<SellProductsCubit>().getAuction();
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      (_getAuctionsModal.data?.isNotEmpty ?? false)
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                    height: 8 * SizeConfig.heightMultiplier!),
+                                Text(
+                                  'Your Auctions',
+                                  style: AppTextStyle.f16W500Black0E,
+                                ),
+                                SizedBox(
+                                    height: 16 * SizeConfig.heightMultiplier!),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
 
-                    (_getAuctionsModal.data?.isNotEmpty ?? false) ? Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-                        Text('Your Auctions',style: AppTextStyle.f16W500Black0E,),
-                        SizedBox(height: 16 * SizeConfig.heightMultiplier!),
-                      ],
-                    ) : const SizedBox.shrink(),
-                    
-                    ///IF AUCTIONS ARE CREATED ALREADY
-                    (_getAuctionsModal.data?.isNotEmpty ?? false)
-                        ? ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: _getAuctionsModal.data?.length ?? 0,
-                            separatorBuilder: (context, index) => SizedBox(
-                                height: 8 * SizeConfig.heightMultiplier!),
-                            itemBuilder: (context, index) =>
-                                ProductOverviewCard(
-                              onTap: () {
-                                BulandDarwaza.pushNamed(context,
-                                    routeName:
-                                        RouteName.sellAuctionDetailScreen,
-                                    arguments: {
-                                      "auctionDetail":
-                                          _getAuctionsModal.data?[index]
-                                    });
-                              },
-                              productName: _getAuctionsModal
-                                      .data?[index].itemDescription?.itemName ??
-                                  '-',
-                              biddingPrice: _getAuctionsModal.data?[index]
-                                      .itemDescription?.initialPrice ??
-                                  '-',
-                              imageUrl: ImagePath.productImagePng,
-                              bidEndTime:
-                                  HelperFunction().parseAndFormatDateTime(_getAuctionsModal.data?[index].endTime ?? ''),
-                            ),
-                          )
-                        : const SizedBox.shrink(),
+                      ///IF AUCTIONS ARE CREATED ALREADY
+                      (_getAuctionsModal.data?.isNotEmpty ?? false)
+                          ? ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: _getAuctionsModal.data?.length ?? 0,
+                              separatorBuilder: (context, index) => SizedBox(
+                                  height: 8 * SizeConfig.heightMultiplier!),
+                              itemBuilder: (context, index) =>
+                                  ProductOverviewCard(
+                                onTap: () {
+                                  BulandDarwaza.pushNamed(context,
+                                      routeName:
+                                          RouteName.sellAuctionDetailScreen,
+                                      arguments: {
+                                        "auctionDetail":
+                                            _getAuctionsModal.data?[index]
+                                      });
+                                },
+                                productName: _getAuctionsModal.data?[index]
+                                        .itemDescription?.itemName ??
+                                    '-',
+                                biddingPrice: _getAuctionsModal.data?[index]
+                                        .itemDescription?.initialPrice ??
+                                    '-',
+                                imageUrl: ImagePath.productImagePng,
+                                bidEndTime: HelperFunction()
+                                    .parseAndFormatDateTime(_getAuctionsModal
+                                            .data?[index].endTime ??
+                                        ''),
+                              ),
+                            )
+                          : const SizedBox.shrink(),
 
-                    ///IF AUCTIONS ARE NOT CREATED YET
-                    (_getAuctionsModal.data?.isEmpty ?? false)
-                        ? SizedBox(
-                            height: 300,
-                            child:
-                                LottieBuilder.asset(ImagePath.pushUpGuyLottie))
-                        : const SizedBox.shrink(),
-                    SizedBox(height: 16 * SizeConfig.heightMultiplier!),
-                  ],
+                      ///IF AUCTIONS ARE NOT CREATED YET
+                      (_getAuctionsModal.data?.isEmpty ?? false)
+                          ? SizedBox(
+                              height: 300,
+                              child: LottieBuilder.asset(
+                                  ImagePath.pushUpGuyLottie))
+                          : const SizedBox.shrink(),
+                      SizedBox(height: 16 * SizeConfig.heightMultiplier!),
+                    ],
+                  ),
                 ),
               ),
             ),

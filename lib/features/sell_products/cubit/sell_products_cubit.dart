@@ -2,7 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hacktheway2023/features/buy_products/modals/get_all_auctions_modal.dart';
 import 'package:hacktheway2023/features/sell_products/cubit/sell_products_state.dart';
 import 'package:hacktheway2023/features/sell_products/modal/auction_start_response_modal.dart';
+import 'package:hacktheway2023/features/sell_products/modal/close_auction_modal.dart';
 import 'package:hacktheway2023/features/sell_products/modal/get_auctions_modal.dart';
+import 'package:hacktheway2023/features/sell_products/modal/get_bid_count.dart';
 import 'package:hacktheway2023/features/sell_products/repository/sell_product_repository.dart';
 
 class SellProductsCubit extends Cubit<SellProductsState> {
@@ -18,13 +20,25 @@ class SellProductsCubit extends Cubit<SellProductsState> {
     emit(GetAuctionLoading());
     final GetAuctionsModal getAuctionsModal =
         await _sellProductRepository.getAuctionsRepo();
-    if (getAuctionsModal.data?.isEmpty ?? false || getAuctionsModal.data == null) {
+    if (getAuctionsModal.data?.isEmpty ??
+        false || getAuctionsModal.data == null) {
       emit(GetAuctionEmpty());
     } else if (getAuctionsModal.code == 200) {
       emit(GetAuctionSuccess(getAuctionsModal: getAuctionsModal));
     } else {
       emit(GetAuctionError(
           message: getAuctionsModal.message ?? 'Please try again login'));
+    }
+  }
+
+  Future<void> getBidCount({required String auctionId}) async {
+    emit(GetBidCountLoading());
+    final GetBidCountModal getBidCountModal =
+        await _sellProductRepository.getBidCountRepo(auctionId: auctionId);
+    if (getBidCountModal.code == 200) {
+      emit(GetBidCountSuccess(getBidCountModal: getBidCountModal));
+    } else {
+      emit(GetBidCountError());
     }
   }
 
@@ -49,10 +63,10 @@ class SellProductsCubit extends Cubit<SellProductsState> {
     }
   }
 
-  Future<void> closeAuction() async {
+  Future<void> closeAuction({required String auctionId}) async {
     emit(CloseAuctionLoading());
-    final response = await _sellProductRepository.closeAuctionRepo();
-    if (true) {
+    final CloseAuctionModal closeAuctionModal = await _sellProductRepository.closeAuctionRepo( auctionId: auctionId);
+    if (closeAuctionModal.code == 200) {
       emit(CloseAuctionSuccess());
     } else {
       emit(CloseAuctionError(message: ''));
