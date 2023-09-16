@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hacktheway2023/common/commo_appbar.dart';
+import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/common_dialog.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
