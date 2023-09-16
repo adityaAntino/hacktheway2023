@@ -18,10 +18,7 @@ class SellProductsCubit extends Cubit<SellProductsState> {
     emit(GetAuctionLoading());
     final GetAuctionsModal getAuctionsModal =
         await _sellProductRepository.getAuctionsRepo();
-    if (getAuctionsModal.data == null) {
-      emit(GetAuctionError(
-          message: getAuctionsModal.message ?? 'Please try again login'));
-    } else if (getAuctionsModal.data?.isEmpty ?? false) {
+    if (getAuctionsModal.data?.isEmpty ?? false || getAuctionsModal.data == null) {
       emit(GetAuctionEmpty());
     } else if (getAuctionsModal.code == 200) {
       emit(GetAuctionSuccess(getAuctionsModal: getAuctionsModal));
