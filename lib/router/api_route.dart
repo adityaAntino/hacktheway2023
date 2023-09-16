@@ -1,5 +1,4 @@
-class ApiRoute{
-
+class ApiRoute {
   // static String baseUrl = 'https://india-legal.antino.ca';
 
   static String baseUrl = 'https://26df-49-249-44-114.ngrok-free.app';
@@ -14,4 +13,6 @@ class ApiRoute{
   static String startAuction = '${mainUrl}auction';
   static String closeAuction = '${mainUrl}auction/bid/close';
 
+  ///BUY PRODUCTS
+  static String getAuctions = '${mainUrl}auction';
 }
