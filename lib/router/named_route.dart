@@ -65,8 +65,11 @@ mixin GenerateRoute {
 
       ///MY BIDS
       case RouteName.auctionDetailsScreen:
+        arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (context) => const AuctionDetailScreen(),
+          builder: (context) => AuctionDetailScreen(
+            isMyBid: arguments['isMyBid'] as bool,
+          ),
           settings: settings,
         );
 

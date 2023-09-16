@@ -4,6 +4,7 @@ import 'package:hacktheway2023/common/product_overview_card.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
+import 'package:hacktheway2023/router/named_route.dart';
 import 'package:hacktheway2023/router/navigation_handler.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -45,13 +46,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     ),
                     child: ProductOverviewCard(
                       imageUrl: ImagePath.placeHolderDisplayImage,
-                      productName: 'Product Name',
+                      productName: 'OnePlus Nord CE 2 Lite 5G',
                       isBasePrice: true,
                       biddingPrice: '₹15,000',
                       bidEndTime: '11h: 35m: 47s',
                       onTap: () {
-                        //TODO: navigate to the actual product detail screen
-                        BulandDarwaza.pop(context);
+                        BulandDarwaza.pushNamed(
+                          context,
+                          routeName: RouteName.auctionDetailsScreen,
+                          arguments: {'isMyBid': false},
+                        );
                       },
                     ),
                   );
