@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hacktheway2023/common/commo_appbar.dart';
+import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/common_dialog.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
@@ -66,6 +66,9 @@ class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
                   content: widget.isMyBid
                       ? 'Are you sure you want to end this auction?'
                       : 'Are you sure you want to place this bet?',
+                  onTap: (){
+
+                  },
                 );
               },
             );
