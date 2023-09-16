@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hacktheway2023/common/commo_appbar.dart';
+import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/common_dialog.dart';
 import 'package:hacktheway2023/common/common_text_field.dart';
 import 'package:hacktheway2023/common/custom_screen_loader.dart';
@@ -37,7 +37,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         ///To unFocus Keyboard when tapped inside the scaffold
         FocusScope.of(context).unfocus();
       },
@@ -156,6 +156,13 @@ class _SellProductScreenState extends State<SellProductScreen> {
               if (state is StartAuctionLoading) {
                 return const CustomScreenLoader();
               } else if (state is StartAuctionSuccess) {
+                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Container();
+                      });
+                });
                 BulandDarwaza.pushReplacementNamed(context,
                     routeName: RouteName.dashboardScreen);
                 Fluttertoast.showToast(msg: 'Auction Placed Successfully');

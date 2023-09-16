@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hacktheway2023/common/commo_appbar.dart';
+import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
