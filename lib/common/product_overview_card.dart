@@ -167,7 +167,11 @@ class ProductOverviewCard extends StatelessWidget {
                                 onTap: onTap,
                                 buttonColor: AppColors.kPureBlack,
                                 buttonText: 'Bid Now',
-                                borderRadius: 12,
+                                borderRadius: 19,
+                                outerVerticalPadding:
+                                    10 * SizeConfig.heightMultiplier!,
+                                outerHorizontalPadding:
+                                    24 * SizeConfig.widthMultiplier!,
                               )
                             : const SizedBox.shrink(),
                       ],
