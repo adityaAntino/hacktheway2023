@@ -33,7 +33,8 @@ class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
               ProductOverviewCard(
                 onTap: () {},
                 isDetailed: true,
-                productDescription: 'Morbi sit amet risus ornare, venenatis est con dimentum, elementum urna In dictum.',
+                productDescription:
+                    'Morbi sit amet risus ornare, venenatis est con dimentum, elementum urna In dictum.',
                 ownerName: 'Sourabh Singh',
                 imageUrl: ImagePath.productImagePng,
                 productName: 'OnePlus Nord CE 2 Lite 5G',
