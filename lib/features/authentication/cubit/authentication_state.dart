@@ -1,4 +1,5 @@
 import 'package:hacktheway2023/features/authentication/modal/verify_otp_response_modal.dart';
+import 'package:hacktheway2023/features/onboarding/modal/get_user_modal.dart';
 
 abstract class AuthenticationState{}
 
@@ -21,3 +22,13 @@ class OtpSuccess extends AuthenticationState{
 }
 
 class OtpFailed extends AuthenticationState{}
+
+////----------USER DETAILS
+class GetUserDetailLoading extends AuthenticationState{}
+
+class GetUserDetailSuccess extends AuthenticationState{
+  GetUserDetails getUserDetails;
+  GetUserDetailSuccess({required this.getUserDetails});
+}
+
+class GetUserDetailError extends AuthenticationState{}

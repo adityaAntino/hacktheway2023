@@ -17,7 +17,6 @@ import 'package:hacktheway2023/features/sell_products/cubit/sell_products_state.
 import 'package:hacktheway2023/features/sell_products/modal/get_auctions_modal.dart';
 import 'package:hacktheway2023/router/named_route.dart';
 import 'package:hacktheway2023/router/navigation_handler.dart';
-import 'package:intl/intl.dart';
 
 class SellAuctionDetailScreen extends StatefulWidget {
   final Datum auctionDetail;
@@ -46,64 +45,73 @@ class _SellAuctionDetailScreenState extends State<SellAuctionDetailScreen> {
         title: 'Auction Detail',
         appBarBgColor: AppColors.kPureBlack,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-
-            if (widget.auctionDetail.status == 'completed')
-              ((bidCount == 0 || bidCount == -1))
-                  ? Text(
-                'No one has bid in this auction!',
-                style: AppTextStyle.f16W500Black0E,
-              )
-                  : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Highest Bidding Price: ',
-                    style: AppTextStyle.f16W500Black0E,
-                  ),
-                  Text(
-                    widget.auctionDetail.winningBid?.amount.toString() ??
-                        '',
-                    style: AppTextStyle.f14W500darkGreen500.copyWith(
-                      fontSize: 16,
-                    ),
-                  )
-                ],
-              ),
-            SizedBox(
-              height: 16 * SizeConfig.heightMultiplier!,
+      body: BlocConsumer<SellProductsCubit, SellProductsState>(
+        listener: (context, state) {
+          if (state is GetBidCountSuccess) {
+            bidCount = state.getBidCountModal.data?.count ?? -1;
+          }
+        },
+        builder: (context, state) {
+          if(state is GetBidCountLoading){
+            return const CustomScreenLoader();
+          }
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                if (widget.auctionDetail.status == 'completed')
+                  ((bidCount == 0 || bidCount == -1))
+                      ? Text(
+                          'No one has bid in this auction!',
+                          style: AppTextStyle.f16W500Black0E,
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Highest Bidding Price: ',
+                              style: AppTextStyle.f16W500Black0E,
+                            ),
+                            Text(
+                              widget.auctionDetail.winningBid?.amount
+                                      .toString() ??
+                                  '',
+                              style: AppTextStyle.f14W500darkGreen500.copyWith(
+                                fontSize: 16,
+                              ),
+                            )
+                          ],
+                        ),
+                SizedBox(
+                  height: 16 * SizeConfig.heightMultiplier!,
+                ),
+                ProductOverviewCard(
+                    highestBiddingPrice:
+                        widget.auctionDetail.winningBid?.amount.toString() ??
+                            '',
+                    imageUrl: ImagePath.productImagePng,
+                    isDetailed: true,
+                    productDescription:
+                        widget.auctionDetail.itemDescription?.itemInfo ?? '',
+                    productName:
+                        widget.auctionDetail.itemDescription?.itemName ?? '',
+                    ownerName: widget.auctionDetail.auctioneer ?? '',
+                    biddingPrice:
+                        widget.auctionDetail.itemDescription?.initialPrice ??
+                            '',
+                    bidEndTime: HelperFunction().parseAndFormatDateTime(
+                        widget.auctionDetail.endTime ?? ''),
+                    onTap: () {}),
+              ],
             ),
-            ProductOverviewCard(
-                highestBiddingPrice:
-                    widget.auctionDetail.winningBid?.amount.toString() ?? '',
-                imageUrl: ImagePath.productImagePng,
-                isDetailed: true,
-                productDescription:
-                    widget.auctionDetail.itemDescription?.itemInfo ?? '',
-                productName:
-                    widget.auctionDetail.itemDescription?.itemName ?? '',
-                ownerName: widget.auctionDetail.auctioneer ?? '',
-                biddingPrice:
-                    widget.auctionDetail.itemDescription?.initialPrice ?? '',
-                bidEndTime: HelperFunction()
-                    .parseAndFormatDateTime(widget.auctionDetail.endTime ?? ''),
-                onTap: () {}),
-
-          ],
-        ),
+          );
+        },
       ),
       bottomNavigationBar: (widget.auctionDetail.status != 'completed')
           ? Padding(
               padding: const EdgeInsets.all(8.0),
               child: BlocConsumer<SellProductsCubit, SellProductsState>(
-                listener: (context, state) {
-                  if (state is GetBidCountSuccess) {
-                    bidCount = state.getBidCountModal.data?.count ?? -1;
-                  }
-                },
+                listener: (context, state) {},
                 builder: (context, state) {
                   if (state is CloseAuctionLoading) {
                     return const CustomScreenLoader();
@@ -113,8 +121,7 @@ class _SellAuctionDetailScreenState extends State<SellAuctionDetailScreen> {
                           context: context,
                           builder: (context) {
                             return SuccessAlertDialog(
-                                description:
-                                    'Your auction will ended successfully.',
+                                description: 'Your auction ended successfully.',
                                 title: 'Auction Ended',
                                 onTap: () {
                                   BulandDarwaza.pushReplacementNamed(context,
