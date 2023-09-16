@@ -27,60 +27,66 @@ class _DashboardScreeenState extends State<DashboardScreeen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.kPureWhite,
-      key: _scaffoldKey,
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView(
-              controller: controller,
-              children: [
-                BuyScreen(
-                  pageController: controller,
-                ),
-                const StartSelling(
-                  isBack: false,
-                ),
-                const MyBidsScreen(
-                  isBack: false,
-                ),
-                const MyProfileScreen(isBack: false),
-              ],
-              onPageChanged: (value) {
-                setState(() {
-                  currentScreen = value;
-                });
-              },
+    return WillPopScope(
+      onWillPop: ()async{
+
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.kPureWhite,
+        key: _scaffoldKey,
+        body: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                controller: controller,
+                children: [
+                  BuyScreen(
+                    pageController: controller,
+                  ),
+                  const StartSelling(
+                    isBack: false,
+                  ),
+                  const MyBidsScreen(
+                    isBack: false,
+                  ),
+                  const MyProfileScreen(isBack: false),
+                ],
+                onPageChanged: (value) {
+                  setState(() {
+                    currentScreen = value;
+                  });
+                },
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              4,
-              (index) => Localizations.override(
-                context: context,
-                // locale: context.locale,
-                child: CustomBottomNavbarItem(
-                  onTap: () {
-                    setState(() {
-                      currentScreen = index;
-                      controller.jumpToPage(index);
-                    });
-                  },
-                  itemColor: currentScreen == index
-                      ? AppColors.baseRed
-                      : AppColors.kPureBlack,
-                  barColor: currentScreen == index
-                      ? AppColors.baseRed
-                      : AppColors.kPureWhite,
-                  icon: bottomAppBarItems.values.elementAt(index),
-                  title: bottomAppBarItems.keys.elementAt(index),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                4,
+                (index) => Localizations.override(
+                  context: context,
+                  // locale: context.locale,
+                  child: CustomBottomNavbarItem(
+                    onTap: () {
+                      setState(() {
+                        currentScreen = index;
+                        controller.jumpToPage(index);
+                      });
+                    },
+                    itemColor: currentScreen == index
+                        ? AppColors.baseRed
+                        : AppColors.kPureBlack,
+                    barColor: currentScreen == index
+                        ? AppColors.baseRed
+                        : AppColors.kPureWhite,
+                    icon: bottomAppBarItems.values.elementAt(index),
+                    title: bottomAppBarItems.keys.elementAt(index),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

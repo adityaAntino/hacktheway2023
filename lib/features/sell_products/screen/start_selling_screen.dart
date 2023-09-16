@@ -103,6 +103,13 @@ class _StartSellingState extends State<StartSelling> {
                                   height: 8 * SizeConfig.heightMultiplier!),
                               itemBuilder: (context, index) =>
                                   ProductOverviewCard(
+                                isBasePrice: true,
+                                statusButtonOnTap: () {},
+                                statusButtonColor: colorForStatus(_getAuctionsModal.data?[index].status),
+                                statusButtonTextColor: AppColors.kPureWhite,
+                                statusButtonText: _getAuctionsModal
+                                    .data?[index].status
+                                    ?.toUpperCase(),
                                 onTap: () {
                                   BulandDarwaza.pushNamed(context,
                                       routeName:
@@ -158,5 +165,16 @@ class _StartSellingState extends State<StartSelling> {
         ),
       ),
     );
+  }
+
+  Color colorForStatus(final status) {
+    switch (status) {
+      case "completed":
+        return AppColors.darkGreen05;
+      case "initialized":
+        return AppColors.grey80;
+      default:
+        return AppColors.kPureBlack;
+    }
   }
 }

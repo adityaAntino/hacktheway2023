@@ -1,4 +1,8 @@
 
+import 'dart:convert';
+
+
+
 class GetAuctionsModal {
   String? message;
   List<Datum>? data;
@@ -31,40 +35,43 @@ class GetAuctionsModal {
     time: json["time"]?.toDouble(),
   );
 
-
 }
 
 class Datum {
   String? id;
   String? auctioneer;
   ItemDescription? itemDescription;
+  String? endTime;
+  String? status;
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;
   WinningBid? winningBid;
-  String? endTime;
 
   Datum({
     this.id,
     this.auctioneer,
     this.itemDescription,
+    this.endTime,
+    this.status,
     this.createdAt,
     this.updatedAt,
     this.v,
     this.winningBid,
-    this.endTime,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["_id"],
     auctioneer: json["auctioneer"],
     itemDescription: json["itemDescription"] == null ? null : ItemDescription.fromJson(json["itemDescription"]),
+    endTime: json["endTime"],
+    status: json["status"],
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
     updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
     v: json["__v"],
     winningBid: json["winningBid"] == null ? null : WinningBid.fromJson(json["winningBid"]),
-    endTime: json["endTime"],
   );
+
 
 }
 
@@ -85,11 +92,12 @@ class ItemDescription {
     itemInfo: json["itemInfo"],
   );
 
+
 }
 
 class WinningBid {
   String? user;
-  dynamic amount;
+  int? amount;
 
   WinningBid({
     this.user,
