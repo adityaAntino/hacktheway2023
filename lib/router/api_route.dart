@@ -14,8 +14,9 @@ class ApiRoute {
 
   ///SELL PRODUCT - START AUCTION
   static String startAuction = '${mainUrl}auction';
-  static String closeAuction = '${mainUrl}auction/bid/close';
-  static String getAllAuction = '${mainUrl}auction';
+  static String closeAuction = '${mainUrl}auction';
+  static String getCreatedAuction = '${mainUrl}user/auctions';
+  static String getBidCount = '${mainUrl}auction';
 
   ///BUY PRODUCTS
   static String getAuctions = '${mainUrl}auction';

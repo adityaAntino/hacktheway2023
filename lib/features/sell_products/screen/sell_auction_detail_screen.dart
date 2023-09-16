@@ -27,6 +27,15 @@ class SellAuctionDetailScreen extends StatefulWidget {
 }
 
 class _SellAuctionDetailScreenState extends State<SellAuctionDetailScreen> {
+  int bidCount = -1;
+  @override
+  void initState() {
+    context
+        .read<SellProductsCubit>()
+        .getBidCount(auctionId: widget.auctionDetail.id ?? '');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,14 +58,20 @@ class _SellAuctionDetailScreenState extends State<SellAuctionDetailScreen> {
                 ownerName: widget.auctionDetail.auctioneer ?? '',
                 biddingPrice:
                     widget.auctionDetail.itemDescription?.initialPrice ?? '',
-                bidEndTime: HelperFunction().parseAndFormatDateTime(widget.auctionDetail.endTime ?? ''),
+                bidEndTime: HelperFunction()
+                    .parseAndFormatDateTime(widget.auctionDetail.endTime ?? ''),
                 onTap: () {})
           ],
         ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<SellProductsCubit, SellProductsState>(
+        child: BlocConsumer<SellProductsCubit, SellProductsState>(
+          listener: (context, state) {
+            if (state is GetBidCountSuccess) {
+              bidCount = state.getBidCountModal.data?.count ?? -1;
+            }
+          },
           builder: (context, state) {
             if (state is CloseAuctionLoading) {
               return const CustomScreenLoader();
@@ -77,20 +92,38 @@ class _SellAuctionDetailScreenState extends State<SellAuctionDetailScreen> {
                           });
                     });
               });
+              context.read<SellProductsCubit>().resetState();
             }
             return PrimaryButton(
               onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext dialogContext) {
-                      return CommonDialog(
-                          title: 'End Auction',
-                          content: 'Are you sure you end this auction.',
-                          onTap: () {
-                            context.read<SellProductsCubit>().closeAuction();
-                            BulandDarwaza.pop(context);
-                          });
-                    });
+                if (bidCount == 0) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext dialogContext) {
+                        return CommonDialog(
+                            title: 'End Auction',
+                            content:
+                                'No one has bid yet. Do you still want to continue?',
+                            onTap: () {
+                              context.read<SellProductsCubit>().closeAuction(
+                                  auctionId: widget.auctionDetail.id ?? '');
+                              BulandDarwaza.pop(context);
+                            });
+                      });
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext dialogContext) {
+                        return CommonDialog(
+                            title: 'End Auction',
+                            content: 'Are you sure you end this auction.',
+                            onTap: () {
+                              context.read<SellProductsCubit>().closeAuction(
+                                  auctionId: widget.auctionDetail.id ?? '');
+                              BulandDarwaza.pop(context);
+                            });
+                      });
+                }
               },
               buttonColor: AppColors.kPureBlack,
               buttonText: 'End Auction',
@@ -100,5 +133,4 @@ class _SellAuctionDetailScreenState extends State<SellAuctionDetailScreen> {
       ),
     );
   }
-
 }
