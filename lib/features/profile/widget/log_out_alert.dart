@@ -46,7 +46,7 @@ class LogoutAlert extends StatelessWidget {
                 child: Text(
                   'No',
                   style: AppTextStyle.f16W500Grey500.copyWith(
-                    color: AppColors.baseRed
+                    color: AppColors.kPureBlack
                   ),
                 ),
                 onPressed: () {
@@ -59,7 +59,7 @@ class LogoutAlert extends StatelessWidget {
               child: ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                    MaterialStateProperty.all(AppColors.baseRed),
+                    MaterialStateProperty.all(AppColors.kPureBlack),
                     padding:
                     MaterialStateProperty.all(const EdgeInsets.all(13)),
                     textStyle: MaterialStateProperty.all(const TextStyle(

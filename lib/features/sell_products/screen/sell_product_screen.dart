@@ -98,20 +98,26 @@ class _SellProductScreenState extends State<SellProductScreen> {
                   SizedBox(height: 4 * SizeConfig.heightMultiplier!),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    child: DropdownButton<String>(
-                      hint: Text(selectedEndDuration),
-                      isExpanded: true,
-                      items: auctionEndTime.keys.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (val) {
-                        setState(() {
-                          selectedEndDuration = val!;
-                        });
-                      },
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.grey3)),
+                        ),
+                        hint: Text(selectedEndDuration),
+                        isExpanded: true,
+                        items: auctionEndTime.keys.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (val) {
+                          setState(() {
+                            selectedEndDuration = val!;
+                          });
+                        },
+                      ),
                     ),
                   ),
 
@@ -185,6 +191,9 @@ class _SellProductScreenState extends State<SellProductScreen> {
                     Fluttertoast.showToast(msg: 'Enter Product Name');
                   } else if (_basePriceCtrl.text.isEmpty) {
                     Fluttertoast.showToast(msg: 'Enter Base Price');
+                  } else if (int.tryParse(_basePriceCtrl.text)! <= 0) {
+                    Fluttertoast.showToast(
+                        msg: 'Base Price should be greater than 0');
                   } else if (_descriptionCtrl.text.isEmpty) {
                     Fluttertoast.showToast(msg: 'Enter Description of Product');
                   } else {

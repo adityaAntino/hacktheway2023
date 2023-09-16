@@ -8,6 +8,7 @@ class ApiRoute {
   ///AUTHENTICATION
   static String sendOtp = '${mainUrl}auth/send-otp';
   static String verifyOtp = '${mainUrl}auth/verify-otp';
+  static String getUserDetail = '${mainUrl}user';
 
   ///ONBOARDING
   static String updateUserDetails = '${mainUrl}user';

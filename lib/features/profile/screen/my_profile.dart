@@ -41,6 +41,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              ///PROFILE IMAGE
               Center(
                 child: Stack(
                   alignment: Alignment.bottomRight,
@@ -62,12 +63,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 48 * SizeConfig.heightMultiplier!),
+              SizedBox(height: 68 * SizeConfig.heightMultiplier!),
+
+              ///PERSONAL DETAILS
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: ListTile(
                   onTap: () {
-                    Fluttertoast.showToast(msg: 'Coming Soon');
+                    Fluttertoast.showToast(msg: 'Personal Details Coming Soon');
                   },
                   leading: const Icon(Icons.houseboat_rounded),
                   title: const Text('Personal Details'),
@@ -76,9 +79,28 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   ),
                 ),
               ),
-              const Spacer(),
-              PrimaryButton(
-                  borderRadius: 4,
+              SizedBox(height: 12 * SizeConfig.heightMultiplier!),
+
+              ///SETTING
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: ListTile(
+                  onTap: () {
+                    Fluttertoast.showToast(msg: 'Settings Coming Soon');
+                  },
+                  leading: const Icon(Icons.settings),
+                  title: const Text('Settings'),
+                  trailing: const Icon(
+                    Icons.chevron_right_sharp,
+                  ),
+                ),
+              ),
+              SizedBox(height: 12 * SizeConfig.heightMultiplier!),
+
+              ///LOG OUT
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: ListTile(
                   onTap: () {
                     showDialog(
                       context: context,
@@ -87,8 +109,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       },
                     );
                   },
-                  buttonColor: AppColors.kPureBlack,
-                  buttonText: 'Log out')
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Log Out'),
+                  trailing: const Icon(
+                    Icons.chevron_right_sharp,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

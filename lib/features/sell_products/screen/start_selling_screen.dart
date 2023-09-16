@@ -42,7 +42,7 @@ class _StartSellingState extends State<StartSelling> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
-        title: 'Sell',
+        title: 'Auction',
         isLead: false,
         parentContext: context,
         appBarBgColor: AppColors.kPureBlack,
@@ -60,18 +60,19 @@ class _StartSellingState extends State<StartSelling> {
           if (state is GetAuctionEmpty) {
             return CustomEmptyScreen(message: 'No Auctions available now');
           }
-          return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: 16.0 * SizeConfig.heightMultiplier!,
-                    horizontal: 24.0 * SizeConfig.widthMultiplier!),
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    context.read<SellProductsCubit>().getAuction();
-                  },
+          return RefreshIndicator(
+            color: AppColors.kPureBlack,
+            onRefresh: () async {
+              context.read<SellProductsCubit>().getAuction();
+            },
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 16.0 * SizeConfig.heightMultiplier!,
+                      horizontal: 24.0 * SizeConfig.widthMultiplier!),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -150,6 +151,7 @@ class _StartSellingState extends State<StartSelling> {
           );
         },
       ),
+
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
@@ -172,7 +174,9 @@ class _StartSellingState extends State<StartSelling> {
       case "completed":
         return AppColors.darkGreen05;
       case "initialized":
-        return AppColors.grey80;
+        return AppColors.yellowRipe;
+      case "ongoing":
+        return AppColors.blue6c;
       default:
         return AppColors.kPureBlack;
     }
