@@ -11,6 +11,9 @@ import 'package:hacktheway2023/common/maintainance_screen.dart';
 import 'package:hacktheway2023/config/messaging_service.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
+import 'package:hacktheway2023/features/authentication/cubit/authentication_cubit.dart';
+import 'package:hacktheway2023/features/authentication/cubit/authentication_state.dart';
+import 'package:hacktheway2023/features/authentication/screen/login_screen.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/router/named_route.dart';
 
@@ -58,31 +61,39 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 800),
-      minTextAdapt: true,
-      builder: (BuildContext context, Widget? child) {
-        return LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return OrientationBuilder(
-              builder: (BuildContext context, Orientation orientation) {
-                SizeConfig().init(constraints, orientation);
-                return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  title: 'Auction Buddy',
-                  onGenerateRoute: GenerateRoute.generateRoute,
-                  initialRoute: '/',
-                  theme: ThemeData(
-                    fontFamily: 'Mulish',
-                    scaffoldBackgroundColor: AppColors.kPureWhite,
-                  ),
-                  home: const DashboardScreeen(),
-                );
-              },
-            );
-          },
-        );
-      },
+    return MultiBlocProvider(
+      providers: [
+        ///AUTHENTICATION CUBIT
+        BlocProvider(
+            create: (BuildContext context) =>
+                AuthenticationCubit(AuthInitial())),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(360, 800),
+        minTextAdapt: true,
+        builder: (BuildContext context, Widget? child) {
+          return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return OrientationBuilder(
+                builder: (BuildContext context, Orientation orientation) {
+                  SizeConfig().init(constraints, orientation);
+                  return MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    title: 'Auction Buddy',
+                    onGenerateRoute: GenerateRoute.generateRoute,
+                    initialRoute: '/',
+                    theme: ThemeData(
+                      fontFamily: 'Mulish',
+                      scaffoldBackgroundColor: AppColors.kPureWhite,
+                    ),
+                    home: const LoginScreen(),
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
