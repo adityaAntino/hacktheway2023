@@ -17,6 +17,8 @@ import 'package:hacktheway2023/features/authentication/cubit/authentication_stat
 import 'package:hacktheway2023/features/authentication/screen/login_screen.dart';
 import 'package:hacktheway2023/features/authentication/screen/splash_screen.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
+import 'package:hacktheway2023/features/sell_products/cubit/sell_products_cubit.dart';
+import 'package:hacktheway2023/features/sell_products/cubit/sell_products_state.dart';
 import 'package:hacktheway2023/router/named_route.dart';
 
 void main() async {
@@ -70,6 +72,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (BuildContext context) =>
                 AuthenticationCubit(AuthInitial())),
+
+        ///SELL PRODUCT - START AUCTION
+        BlocProvider(
+            create: (BuildContext context) =>
+                SellProductsCubit(StartAuctionInitial())),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -90,7 +97,6 @@ class MyApp extends StatelessWidget {
                       scaffoldBackgroundColor: AppColors.kPureWhite,
                     ),
                     home: const SplashScreen(),
-
                   );
                 },
               );

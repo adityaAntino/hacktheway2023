@@ -16,7 +16,7 @@ class PrimaryButton extends StatelessWidget {
     this.innerHorizontalPadding = 0,
     this.innerVerticalPadding = 0,
     this.outerVerticalPadding = 16,
-    this.borderRadius = 4,
+    this.borderRadius = 24,
     this.fontSize,
     this.prefixSvgIcon,
   });

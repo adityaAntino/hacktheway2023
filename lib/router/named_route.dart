@@ -5,6 +5,7 @@ import 'package:hacktheway2023/features/authentication/screen/verify_otp.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/features/my_bids/screen/auction_detail_screen.dart';
 import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
+import 'package:hacktheway2023/features/sell_products/screen/sell_product_screen.dart';
 import 'package:hacktheway2023/main.dart';
 
 abstract class RouteName {
@@ -23,6 +24,10 @@ abstract class RouteName {
 
   ///MY BIDS
   static const String auctionDetailsScreen = '/auctionDetailsScreen';
+
+
+  ///SELL PRODUCT
+  static const String sellProductScreen = '/sellProductScreen';
 }
 
 mixin GenerateRoute {
@@ -73,7 +78,7 @@ mixin GenerateRoute {
           settings: settings,
         );
 
-      //BUY PRODUCUTS
+      //BUY PRODUCTS
       case RouteName.categoryScreen:
         arguments as Map<String, dynamic>;
         return MaterialPageRoute(
@@ -82,18 +87,18 @@ mixin GenerateRoute {
           ),
           settings: settings,
         );
-      // case RouteName.pledgeSubmitScreen:
-      //   arguments as Map<String, dynamic>;
-      //   return MaterialPageRoute(
-      //     builder: (context) => PledgeSubmitScreen(
-      //         title: arguments["title"] as String,
-      //         name: arguments["name"] as String,
-      //         mobileNumber: arguments["mobileNumber"] as String),
-      //   );
+
+    ///SELL PRODUCT
+      case RouteName.sellProductScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SellProductScreen(),
+          settings: settings,
+        );
+
 
       default:
         return MaterialPageRoute(
-          builder: (context) => const MyHomePage(title: ''),
+          builder: (context) => const LoginScreen(),
           settings: settings,
         );
     }
