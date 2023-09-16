@@ -8,7 +8,8 @@ import 'package:hacktheway2023/router/navigation_handler.dart';
 class CommonDialog extends StatelessWidget {
   final String title;
   final String content;
-  const CommonDialog({required this.title, required this.content, super.key});
+  final Function() onTap;
+  const CommonDialog({required this.title, required this.content,required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +55,7 @@ class CommonDialog extends StatelessWidget {
             SizedBox(width: 24 * SizeConfig.widthMultiplier!),
             // Confirm btn
             PrimaryButton(
-              onTap: () {
-                //TODO: show bid placed dialog dialog
-              },
+              onTap:  onTap,
               buttonColor: AppColors.kPureBlack,
               buttonText: 'Confirm',
               borderColor: AppColors.kPureBlack,
