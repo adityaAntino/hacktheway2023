@@ -42,6 +42,7 @@ class DioUtil {
       final SharedPreferences prefs = getIt<SharedPreferences>();
       final String? accessToken = prefs.getString(StringConstant.accessToken);
       options.headers['Authorization'] = 'Bearer $accessToken';
+      options.headers['Platform'] = 'user';
       log('Access Token : $accessToken');
 
       return handler.next(options); //modify your request

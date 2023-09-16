@@ -12,4 +12,6 @@ class AppColors {
   static const Color darkGreen05 = Color(0xFF019C6C);
   static const Color darkBlue1A = Color(0xFF1A1C3D);
   static const Color transparent = Color(0x00fff6f6);
+  static const Color grey3 = Color.fromRGBO(233, 233, 233, 1);
+
 }
