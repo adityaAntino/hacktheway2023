@@ -3,6 +3,10 @@ import 'package:hacktheway2023/features/buy_products/modals/get_all_auctions_mod
 
 abstract class BuyProductsState {}
 
+class BidSet extends BuyProductsState {}
+
+class BidNotSet extends BuyProductsState {}
+
 class BuyProductsInitial extends BuyProductsState {}
 
 class BuyPrioductsLoading extends BuyProductsState {}

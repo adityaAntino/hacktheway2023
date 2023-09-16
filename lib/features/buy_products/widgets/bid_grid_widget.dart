@@ -18,49 +18,52 @@ class BidGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GridView.builder(
-        itemCount: prices.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 20 * SizeConfig.widthMultiplier!,
-          mainAxisSpacing: 20 * SizeConfig.widthMultiplier!,
-          childAspectRatio: 9 / 4,
-        ),
-        itemBuilder: (context, index) {
-          final isCurrentItemSelected = selectedPriceIndex == index;
-          return InkWell(
-            onTap: () {
-              onPriceSelect(index);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: isCurrentItemSelected ? AppColors.greyF5 : null,
-                border: Border.all(
-                  width: 1,
-                  color: isCurrentItemSelected
-                      ? AppColors.kPureBlack
-                      : AppColors.greyAE,
-                ),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    prices[index].toString(),
-                    style: isCurrentItemSelected
-                        ? AppTextStyle.f16W500Black0E
-                        : AppTextStyle.f16W500Grey500.copyWith(
-                            color: AppColors.kPureWhite,
-                          ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: prices.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 20 * SizeConfig.widthMultiplier!,
+        mainAxisSpacing: 20 * SizeConfig.widthMultiplier!,
+        childAspectRatio: 9 / 4,
       ),
+      itemBuilder: (context, index) {
+        final isCurrentItemSelected = selectedPriceIndex == index;
+        return InkWell(
+          onTap: () {
+            onPriceSelect(index);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: isCurrentItemSelected
+                  ? AppColors.baseRed.withOpacity(0.1)
+                  : null,
+              border: Border.all(
+                width: 1,
+                color: isCurrentItemSelected
+                    ? AppColors.baseRed.withOpacity(0.8)
+                    : AppColors.greyF5,
+              ),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '₹${prices[index].toString()}',
+                  style: isCurrentItemSelected
+                      ? AppTextStyle.f16W500Black0E.copyWith(
+                          color: AppColors.baseRed,
+                        )
+                      : AppTextStyle.f16W500Grey500.copyWith(
+                          color: AppColors.kPureBlack,
+                        ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

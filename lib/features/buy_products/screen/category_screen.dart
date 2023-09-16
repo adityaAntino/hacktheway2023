@@ -91,11 +91,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           imageUrl: ImagePath.placeHolderDisplayImage,
                           productName:
                               auctionList[index].itemDescription?.itemName ??
-                                  '-',
+                                  'Product XYZ',
                           isBasePrice: true,
                           biddingPrice:
                               '₹${auctionList[index].itemDescription?.initialPrice ?? '-'}',
-                          bidEndTime: '11h: 35m: 47s',
+                          bidEndTime: '',
                           onTap: () {
                             BulandDarwaza.pushNamed(
                               context,

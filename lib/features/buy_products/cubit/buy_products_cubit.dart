@@ -8,8 +8,19 @@ class BuyProductsCubit extends Cubit<BuyProductsState> {
 
   final _buyProductsRepo = BuyProductsRepository();
 
+  int bidAmount = 0;
+
   void resetInitState() {
     emit(BuyProductsInitial());
+  }
+
+  void setBid(int amount) {
+    if (amount > 0) {
+      emit(BidSet());
+      bidAmount = amount;
+    } else {
+      emit(BidNotSet());
+    }
   }
 
   Future<void> getAllAuctions() async {

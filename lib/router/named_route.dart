@@ -92,7 +92,6 @@ mixin GenerateRoute {
           settings: settings,
         );
       case RouteName.placeABidScreen:
-        arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (context) => const PlaceABidScreen(),
         );
