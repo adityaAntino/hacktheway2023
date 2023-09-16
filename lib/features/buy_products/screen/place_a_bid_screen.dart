@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/common_dialog.dart';
 import 'package:hacktheway2023/common/common_text_field.dart';
@@ -22,11 +22,15 @@ class PlaceABidScreen extends StatefulWidget {
 class _PlaceABidScreenState extends State<PlaceABidScreen> {
   TextEditingController bidController = TextEditingController();
   BuyProductsCubit? buyProductsCubit;
+  int amount = 0;
 
   @override
   void initState() {
     super.initState();
     buyProductsCubit = BlocProvider.of(context);
+    bidController.addListener(() {
+      buyProductsCubit?.setBid(int.parse(bidController.text.trim()));
+    });
   }
 
   @override
@@ -48,27 +52,34 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
           padding: EdgeInsets.symmetric(
             horizontal: 16 * SizeConfig.widthMultiplier!,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 30 * SizeConfig.heightMultiplier!),
-              SizedBox(
-                height: 126 * SizeConfig.heightMultiplier!,
-                child: const BidGridList(),
-              ),
-              SizedBox(height: 16 * SizeConfig.heightMultiplier!),
-              Text(
-                'Custom Bid',
-                style: AppTextStyle.f16W500Black0E,
-              ),
-              SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-              CommonTextField(
-                textEditingController: bidController,
-                hintText: 'Eg. 500',
-                textInputType: TextInputType.number,
-              ),
-              SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-            ],
+          child: BlocListener<BuyProductsCubit, BuyProductsState>(
+            listener: (context, state) {
+              if (state is BidSet) {
+                amount = state.amount;
+              }
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30 * SizeConfig.heightMultiplier!),
+                SizedBox(
+                  height: 126 * SizeConfig.heightMultiplier!,
+                  child: const BidGridList(),
+                ),
+                SizedBox(height: 16 * SizeConfig.heightMultiplier!),
+                Text(
+                  'Custom Bid',
+                  style: AppTextStyle.f16W500Black0E,
+                ),
+                SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                CommonTextField(
+                  textEditingController: bidController,
+                  hintText: 'Eg. 500',
+                  textInputType: TextInputType.number,
+                ),
+                SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+              ],
+            ),
           ),
         ),
       ),
@@ -82,16 +93,25 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
             return PrimaryButton(
               fontSize: 18 * SizeConfig.textMultiplier!,
               onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return CommonDialog(
-                      title: 'Place Bid',
-                      content: 'Are you sure you want to place this bet?',
-                      onTap: () {},
-                    );
-                  },
-                );
+                if (state is BidSet) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CommonDialog(
+                        title: 'Place Bid',
+                        content: 'Are you sure you want to place this bet?',
+                        onTap: () {
+                          buyProductsCubit?.placeBid(
+                            amount: amount,
+                            id: '',
+                          );
+                        },
+                      );
+                    },
+                  );
+                } else {
+                  Fluttertoast.showToast(msg: 'Place a bid first!');
+                }
               },
               buttonColor:
                   (state is BidSet) ? AppColors.kPureBlack : AppColors.greyF5,

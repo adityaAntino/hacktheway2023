@@ -122,7 +122,7 @@ class ProductOverviewCard extends StatelessWidget {
                               style: AppTextStyle.f12W400grey80,
                             ),
                             Text(
-                              biddingPrice,
+                              '₹ $biddingPrice',
                               style: AppTextStyle.f16W700Black0E,
                             ),
                           ],
@@ -143,7 +143,7 @@ class ProductOverviewCard extends StatelessWidget {
                               style: AppTextStyle.f14W400Grey80,
                             ),
                             Text(
-                              biddingPrice,
+                              '₹ $biddingPrice',
                               style: AppTextStyle.f16W700Black0E,
                             )
                           ],

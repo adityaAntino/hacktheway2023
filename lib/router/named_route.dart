@@ -6,7 +6,9 @@ import 'package:hacktheway2023/features/authentication/screen/verify_otp.dart';
 import 'package:hacktheway2023/features/buy_products/screen/place_a_bid_screen.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/features/my_bids/screen/auction_detail_screen.dart';
+import 'package:hacktheway2023/features/onboarding/screen/onboarding_screen.dart';
 import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
+import 'package:hacktheway2023/features/sell_products/modal/get_auctions_modal.dart';
 import 'package:hacktheway2023/features/sell_products/screen/sell_auction_detail_screen.dart';
 import 'package:hacktheway2023/features/sell_products/screen/sell_product_screen.dart';
 import 'package:hacktheway2023/main.dart';
@@ -25,6 +27,9 @@ abstract class RouteName {
   ///AUTHENTICATION
   static const String sendOtpScreen = '/sendOtpScreen';
   static const String verifyOtpScreen = '/verifyOtpScreen';
+
+  ///ONBOARDING
+  static const String onboardingScreen = '/onboardingScreen';
 
   ///MY BIDS
   static const String auctionDetailsScreen = '/auctionDetailsScreen';
@@ -58,6 +63,13 @@ mixin GenerateRoute {
           builder: (context) => VerifyOtpScreen(
             phoneNumber: arguments["phoneNumber"] as String,
           ),
+          settings: settings,
+        );
+
+        ///ONBOARDING
+      case RouteName.onboardingScreen:
+        return MaterialPageRoute(
+          builder: (context) => const OnboardingScreen(),
           settings: settings,
         );
 
@@ -103,8 +115,11 @@ mixin GenerateRoute {
           settings: settings,
         );
       case RouteName.sellAuctionDetailScreen:
+        arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (context) => const SellAuctionDetailScreen(),
+          builder: (context) => SellAuctionDetailScreen(
+            auctionDetail: arguments['auctionDetail'] as Datum,
+          ),
           settings: settings,
         );
 

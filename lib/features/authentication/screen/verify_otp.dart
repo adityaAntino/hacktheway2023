@@ -80,15 +80,21 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                       return const CustomScreenLoader();
                     }
                     if (state is OtpSuccess) {
-                      BulandDarwaza.pushReplacementNamed(context,
-                          routeName: RouteName.dashboardScreen);
+                      if (state.verifyOtpResponse.data?.user?.email == null ||
+                          state.verifyOtpResponse.data?.user?.email == "") {
+                        BulandDarwaza.pushReplacementNamed(context,
+                            routeName: RouteName.onboardingScreen);
+                      } else {
+                        BulandDarwaza.pushReplacementNamed(context,
+                            routeName: RouteName.dashboardScreen);
+                      }
                       context.read<AuthenticationCubit>().resetState();
                     } else if (state is OtpFailed) {
                       Fluttertoast.showToast(msg: 'Failed to Validate OTP');
                       context.read<AuthenticationCubit>().resetState();
                     }
                     return PrimaryButton(
-                      borderRadius: 24.0,
+                        borderRadius: 24.0,
                         onTap: () {
                           if (pinController.text.length < 6) {
                             Fluttertoast.showToast(

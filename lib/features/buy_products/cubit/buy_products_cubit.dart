@@ -16,11 +16,15 @@ class BuyProductsCubit extends Cubit<BuyProductsState> {
 
   void setBid(int amount) {
     if (amount > 0) {
-      emit(BidSet());
+      emit(BidSet(amount));
       bidAmount = amount;
     } else {
       emit(BidNotSet());
     }
+  }
+
+  Future<void> placeBid({required int amount, required String id}) async {
+    emit(PlaceBidLoading());
   }
 
   Future<void> getAllAuctions() async {

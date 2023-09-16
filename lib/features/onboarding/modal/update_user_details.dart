@@ -1,7 +1,7 @@
 
 
 
-class VerifyOtpResponse {
+class UpdateUserDetails {
   String? message;
   Data? data;
   String? name;
@@ -11,7 +11,7 @@ class VerifyOtpResponse {
   Error? query;
   double? time;
 
-  VerifyOtpResponse({
+  UpdateUserDetails({
     this.message,
     this.data,
     this.name,
@@ -22,7 +22,7 @@ class VerifyOtpResponse {
     this.time,
   });
 
-  factory VerifyOtpResponse.fromJson(Map<String, dynamic> json) => VerifyOtpResponse(
+  factory UpdateUserDetails.fromJson(Map<String, dynamic> json) => UpdateUserDetails(
     message: json["message"],
     data: json["data"] == null ? null : Data.fromJson(json["data"]),
     name: json["name"],
@@ -37,23 +37,6 @@ class VerifyOtpResponse {
 }
 
 class Data {
-  String? token;
-  User? user;
-
-  Data({
-    this.token,
-    this.user,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    token: json["token"],
-    user: json["user"] == null ? null : User.fromJson(json["user"]),
-  );
-
-
-}
-
-class User {
   String? userType;
   String? id;
   String? mobileNo;
@@ -64,7 +47,7 @@ class User {
   String? gender;
   String? name;
 
-  User({
+  Data({
     this.userType,
     this.id,
     this.mobileNo,
@@ -76,7 +59,7 @@ class User {
     this.name,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
     userType: json["userType"],
     id: json["_id"],
     mobileNo: json["mobileNo"],
@@ -96,6 +79,5 @@ class Error {
 
   factory Error.fromJson(Map<String, dynamic> json) => Error(
   );
-
 
 }

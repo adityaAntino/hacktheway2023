@@ -1,10 +1,32 @@
 import 'package:dio/dio.dart';
 import 'package:hacktheway2023/config/dio_service.dart';
+import 'package:hacktheway2023/features/buy_products/modals/get_all_auctions_modal.dart';
 import 'package:hacktheway2023/features/sell_products/modal/auction_start_response_modal.dart';
+import 'package:hacktheway2023/features/sell_products/modal/get_auctions_modal.dart';
 import 'package:hacktheway2023/router/api_route.dart';
 
 class SellProductRepository {
   final Dio? dioInstance = DioUtil().getInstance();
+
+  Future<GetAuctionsModal> getAuctionsRepo() async {
+    try {
+      final apiUrl = ApiRoute.getAllAuction;
+      final response = await dioInstance?.get(apiUrl);
+      if (response != null && response.statusCode == 200) {
+        final Map<String, dynamic> jsonResponse =
+            response.data as Map<String, dynamic>;
+        return GetAuctionsModal.fromJson(jsonResponse);
+      } else {
+        return GetAuctionsModal(
+            code: response?.statusCode,
+            message: response?.statusMessage,
+            status: 'error');
+      }
+    } catch (error) {
+      return GetAuctionsModal(
+          code: 500, message: error.toString(), status: 'error');
+    }
+  }
 
   Future<AuctionStartResponseModal> startAuctionRepo(
       {required String productName,
@@ -35,18 +57,14 @@ class SellProductRepository {
     }
   }
 
-  Future<void> closeAuction() async {
+  Future<void> closeAuctionRepo() async {
     try {
       final apiUrl = ApiRoute.closeAuction;
-      final response = await dioInstance?.post(apiUrl,data: {
-
-      });
-      if(response != null && response.statusCode == 200){
+      final response = await dioInstance?.post(apiUrl, data: {});
+      if (response != null && response.statusCode == 200) {
         final Map<String, dynamic> jsonResponse =
-        response.data as Map<String, dynamic>;
+            response.data as Map<String, dynamic>;
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 }

@@ -93,8 +93,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               auctionList[index].itemDescription?.itemName ??
                                   'Product XYZ',
                           isBasePrice: true,
-                          biddingPrice:
-                              '₹${auctionList[index].itemDescription?.initialPrice ?? '-'}',
+                          biddingPrice: auctionList[index]
+                                  .itemDescription
+                                  ?.initialPrice ??
+                              '-',
                           bidEndTime: '',
                           onTap: () {
                             BulandDarwaza.pushNamed(

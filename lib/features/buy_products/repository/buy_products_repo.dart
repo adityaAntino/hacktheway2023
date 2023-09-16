@@ -27,4 +27,14 @@ class BuyProductsRepository {
       return null;
     }
   }
+
+  Future<void> placeBid({required int amount, required String id}) async {
+    final apiUrl = ApiRoute.placeBid;
+    try {
+      final response = await dioInstance?.post('$apiUrl/id');
+      print('place bid respone- ${response.toString()}');
+    } catch (e) {
+      log('Place Bid Error- ${e.toString()}');
+    }
+  }
 }
