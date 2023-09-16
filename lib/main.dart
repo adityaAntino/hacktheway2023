@@ -8,11 +8,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hacktheway2023/common/maintainance_screen.dart';
+import 'package:hacktheway2023/config/get_it.dart';
 import 'package:hacktheway2023/config/messaging_service.dart';
 import 'package:hacktheway2023/config/size_config.dart';
+import 'package:hacktheway2023/constant/app_colors.dart';
+import 'package:hacktheway2023/features/authentication/cubit/authentication_cubit.dart';
+import 'package:hacktheway2023/features/authentication/cubit/authentication_state.dart';
+import 'package:hacktheway2023/features/authentication/screen/login_screen.dart';
+import 'package:hacktheway2023/features/authentication/screen/splash_screen.dart';
+import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
+import 'package:hacktheway2023/features/sell_products/cubit/sell_products_cubit.dart';
+import 'package:hacktheway2023/features/sell_products/cubit/sell_products_state.dart';
+import 'package:hacktheway2023/router/named_route.dart';
 
 void main() async {
-
+  setupGetIt();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -56,28 +66,44 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 800),
-      minTextAdapt: true,
-      builder: (BuildContext context, Widget? child) {
-        return LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return OrientationBuilder(
-              builder: (BuildContext context, Orientation orientation) {
-                SizeConfig().init(constraints, orientation);
-                return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  title: 'Flutter Demo',
-                  theme: ThemeData(
-                    primarySwatch: Colors.blue,
-                  ),
-                  home: const MyHomePage(title: 'Flutter Demo Home Page'),
-                );
-              },
-            );
-          },
-        );
-      },
+    return MultiBlocProvider(
+      providers: [
+        ///AUTHENTICATION CUBIT
+        BlocProvider(
+            create: (BuildContext context) =>
+                AuthenticationCubit(AuthInitial())),
+
+        ///SELL PRODUCT - START AUCTION
+        BlocProvider(
+            create: (BuildContext context) =>
+                SellProductsCubit(StartAuctionInitial())),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(360, 800),
+        minTextAdapt: true,
+        builder: (BuildContext context, Widget? child) {
+          return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return OrientationBuilder(
+                builder: (BuildContext context, Orientation orientation) {
+                  SizeConfig().init(constraints, orientation);
+                  return MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    title: 'Auction Buddy',
+                    onGenerateRoute: GenerateRoute.generateRoute,
+                    initialRoute: '/',
+                    theme: ThemeData(
+                      fontFamily: 'Mulish',
+                      scaffoldBackgroundColor: AppColors.kPureWhite,
+                    ),
+                    home: const SplashScreen(),
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
