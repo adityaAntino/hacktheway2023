@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hacktheway2023/common/custom_bottom_navbar_item.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
-import 'package:hacktheway2023/features/home_screen/screen/buy_screen.dart';
-import 'package:hacktheway2023/features/home_screen/screen/my_bids.dart';
-import 'package:hacktheway2023/features/home_screen/screen/my_profile.dart';
-import 'package:hacktheway2023/features/home_screen/screen/sell_screen.dart';
+import 'package:hacktheway2023/features/buy_products/screen/buy_screen.dart';
+import 'package:hacktheway2023/features/my_bids/screen/my_bids.dart';
+import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
+import 'package:hacktheway2023/features/sell_products/screen/sell_screen.dart';
 
 class DashboardScreeen extends StatefulWidget {
   const DashboardScreeen({super.key});

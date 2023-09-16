@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hacktheway2023/features/home_screen/screen/dashboard_screen.dart';
-import 'package:hacktheway2023/features/home_screen/screen/my_profile.dart';
+import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
+import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
 import 'package:hacktheway2023/main.dart';
 
 abstract class RouteName {
