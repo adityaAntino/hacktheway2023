@@ -9,9 +9,13 @@ class ApiRoute {
   static String sendOtp = '${mainUrl}auth/send-otp';
   static String verifyOtp = '${mainUrl}auth/verify-otp';
 
+  ///ONBOARDING
+  static String updateUserDetails = '${mainUrl}user';
+
   ///SELL PRODUCT - START AUCTION
   static String startAuction = '${mainUrl}auction';
   static String closeAuction = '${mainUrl}auction/bid/close';
+  static String getAllAuction = '${mainUrl}auction';
 
   ///BUY PRODUCTS
   static String getAuctions = '${mainUrl}auction';
