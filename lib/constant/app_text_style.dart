@@ -99,6 +99,12 @@ class AppTextStyle {
     color: AppColors.grey500,
   );
 
+  static TextStyle f20W600Black0E = TextStyle(
+    fontSize: 20 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black0E,
+  );
+
   static TextStyle f28W400Black2E = TextStyle(
     fontSize: 28 * SizeConfig.textMultiplier!,
     fontWeight: FontWeight.w400,

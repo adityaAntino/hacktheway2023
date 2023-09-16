@@ -41,8 +41,13 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
               ///Product Overview Card
               ProductOverviewCard(
                 onTap: () {
-                  BulandDarwaza.pushNamed(context,
-                      routeName: RouteName.auctionDetailsScreen);
+                  BulandDarwaza.pushNamed(
+                    context,
+                    routeName: RouteName.auctionDetailsScreen,
+                    arguments: {
+                      'isMyBid': true,
+                    },
+                  );
                 },
                 imageUrl: ImagePath.productImagePng,
                 productName: 'OnePlus Nord CE 2 Lite 5G',
