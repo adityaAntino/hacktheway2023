@@ -13,9 +13,11 @@ class ImagePath {
   static String icProfile = 'assets/images/my_profile_icon.svg';
 
 
-
   ///MY BIDS
   static String productImagePng = 'assets/images/product_image.png';
+
+  ///SELL PRODUCT
+  static String uploadIconSvg = 'assets/images/upload_icon.svg';
 
 
   ///LOTTIE

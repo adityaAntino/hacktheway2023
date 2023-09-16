@@ -6,7 +6,11 @@ class ApiRoute{
 
   static String mainUrl = '$baseUrl/api/v1/';
 
+  ///AUTHENTICATION
   static String sendOtp = '${mainUrl}auth/send-otp';
   static String verifyOtp = '${mainUrl}auth/verify-otp';
+
+  ///SELL PRODUCT - START AUCTION
+  static String startAuction = '${mainUrl}auction';
 
 }
