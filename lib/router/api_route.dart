@@ -20,6 +20,8 @@ class ApiRoute {
   static String getBidCount = '${mainUrl}auction';
 
   ///BUY PRODUCTS
-  static String getAuctions = '${mainUrl}auction';
-  static String placeBid = '${mainUrl}auction/bid';
+  static String auction = '${mainUrl}auction';
+
+  // MY BIDS
+  static String userBids = '${mainUrl}user/bids';
 }

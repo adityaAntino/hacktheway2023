@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
+import 'package:hacktheway2023/common/custom_empty_screen.dart';
+import 'package:hacktheway2023/common/custom_screen_loader.dart';
+import 'package:hacktheway2023/common/helper_function.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/app_text_style.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
+import 'package:hacktheway2023/features/my_bids/cubit/my_bids_cubit.dart';
+import 'package:hacktheway2023/features/my_bids/cubit/my_bids_state.dart';
+import 'package:hacktheway2023/features/my_bids/modals/my_bids_modal.dart'
+    as MyBidsModal;
 import 'package:hacktheway2023/router/named_route.dart';
 import 'package:hacktheway2023/router/navigation_handler.dart';
 
@@ -20,6 +28,15 @@ class MyBidsScreen extends StatefulWidget {
 }
 
 class _MyBidsScreenState extends State<MyBidsScreen> {
+  MyBidsCubit? myBidsCubit;
+  List<MyBidsModal.Datum> myBids = [];
+  @override
+  void initState() {
+    super.initState();
+    myBidsCubit = BlocProvider.of(context);
+    myBidsCubit?.getMyBids();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,26 +52,74 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
             horizontal: 24.0 * SizeConfig.widthMultiplier!),
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ///Product Overview Card
-              ProductOverviewCard(
-                onTap: () {
-                  BulandDarwaza.pushNamed(
-                    context,
-                    routeName: RouteName.auctionDetailsScreen,
-                    arguments: {
-                      'isMyBid': true,
-                    },
-                  );
-                },
-                imageUrl: ImagePath.productImagePng,
-                productName: 'OnePlus Nord CE 2 Lite 5G',
-                biddingPrice: '₹15,000',
-                bidEndTime: '11h : 35m : 47s ',
-              ),
-            ],
+          child: BlocConsumer<MyBidsCubit, MyBidsState>(
+            listener: (context, state) {
+              if (state is MyBidsSuccess) {
+                myBids = state.myBids ?? [];
+              }
+            },
+            builder: (context, state) {
+              if (state is MyBidsLoading) {
+                return const CustomScreenLoader();
+              }
+              if (state is MyBidsEmpty) {
+                return CustomEmptyScreen(
+                  message:
+                      'Failed to get you bids at the moment, try again later!',
+                );
+              }
+              if (state is MyBidsFailed) {
+                return CustomEmptyScreen(
+                  message:
+                      'Something went wrong while fetching your bids, try again later!',
+                );
+              }
+              return ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: myBids.length,
+                  separatorBuilder: (context, index) {
+                    return SizedBox(height: 8 * SizeConfig.heightMultiplier!);
+                  },
+                  itemBuilder: (context, index) {
+                    return ProductOverviewCard(
+                      onTap: () {
+                        BulandDarwaza.pushNamed(
+                          context,
+                          routeName: RouteName.auctionDetailsScreen,
+                          arguments: {
+                            'isMyBid': true,
+                            'isWon': (myBids[index].won ?? false),
+                            'productDetails': {
+                              'productName':
+                                  myBids[index].itemDescription?.itemName ??
+                                      '-',
+                              'productDescription':
+                                  myBids[index].itemDescription?.itemInfo ??
+                                      'Product info',
+                              'basePrice':
+                                  myBids[index].itemDescription?.initialPrice ??
+                                      '00',
+                              'endTime': myBids[index].endTime ?? 'End time',
+                              'id': myBids[index].id ?? '-',
+                              'ownerName':
+                                  myBids[index].auctioneer ?? 'Owner Name',
+                              'winningAmount':
+                                  (myBids[index].winningBid?.amount ?? 0)
+                                      .toString()
+                            },
+                          },
+                        );
+                      },
+                      imageUrl: ImagePath.productImagePng,
+                      productName:
+                          myBids[index].itemDescription?.itemName ?? '-',
+                      biddingPrice:
+                          myBids[index].itemDescription?.initialPrice ?? '0',
+                      bidEndTime: HelperFunction()
+                          .parseAndFormatDateTime(myBids[index].endTime ?? '-'),
+                    );
+                  });
+            },
           ),
         ),
       ),

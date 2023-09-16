@@ -108,7 +108,7 @@ class ProductOverviewCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Auction Ends In',
+                              'Auction Ends At',
                               style: AppTextStyle.f12W400grey80,
                             ),
                             Text(

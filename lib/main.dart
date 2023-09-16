@@ -13,6 +13,9 @@ import 'package:hacktheway2023/features/authentication/cubit/authentication_stat
 import 'package:hacktheway2023/features/authentication/screen/splash_screen.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
+import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
+import 'package:hacktheway2023/features/my_bids/cubit/my_bids_cubit.dart';
+import 'package:hacktheway2023/features/my_bids/cubit/my_bids_state.dart';
 import 'package:hacktheway2023/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:hacktheway2023/features/onboarding/cubit/onboarding_state.dart';
 import 'package:hacktheway2023/features/sell_products/cubit/sell_products_cubit.dart';
@@ -85,6 +88,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => BuyProductsCubit(
             BuyProductsInitial(),
+          ),
+        ),
+
+        ///MY BIDS
+        BlocProvider(
+          create: (BuildContext context) => MyBidsCubit(
+            MyBidsInitial(),
           ),
         ),
       ],

@@ -9,7 +9,7 @@ class BuyProductsRepository {
 
   Future<GetAllAuctionsModal?> fetchAuctions() async {
     try {
-      final apiUrl = ApiRoute.getAuctions;
+      final apiUrl = ApiRoute.auction;
       final response = await dioInstance?.get(apiUrl);
       final Map<String, dynamic> jsonResponse =
           await response?.data as Map<String, dynamic>;
@@ -28,13 +28,20 @@ class BuyProductsRepository {
     }
   }
 
-  Future<void> placeBid({required int amount, required String id}) async {
-    final apiUrl = ApiRoute.placeBid;
+  Future<String> placeBid({required int amount, required String id}) async {
+    final apiUrl = ApiRoute.auction;
+    String result = 'failed';
     try {
-      final response = await dioInstance?.post('$apiUrl/id');
-      print('place bid respone- ${response.toString()}');
+      final response = await dioInstance?.post('$apiUrl/$id/bid', data: {
+        'BidAmount': amount,
+      });
+      if (response?.statusCode == 200) {
+        result = 'success';
+      }
+      return result;
     } catch (e) {
       log('Place Bid Error- ${e.toString()}');
+      return result;
     }
   }
 }
