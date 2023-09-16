@@ -90,6 +90,7 @@ final auctioneerValues = EnumValues(
     {"65058506d77ff5623b1dec7e": Auctioneer.THE_65058506_D77_FF5623_B1_DEC7_E});
 
 class ItemDescription {
+
   String? itemName;
   String? initialPrice;
   String? itemInfo;

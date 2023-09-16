@@ -34,4 +34,19 @@ class SellProductRepository {
           code: 500, message: error.toString(), status: 'error');
     }
   }
+
+  Future<void> closeAuction() async {
+    try {
+      final apiUrl = ApiRoute.closeAuction;
+      final response = await dioInstance?.post(apiUrl,data: {
+
+      });
+      if(response != null && response.statusCode == 200){
+        final Map<String, dynamic> jsonResponse =
+        response.data as Map<String, dynamic>;
+      }
+    } catch (error) {
+
+    }
+  }
 }
