@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
+import 'package:hacktheway2023/features/my_bids/screen/auction_detail_screen.dart';
 import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
 import 'package:hacktheway2023/main.dart';
 
@@ -9,6 +10,9 @@ abstract class RouteName {
   static const String loginScreen = '/loginScreen';
   static const String myProfileScreen = '/myProflileScreen';
   static const String dashboardScreen = '/dashboardScreen';
+
+  ///MY BIDS
+  static const String auctionDetailsScreen = '/auctionDetailsScreen';
 }
 
 mixin GenerateRoute {
@@ -31,6 +35,14 @@ mixin GenerateRoute {
           builder: (context) => const MyProfileScreen(),
           settings: settings,
         );
+
+      ///MY BIDS
+      case RouteName.auctionDetailsScreen:
+        return MaterialPageRoute(
+          builder: (context) => const AuctionDetailScreen(),
+          settings: settings,
+        );
+
       // case RouteName.pledgeSubmitScreen:
       //   arguments as Map<String, dynamic>;
       //   return MaterialPageRoute(

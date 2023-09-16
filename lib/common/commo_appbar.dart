@@ -53,7 +53,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Icon(
-                  Icons.arrow_back,
+                  Icons.arrow_back_ios_new,
                   color: appBarBgColor == AppColors.kPureBlack
                       ? AppColors.kPureWhite
                       : AppColors.kPureBlack,

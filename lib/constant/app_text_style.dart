@@ -15,10 +15,52 @@ class AppTextStyle {
     color: AppColors.kPureBlack,
   );
 
+  static TextStyle f16W500Black0E = TextStyle(
+    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w500,
+    color: AppColors.black0E,
+  );
+
+  static TextStyle f16W700Black0E = TextStyle(
+    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w700,
+    color: AppColors.black0E,
+  );
+
   static TextStyle f14W400Black = TextStyle(
     fontSize: 16 * SizeConfig.textMultiplier!,
     fontWeight: FontWeight.w400,
     color: AppColors.kPureBlack,
+  );
+
+  static TextStyle f14W400grey80 = TextStyle(
+    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w400,
+    color: AppColors.grey80,
+  );
+
+  static TextStyle f12W400grey80 = TextStyle(
+    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w400,
+    color: AppColors.grey80,
+  );
+
+  static TextStyle f14W500darkGreen500 = TextStyle(
+    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w500,
+    color: AppColors.darkGreen05,
+  );
+
+  static TextStyle f14W500darkBlue1A = TextStyle(
+    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w500,
+    color: AppColors.darkBlue1A,
+  );
+
+  static TextStyle f14W400Grey80 = TextStyle(
+    fontSize: 16 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w400,
+    color: AppColors.grey80,
   );
 
   static TextStyle f18W500Black = TextStyle(
