@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hacktheway2023/features/buy_products/screen/category_screen.dart';
 import 'package:hacktheway2023/features/authentication/screen/login_screen.dart';
 import 'package:hacktheway2023/features/authentication/screen/verify_otp.dart';
+import 'package:hacktheway2023/features/buy_products/screen/place_a_bid_screen.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/features/my_bids/screen/auction_detail_screen.dart';
 import 'package:hacktheway2023/features/profile/screen/my_profile.dart';
@@ -17,6 +18,7 @@ abstract class RouteName {
 
   // BUY PRODUCTS
   static const String categoryScreen = '/categoryScreen';
+  static const String placeABidScreen = '/placeABidScreen';
 
   ///AUTHENTICATION
   static const String sendOtpScreen = '/sendOtpScreen';
@@ -24,7 +26,6 @@ abstract class RouteName {
 
   ///MY BIDS
   static const String auctionDetailsScreen = '/auctionDetailsScreen';
-
 
   ///SELL PRODUCT
   static const String sellProductScreen = '/sellProductScreen';
@@ -87,14 +88,18 @@ mixin GenerateRoute {
           ),
           settings: settings,
         );
+      case RouteName.placeABidScreen:
+        arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (context) => const PlaceABidScreen(),
+        );
 
-    ///SELL PRODUCT
+      ///SELL PRODUCT
       case RouteName.sellProductScreen:
         return MaterialPageRoute(
           builder: (context) => const SellProductScreen(),
           settings: settings,
         );
-
 
       default:
         return MaterialPageRoute(
