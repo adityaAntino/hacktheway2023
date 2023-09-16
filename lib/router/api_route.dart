@@ -19,4 +19,5 @@ class ApiRoute {
 
   ///BUY PRODUCTS
   static String getAuctions = '${mainUrl}auction';
+  static String placeBid = '${mainUrl}auction/bid';
 }

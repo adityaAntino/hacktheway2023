@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
-import 'package:hacktheway2023/common/common_dialog.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
-import 'package:hacktheway2023/common/success_alert_dialog.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
+import 'package:hacktheway2023/router/named_route.dart';
 import 'package:hacktheway2023/router/navigation_handler.dart';
 
 class AuctionDetailScreen extends StatefulWidget {
@@ -51,32 +50,24 @@ class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16 * SizeConfig.widthMultiplier!,
-          vertical: 8 * SizeConfig.heightMultiplier!,
-        ),
-        child: PrimaryButton(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return CommonDialog(
-                  title: widget.isMyBid ? 'End Auction' : 'Place Bid',
-                  content: widget.isMyBid
-                      ? 'Are you sure you want to end this auction?'
-                      : 'Are you sure you want to place this bet?',
-                  onTap: (){
-
-                  },
-                );
-              },
-            );
-          },
-          buttonColor: AppColors.kPureBlack,
-          buttonText: widget.isMyBid ? 'End Auction' : 'Bid Now',
-        ),
-      ),
+      bottomNavigationBar: (widget.isMyBid)
+          ? const SizedBox()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16 * SizeConfig.widthMultiplier!,
+                vertical: 8 * SizeConfig.heightMultiplier!,
+              ),
+              child: PrimaryButton(
+                onTap: () {
+                  BulandDarwaza.pushNamed(
+                    context,
+                    routeName: RouteName.placeABidScreen,
+                  );
+                },
+                buttonColor: AppColors.kPureBlack,
+                buttonText: 'Bid Now',
+              ),
+            ),
     );
   }
 }

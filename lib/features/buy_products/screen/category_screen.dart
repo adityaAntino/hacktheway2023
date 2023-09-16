@@ -45,40 +45,41 @@ class _CategoryScreenState extends State<CategoryScreen> {
         appBarBgColor: AppColors.kPureBlack,
         title: widget.title,
       ),
-      body: BlocConsumer<BuyProductsCubit, BuyProductsState>(
-        listener: (context, state) {
-          if (state is BuyProductsSuccess) {
-            auctionList = state.auctionsList ?? [];
-          }
-        },
-        builder: (context, state) {
-          if (state is BuyPrioductsLoading) {
-            return const CustomScreenLoader(size: 50);
-          }
-          if (state is BuyProductsEmpty) {
-            return CustomEmptyScreen(
-              message: 'No Auctions Available at the time, try again later!',
-            );
-          }
-          if (state is BuyProductsFailed) {
-            return CustomEmptyScreen(
-              message:
-                  'Failed to load Auctions at the moment, try again later!',
-            );
-          }
-          return ScrollConfiguration(
-            behavior: const ScrollBehavior().copyWith(overscroll: false),
-            child: RefreshIndicator(
-              color: AppColors.black7A,
-              onRefresh: () async {
-                buyProductsCubit?.getAllAuctions();
+      body: ScrollConfiguration(
+        behavior: const ScrollBehavior().copyWith(overscroll: false),
+        child: RefreshIndicator(
+          color: AppColors.black7A,
+          onRefresh: () async {
+            buyProductsCubit?.getAllAuctions();
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16 * SizeConfig.widthMultiplier!,
+              vertical: 8 * SizeConfig.heightMultiplier!,
+            ),
+            child: BlocConsumer<BuyProductsCubit, BuyProductsState>(
+              listener: (context, state) {
+                if (state is BuyProductsSuccess) {
+                  auctionList = state.auctionsList ?? [];
+                }
               },
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16 * SizeConfig.widthMultiplier!,
-                  vertical: 8 * SizeConfig.heightMultiplier!,
-                ),
-                child: ListView.builder(
+              builder: (context, state) {
+                if (state is BuyPrioductsLoading) {
+                  return const CustomScreenLoader(size: 50);
+                }
+                if (state is BuyProductsEmpty) {
+                  return CustomEmptyScreen(
+                    message:
+                        'No Auctions Available at the time, try again later!',
+                  );
+                }
+                if (state is BuyProductsFailed) {
+                  return CustomEmptyScreen(
+                    message:
+                        'Failed to load Auctions at the moment, try again later!',
+                  );
+                }
+                return ListView.builder(
                     shrinkWrap: true,
                     itemCount: auctionList.length,
                     itemBuilder: (context, index) {
@@ -90,11 +91,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           imageUrl: ImagePath.placeHolderDisplayImage,
                           productName:
                               auctionList[index].itemDescription?.itemName ??
-                                  '-',
+                                  'Product XYZ',
                           isBasePrice: true,
-                          biddingPrice:
-                              '₹${auctionList[index].itemDescription?.initialPrice ?? '-'}',
-                          bidEndTime: '11h: 35m: 47s',
+                          biddingPrice: auctionList[index]
+                                  .itemDescription
+                                  ?.initialPrice ??
+                              '-',
+                          bidEndTime: '',
                           onTap: () {
                             BulandDarwaza.pushNamed(
                               context,
@@ -104,11 +107,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           },
                         ),
                       );
-                    }),
-              ),
+                    });
+              },
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

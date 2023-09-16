@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:hacktheway2023/config/dio_service.dart';
-import 'package:hacktheway2023/features/authentication/modal/send_otp_response_modal.dart';
-import 'package:hacktheway2023/features/authentication/modal/verify_otp_response_modal.dart';
 import 'package:hacktheway2023/features/buy_products/modals/get_all_auctions_modal.dart';
 import 'package:hacktheway2023/router/api_route.dart';
 
@@ -28,6 +25,16 @@ class BuyProductsRepository {
     } catch (error) {
       log('Get All Auctions Repo Error- ${error.toString()}');
       return null;
+    }
+  }
+
+  Future<void> placeBid({required int amount, required String id}) async {
+    final apiUrl = ApiRoute.placeBid;
+    try {
+      final response = await dioInstance?.post('$apiUrl/id');
+      print('place bid respone- ${response.toString()}');
+    } catch (e) {
+      log('Place Bid Error- ${e.toString()}');
     }
   }
 }
