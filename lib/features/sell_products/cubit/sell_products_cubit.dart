@@ -8,6 +8,11 @@ class SellProductsCubit extends Cubit<SellProductsState>{
 
   final SellProductRepository sellProductRepository = SellProductRepository();
 
+
+  void resetState(){
+    emit(StartAuctionInitial());
+  }
+
   Future<void> startAuction({required String productName,
     required String basePrice,
     required String description,
@@ -17,7 +22,9 @@ class SellProductsCubit extends Cubit<SellProductsState>{
     if(auctionStartResponseModal.code == 201){
       emit(StartAuctionSuccess());
     }else{
-      emit(StartAuctionError());
+      emit(StartAuctionError(
+        message: auctionStartResponseModal.message ?? 'Please try again later'
+      ));
     }
   }
 }
