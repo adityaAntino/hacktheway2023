@@ -28,4 +28,23 @@ class AuthenticationRepo {
           code: 500, message: error.toString(), status: 'error');
     }
   }
+
+  Future<void> verifyOtpRepo({required String phoneNo, required String otp}) async {
+    try{
+      final String apiUrl = ApiRoute.verifyOtp;
+      final response = await dioInstance?.post(apiUrl,data: {
+        "mobileNo":phoneNo,
+        "otp":otp
+      });
+      if ( response != null && response.statusCode == 200 ) {
+        final Map<String, dynamic> jsonResponse =
+        response.data as Map<String, dynamic>;
+      }else{
+
+      }
+
+    }catch(error){
+
+    }
+  }
 }
