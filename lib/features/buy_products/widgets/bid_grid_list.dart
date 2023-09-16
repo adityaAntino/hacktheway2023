@@ -7,7 +7,9 @@ import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.da
 import 'package:hacktheway2023/features/buy_products/widgets/bid_grid_widget.dart';
 
 class BidGridList extends StatefulWidget {
+  final int basePrice;
   const BidGridList({
+    required this.basePrice,
     super.key,
   });
 
@@ -26,6 +28,15 @@ class _BidGridListState extends State<BidGridList> {
     3000,
   ];
   int selectedPriceIndex = -1;
+  @override
+  void initState() {
+    super.initState();
+    for (var element in prices) {
+      element + widget.basePrice;
+    }
+    print('prices- $prices');
+  }
+
   @override
   Widget build(BuildContext context) {
     return BidGridWidget(

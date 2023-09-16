@@ -66,7 +66,7 @@ mixin GenerateRoute {
           settings: settings,
         );
 
-        ///ONBOARDING
+      ///ONBOARDING
       case RouteName.onboardingScreen:
         return MaterialPageRoute(
           builder: (context) => const OnboardingScreen(),
@@ -90,6 +90,7 @@ mixin GenerateRoute {
         return MaterialPageRoute(
           builder: (context) => AuctionDetailScreen(
             isMyBid: arguments['isMyBid'] as bool,
+            productDetails: arguments['productDetails'] as Map<String, dynamic>,
           ),
           settings: settings,
         );
@@ -104,8 +105,12 @@ mixin GenerateRoute {
           settings: settings,
         );
       case RouteName.placeABidScreen:
+        arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (context) => const PlaceABidScreen(),
+          builder: (context) => PlaceABidScreen(
+            id: arguments['id'] as String,
+            baseAmount: arguments['baseAmount'] as String,
+          ),
         );
 
       ///SELL PRODUCT

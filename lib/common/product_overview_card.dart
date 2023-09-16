@@ -156,15 +156,20 @@ class ProductOverviewCard extends StatelessWidget {
               ///BID END TIME - isDetailed(FALSE)
               (!isDetailed)
                   ? Column(
-                    children: [
-                      SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            Text(
+                              'Ends at: ',
+                              style: AppTextStyle.f14W400Grey80,
+                            ),
                             Text(
                               bidEndTime,
                               style: AppTextStyle.f14W500darkGreen500,
                             ),
+                            const Spacer(),
                             isBasePrice
                                 ? PrimaryButton(
                                     onTap: onTap,
@@ -179,8 +184,8 @@ class ProductOverviewCard extends StatelessWidget {
                                 : const SizedBox.shrink(),
                           ],
                         ),
-                    ],
-                  )
+                      ],
+                    )
                   : const SizedBox.shrink()
             ],
           ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/custom_empty_screen.dart';
 import 'package:hacktheway2023/common/custom_screen_loader.dart';
+import 'package:hacktheway2023/common/helper_function.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
@@ -80,34 +81,56 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   );
                 }
                 return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: auctionList.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10 * SizeConfig.heightMultiplier!,
+                  shrinkWrap: true,
+                  itemCount: auctionList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10 * SizeConfig.heightMultiplier!,
+                      ),
+                      child: ProductOverviewCard(
+                        imageUrl: ImagePath.placeHolderDisplayImage,
+                        productName:
+                            auctionList[index].itemDescription?.itemName ??
+                                'Product XYZ',
+                        isBasePrice: true,
+                        biddingPrice:
+                            auctionList[index].itemDescription?.initialPrice ??
+                                '-',
+                        bidEndTime: HelperFunction().parseAndFormatDateTime(
+                          auctionList[index].endTime ?? '',
                         ),
-                        child: ProductOverviewCard(
-                          imageUrl: ImagePath.placeHolderDisplayImage,
-                          productName:
-                              auctionList[index].itemDescription?.itemName ??
-                                  'Product XYZ',
-                          isBasePrice: true,
-                          biddingPrice: auctionList[index]
-                                  .itemDescription
-                                  ?.initialPrice ??
-                              '-',
-                          bidEndTime: '',
-                          onTap: () {
-                            BulandDarwaza.pushNamed(
-                              context,
-                              routeName: RouteName.auctionDetailsScreen,
-                              arguments: {'isMyBid': false},
-                            );
-                          },
-                        ),
-                      );
-                    });
+                        onTap: () {
+                          Map<String, dynamic> productDetails = {
+                            'productName':
+                                auctionList[index].itemDescription?.itemName ??
+                                    'Product XYZ',
+                            'basePrice': auctionList[index]
+                                    .itemDescription
+                                    ?.initialPrice ??
+                                '-',
+                            'productDescription':
+                                auctionList[index].itemDescription?.itemInfo ??
+                                    'Product XYZ',
+                            'endTime': HelperFunction().parseAndFormatDateTime(
+                              auctionList[index].endTime ?? '',
+                            ),
+                            'id': auctionList[index].id ?? '-',
+                            'ownerName': auctionList[index].auctioneer ?? '-',
+                          };
+                          BulandDarwaza.pushNamed(
+                            context,
+                            routeName: RouteName.auctionDetailsScreen,
+                            arguments: {
+                              'isMyBid': false,
+                              'productDetails': productDetails,
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
               },
             ),
           ),
