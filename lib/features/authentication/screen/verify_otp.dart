@@ -32,7 +32,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
       },
       child: Scaffold(
         appBar: CommonAppBar(
-          isLead: false,
+          isLead: true,
           title: '',
           appBarBgColor: AppColors.kPureWhite,
           parentContext: context,
@@ -40,6 +40,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20 * SizeConfig.heightMultiplier!),
               Text(
@@ -48,7 +49,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
               ),
               SizedBox(height: 20 * SizeConfig.heightMultiplier!),
               Text(
-                'A Verification code has been sent to \n +91-XXXXXX${widget.phoneNumber.substring(widget.phoneNumber.length - 4, widget.phoneNumber.length)}',
+                'A Verification code has been sent to +91-${widget.phoneNumber}',
                 style: AppTextStyle.f14W400Black,
               ),
               SizedBox(height: 44 * SizeConfig.heightMultiplier!),
@@ -75,6 +76,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                         .read<AuthenticationCubit>().resetState();
                   } else if (state is OtpFailed) {
                     Fluttertoast.showToast(msg: 'Failed to Validate OTP');
+                    context
+                        .read<AuthenticationCubit>().resetState();
                   }
                   return PrimaryButton(
                       onTap: () {

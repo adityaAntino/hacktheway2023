@@ -9,7 +9,7 @@ import 'package:hacktheway2023/main.dart';
 abstract class RouteName {
   RouteName._();
 
-  static const String loginScreen = '/loginScreen';
+  // static const String loginScreen = '/loginScreen';
   static const String myProfileScreen = '/myProflileScreen';
   static const String dashboardScreen = '/dashboardScreen';
 

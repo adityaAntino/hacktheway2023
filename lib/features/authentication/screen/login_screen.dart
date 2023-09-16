@@ -50,13 +50,15 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 height: 45 * SizeConfig.heightMultiplier!,
                 decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.grey80),
+                    border: Border.all(
+                      color: AppColors.grey3.withOpacity(0.5),
+                    ),
                     borderRadius: BorderRadius.circular(
                         8 * SizeConfig.heightMultiplier!)),
                 child: Row(
                   children: [
                     Container(
-                      color: AppColors.grey80,
+                      color: AppColors.grey3.withOpacity(0.25),
                       padding:
                           EdgeInsets.all(12 * SizeConfig.heightMultiplier!),
                       child: const Text(
@@ -67,7 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: 16),
                       ),
                     ),
-                    Container(color: AppColors.grey80),
+                    Container(
+                        color: AppColors.grey3.withOpacity(0.25), width: 1),
                     Expanded(
                       child: TextFormField(
                         maxLength: 10,
@@ -115,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                   return PrimaryButton(
                       onTap: () {
-                        if (mobileNumber.length > 10) {
+                        if (mobileNumber.length >= 10) {
                           mobileNoFormFieldKey.currentState?.save();
                           context
                               .read<AuthenticationCubit>()

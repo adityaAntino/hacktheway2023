@@ -8,16 +8,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hacktheway2023/common/maintainance_screen.dart';
+import 'package:hacktheway2023/config/get_it.dart';
 import 'package:hacktheway2023/config/messaging_service.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/features/authentication/cubit/authentication_cubit.dart';
 import 'package:hacktheway2023/features/authentication/cubit/authentication_state.dart';
 import 'package:hacktheway2023/features/authentication/screen/login_screen.dart';
+import 'package:hacktheway2023/features/authentication/screen/splash_screen.dart';
 import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
 import 'package:hacktheway2023/router/named_route.dart';
 
 void main() async {
+  setupGetIt();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -86,7 +89,7 @@ class MyApp extends StatelessWidget {
                       fontFamily: 'Mulish',
                       scaffoldBackgroundColor: AppColors.kPureWhite,
                     ),
-                    home: const LoginScreen(),
+                    home: const SplashScreen(),
                   );
                 },
               );
