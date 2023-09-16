@@ -45,6 +45,12 @@ class AppTextStyle {
     color: AppColors.kPureBlack,
   );
 
+  static TextStyle f14W400Black7A = TextStyle(
+    fontSize: 14 * SizeConfig.textMultiplier!,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black7A,
+  );
+
   static TextStyle f14W400greyAE = TextStyle(
     fontSize: 14 * SizeConfig.textMultiplier!,
     fontWeight: FontWeight.w400,
