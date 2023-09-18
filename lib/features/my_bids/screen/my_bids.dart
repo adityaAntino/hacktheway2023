@@ -99,7 +99,8 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
                               'basePrice':
                                   myBids[index].itemDescription?.initialPrice ??
                                       '00',
-                              'endTime': myBids[index].endTime ?? 'End time',
+                              'endTime':HelperFunction()
+                                  .parseAndFormatDateTime(myBids[index].endTime ?? '-') ?? 'End time',
                               'id': myBids[index].id ?? '-',
                               'ownerName':
                                   myBids[index].auctioneer ?? 'Owner Name',
