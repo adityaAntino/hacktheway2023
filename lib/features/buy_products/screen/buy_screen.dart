@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
-import 'package:hacktheway2023/common/helper_function.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/app_text_style.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
+import 'package:hacktheway2023/constant/string_constant.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
 import 'package:hacktheway2023/features/buy_products/shimmer/product_shimmer.dart';
@@ -29,16 +31,9 @@ class BuyScreen extends StatefulWidget {
 
 class _BuyScreenState extends State<BuyScreen> {
   List<getAllAuctionsModal.Datum> listOfAuction = [];
-  List<String> productImage = [
-    ImagePath.mobileImage,
-    ImagePath.laptopImage,
-    ImagePath.headphoneImage,
-    ImagePath.propertyImage,
-    ImagePath.mobileImage,
-    ImagePath.laptopImage,
-    ImagePath.headphoneImage,
-    ImagePath.propertyImage,
-  ];
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -49,6 +44,7 @@ class _BuyScreenState extends State<BuyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: CommonAppBar(
         appBarBgColor: AppColors.kPureBlack,
         parentContext: context,
@@ -57,10 +53,7 @@ class _BuyScreenState extends State<BuyScreen> {
         isLead: false,
         isCustomLead: true,
         onLeadingTap: () {
-          BulandDarwaza.pushNamed(
-            context,
-            routeName: RouteName.myProfileScreen,
-          );
+            _key.currentState?.openDrawer();
         },
       ),
       body: ScrollConfiguration(
@@ -107,7 +100,6 @@ class _BuyScreenState extends State<BuyScreen> {
                             return buildCategories(
                               isCategory: true,
                               categoryTitle: 'Categories',
-                              // productImage: productImage,
                               categories: [
                                 {
                                   'title': 'Mobile Phones',
@@ -154,7 +146,7 @@ class _BuyScreenState extends State<BuyScreen> {
                         }
                         return buildProducts(
                           categoryTitle: 'Ending Soon',
-                          productImage: productImage,
+                          productImage: StringConstant().productImage,
                           itemData: listOfAuction,
                           imageHeight: 160 * SizeConfig.heightMultiplier!,
                           imageWidth: 130 * SizeConfig.widthMultiplier!,
@@ -182,7 +174,7 @@ class _BuyScreenState extends State<BuyScreen> {
                         }
                         return buildProducts(
                           categoryTitle: 'Popular',
-                          productImage: productImage,
+                          productImage: StringConstant().productImage,
                           itemData: listOfAuction,
                           imageHeight: 170 * SizeConfig.heightMultiplier!,
                           imageWidth: 135 * SizeConfig.widthMultiplier!,
@@ -194,6 +186,75 @@ class _BuyScreenState extends State<BuyScreen> {
               },
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget customDrawer() {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(horizontal: 6 * SizeConfig.widthMultiplier!),
+      color: AppColors.kPureWhite,
+      child: Column(
+        children: [
+          SizedBox(height: 38 * SizeConfig.heightMultiplier!),
+
+          ///PROFILE IMAGE
+          Center(
+            child: Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundColor: AppColors.transparent,
+                  foregroundImage: AssetImage(ImagePath.userProfile),
+                ),
+                Container(
+                    decoration: const BoxDecoration(
+                        color: AppColors.blackDA,
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.camera_alt),
+                    ))
+              ],
+            ),
+          ),
+          SizedBox(height: 16 * SizeConfig.heightMultiplier!),
+
+          customDrawerTile(
+              title: 'Personal Details',
+              icon: Icons.houseboat_rounded,
+              onTap: () {
+                Fluttertoast.showToast(msg: 'Personal Details Coming Soon');
+              }),
+        ],
+      ),
+    );
+  }
+
+  Widget customDrawerTile(
+      {required String title,
+      required IconData icon,
+      required VoidCallback onTap}) {
+    return InkWell(
+      splashColor: AppColors.red500,
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(icon),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                title,
+                style: AppTextStyle.f14W400Black,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -212,7 +273,7 @@ class _BuyScreenState extends State<BuyScreen> {
       height: imageHeight + 84 * SizeConfig.heightMultiplier!,
       child: ListView.separated(
         separatorBuilder: (context, index) {
-          return SizedBox(width: 8 * SizeConfig.widthMultiplier!);
+          return SizedBox(width: 16 * SizeConfig.widthMultiplier!);
         },
         shrinkWrap: true,
         itemCount: itemData?.length ?? 0,
@@ -225,11 +286,10 @@ class _BuyScreenState extends State<BuyScreen> {
                     itemData?[index].itemDescription?.itemName ?? 'Product XYZ',
                 'basePrice':
                     itemData?[index].itemDescription?.initialPrice ?? '-',
+                'productImage': productImage[index],
                 'productDescription':
                     itemData?[index].itemDescription?.itemInfo ?? 'Product XYZ',
-                'endTime': HelperFunction().parseAndFormatDateTime(
-                  itemData?[index].endTime ?? '',
-                ),
+                'endTime': itemData?[index].endTime ?? '',
                 'id': itemData?[index].id ?? '-',
                 'ownerName': itemData?[index].auctioneer ?? '-',
               };

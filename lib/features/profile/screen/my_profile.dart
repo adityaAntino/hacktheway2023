@@ -8,12 +8,10 @@ import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/app_text_style.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
-import 'package:hacktheway2023/features/authentication/modal/verify_otp_response_modal.dart';
 import 'package:hacktheway2023/features/onboarding/modal/get_user_modal.dart';
 import 'package:hacktheway2023/features/profile/cubit/profile_cubit.dart';
 import 'package:hacktheway2023/features/profile/cubit/profile_state.dart';
 import 'package:hacktheway2023/features/profile/widget/log_out_alert.dart';
-import 'package:intl/intl.dart';
 
 class MyProfileScreen extends StatefulWidget {
   final bool isBack;
@@ -142,7 +140,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
                   const Spacer(),
 
-                  Text('Account created: ${HelperFunction().formatDateddMMyyyyy(userData?.createdAt.toString() ?? '')}',style: AppTextStyle.f12W400grey80,),
+                  (userData?.createdAt != null) ? Text('Account created: ${HelperFunction().formatDateddMMyyyyy(userData?.createdAt.toString() ?? '')}',style: AppTextStyle.f12W400grey80,) : const SizedBox.shrink(),
                 ],
               );
             },

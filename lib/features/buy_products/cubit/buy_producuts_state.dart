@@ -26,6 +26,10 @@ class PlaceBidFailed extends BuyProductsState {}
 
 class PlaceBidSuccess extends BuyProductsState {}
 
+class PlaceBidCustomError extends BuyProductsState {}
+
+
+
 class BuyProductsSuccess extends BuyProductsState {
   List<getAllAuctionsModal.Datum>? auctionsList;
   BuyProductsSuccess(this.auctionsList);

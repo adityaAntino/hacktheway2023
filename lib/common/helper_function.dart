@@ -12,7 +12,7 @@ class HelperFunction {
       final dateTime = inputFormat.parse(inputString);
 
       // Define the output format as dd/MM/yy h:mm:a
-      final outputFormat = DateFormat("dd/MM/yy h:mm:ss");
+      final outputFormat = DateFormat("d MMMM yyyy, h:mm a");
 
       // Format the DateTime object as per the output format
       final formattedDateTime = outputFormat.format(dateTime.toLocal());

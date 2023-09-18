@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
+import 'package:hacktheway2023/common/helper_function.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
 import 'package:hacktheway2023/common/product_overview_card.dart';
 import 'package:hacktheway2023/config/size_config.dart';
@@ -33,44 +34,47 @@ class _AuctionDetailScreenState extends State<AuctionDetailScreen> {
         title: 'Auction Details',
         appBarBgColor: AppColors.kPureBlack,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 16.0 * SizeConfig.heightMultiplier!,
-          horizontal: 24.0 * SizeConfig.widthMultiplier!,
-        ),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ProductOverviewCard(
-                onTap: () {},
-                isDetailed: true,
-                productDescription:
-                    widget.productDetails?['productDescription'] ??
-                        'Product XYZ',
-                ownerName: widget.productDetails?['ownerName'] ?? 'Owner Name',
-                imageUrl: ImagePath.productImagePng,
-                productName:
-                    widget.productDetails?['productName'] ?? 'Product XYZ',
-                biddingPrice: widget.productDetails?['basePrice'] ?? '00',
-                bidEndTime: widget.productDetails?['endTime'] ?? '00',
-              ),
-              SizedBox(height: 24 * SizeConfig.heightMultiplier!),
-              (widget.isWon ?? false)
-                  ? Text(
-                      'You had the highest bid.',
-                      style: AppTextStyle.f14W500darkGreen500,
-                    )
-                  : const SizedBox.shrink(),
-              SizedBox(height: 4 * SizeConfig.heightMultiplier!),
-              (widget.isWon ?? false)
-                  ? Text(
-                      'Please proceed to checkout to complete payment.',
-                      style: AppTextStyle.f14W500darkGreen500,
-                    )
-                  : const SizedBox.shrink(),
-            ],
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 16.0 * SizeConfig.heightMultiplier!,
+            horizontal: 24.0 * SizeConfig.widthMultiplier!,
+          ),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ProductOverviewCard(
+                  onTap: () {},
+                  isDetailed: true,
+                  productDescription:
+                      widget.productDetails?['productDescription'] ??
+                          'Product XYZ',
+                  ownerName: widget.productDetails?['ownerName'] ?? 'Owner Name',
+                  imageUrl: widget.productDetails?['productImage'] ?? ImagePath.placeHolderDisplayImage,
+                  productName:
+                      widget.productDetails?['productName'] ?? 'Product XYZ',
+                  biddingPrice: widget.productDetails?['basePrice'] ?? '00',
+                  bidEndTime: HelperFunction().parseAndFormatDateTime(widget.productDetails?['endTime']) ?? '00',
+                ),
+                SizedBox(height: 24 * SizeConfig.heightMultiplier!),
+                (widget.isWon ?? false)
+                    ? Text(
+                        'You had the highest bid.',
+                        style: AppTextStyle.f14W500darkGreen500,
+                      )
+                    : const SizedBox.shrink(),
+                SizedBox(height: 4 * SizeConfig.heightMultiplier!),
+                (widget.isWon ?? false)
+                    ? Text(
+                        'Please proceed to checkout to complete payment.',
+                        style: AppTextStyle.f14W500darkGreen500,
+                      )
+                    : const SizedBox.shrink(),
+              ],
+            ),
           ),
         ),
       ),

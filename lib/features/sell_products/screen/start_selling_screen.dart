@@ -127,10 +127,8 @@ class _StartSellingState extends State<StartSelling> {
                                         .itemDescription?.initialPrice ??
                                     '-',
                                 imageUrl: ImagePath.productImagePng,
-                                bidEndTime: HelperFunction()
-                                    .parseAndFormatDateTime(_getAuctionsModal
-                                            .data?[index].endTime ??
-                                        ''),
+                                bidEndTime: HelperFunction().parseAndFormatDateTime(_getAuctionsModal
+                                            .data?[index].endTime ?? ''),
                               ),
                             )
                           : const SizedBox.shrink(),

@@ -32,7 +32,9 @@ class BuyProductsCubit extends Cubit<BuyProductsState> {
     final result = await _buyProductsRepo.placeBid(amount: amount, id: id);
     if (result.toLowerCase() == 'success') {
       emit(PlaceBidSuccess());
-    } else {
+    } else if(result == 'alreadyBid'){
+      emit(PlaceBidCustomError());
+    }else {
       emit(PlaceBidFailed());
     }
   }

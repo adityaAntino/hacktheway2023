@@ -29,7 +29,7 @@ class CommonWidgetCubit extends Cubit<CommonWidgetState> {
         final minutes = remaining.inMinutes.remainder(60);
         final seconds = remaining.inSeconds.remainder(60);
         remainingTime =
-            '${hours.toString().padLeft(2, '0')} hours ${minutes.toString().padLeft(2, '0')} minute ${seconds.toString().padLeft(2, '0')} seconds';
+            '${hours.toString().padLeft(2, '0')} hour ${minutes.toString().padLeft(2, '0')} minute ${seconds.toString().padLeft(2, '0')} second';
       }
       print(remainingTime);
       emit(ProductTimerSuccess(remainingTime: remainingTime));

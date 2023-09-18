@@ -83,7 +83,7 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                     basePrice: int.parse(widget.baseAmount),
                   ),
                 ),
-                SizedBox(height: 16 * SizeConfig.heightMultiplier!),
+                SizedBox(height: 34 * SizeConfig.heightMultiplier!),
                 Text(
                   'Custom Bid',
                   style: AppTextStyle.f16W500Black0E,
@@ -109,6 +109,10 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
         builder: (context, state) {
           if (state is PlaceBidLoading) {
             return const CustomScreenLoader();
+          }
+          if (state is PlaceBidCustomError) {
+            Fluttertoast.showToast(
+                msg: 'You cannot place bid in your own auction');
           }
           if (state is PlaceBidSuccess) {
             WidgetsBinding.instance.addPostFrameCallback(
