@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/custom_screen_loader.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
 import 'package:hacktheway2023/config/size_config.dart';
@@ -86,6 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                                 maxLength: 10,
                                 key: mobileNoFormFieldKey,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
                                 onChanged: (String? newValue) {
                                   setState(() {
                                     mobileNumber = newValue ?? '';
@@ -128,14 +131,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (state is AuthLoading) {
                             return const CustomScreenLoader();
                           }
-                            if (state is AuthSuccess) {
-                              BulandDarwaza.pushNamed(context,
-                                  routeName: RouteName.verifyOtpScreen,
-                                  arguments: {"phoneNumber": mobileNumber});
-                              context
-                                  .read<AuthenticationCubit>().resetState();
-                              Fluttertoast.showToast(msg: 'Success');
-                            }
+                          if (state is AuthSuccess) {
+                            BulandDarwaza.pushNamed(context,
+                                routeName: RouteName.verifyOtpScreen,
+                                arguments: {"phoneNumber": mobileNumber});
+                            context.read<AuthenticationCubit>().resetState();
+                            Fluttertoast.showToast(msg: 'Success');
+                          }
                           return PrimaryButton(
                               borderRadius: 24,
                               onTap: () {

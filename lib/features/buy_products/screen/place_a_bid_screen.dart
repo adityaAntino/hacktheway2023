@@ -40,7 +40,10 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
     super.initState();
     buyProductsCubit = BlocProvider.of(context);
     bidController.addListener(() {
-      buyProductsCubit?.setBid(int.parse(bidController.text.trim()));
+      if (bidController.text.isNotEmpty) {
+        buyProductsCubit?.setBid(int.parse(bidController.text.trim()));
+        buyProductsCubit?.emitState(RemoveSuggestedBid());
+      }
     });
   }
 
@@ -60,47 +63,59 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
         parentContext: context,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16 * SizeConfig.widthMultiplier!,
-          ),
-          child: BlocListener<BuyProductsCubit, BuyProductsState>(
-            listener: (context, state) {
-              if (state is BidSet) {
-                amount = state.amount;
-                if (amount > int.parse(bidController.text.trim())) {
+        child: GestureDetector(
+          onTap: () {
+            // FocusScope.of(context).unfocus();
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16 * SizeConfig.widthMultiplier!,
+            ),
+            child: BlocListener<BuyProductsCubit, BuyProductsState>(
+              listener: (context, state) {
+                if (state is BidSet) {
+                  amount = state.amount;
+                  if (bidController.text.isNotEmpty &&
+                      amount > int.parse(bidController.text.trim())) {
+                    bidController.clear();
+                  }
+                }
+                if (state is BidNotSet) {
+                  amount = 0;
+                }
+                if (state is RemoveCustomBid) {
                   bidController.clear();
                 }
-              }
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30 * SizeConfig.heightMultiplier!),
-                SizedBox(
-                  height: 126 * SizeConfig.heightMultiplier!,
-                  child: BidGridList(
-                    basePrice: int.parse(widget.baseAmount),
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 30 * SizeConfig.heightMultiplier!),
+                  SizedBox(
+                    height: 126 * SizeConfig.heightMultiplier!,
+                    child: BidGridList(
+                      basePrice: int.parse(widget.baseAmount),
+                    ),
                   ),
-                ),
-                SizedBox(height: 16 * SizeConfig.heightMultiplier!),
-                Text(
-                  'Custom Bid',
-                  style: AppTextStyle.f16W500Black0E,
-                ),
-                SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-                CommonTextField(
-                  textEditingController: bidController,
-                  hintText: 'Eg. ₹${(widget.baseAmount)}',
-                  textInputType: TextInputType.number,
-                  onChanged: (value) {},
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  interactiveSelection: false,
-                ),
-                SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-              ],
+                  SizedBox(height: 16 * SizeConfig.heightMultiplier!),
+                  Text(
+                    'Custom Bid',
+                    style: AppTextStyle.f16W500Black0E,
+                  ),
+                  SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                  CommonTextField(
+                    textEditingController: bidController,
+                    hintText: 'Eg. ₹${(widget.baseAmount)}',
+                    textInputType: TextInputType.number,
+                    onChanged: (value) {},
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    interactiveSelection: false,
+                  ),
+                  SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                ],
+              ),
             ),
           ),
         ),
@@ -146,34 +161,38 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
             child: PrimaryButton(
               fontSize: 18 * SizeConfig.textMultiplier!,
               onTap: () {
+                if (amount == 0) {
+                  Fluttertoast.showToast(msg: 'Place a bid first!');
+                }
                 if (amount < int.parse(widget.baseAmount)) {
                   Fluttertoast.showToast(
                     msg:
                         'Your bid must be greater than ₹${int.parse(widget.baseAmount)}',
                   );
-                } else if (state is BidSet) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CommonDialog(
-                        title: 'Place Bid',
-                        content: 'Are you sure you want to place this bet?',
-                        onTap: () {
-                          buyProductsCubit?.placeBid(
-                            amount: amount,
-                            id: widget.id,
-                          );
-                          BulandDarwaza.pop(context);
-                        },
-                      );
-                    },
-                  );
-                } else {
-                  Fluttertoast.showToast(msg: 'Place a bid first!');
                 }
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return CommonDialog(
+                      title: 'Place Bid',
+                      content: 'Are you sure you want to place this bet?',
+                      onTap: () {
+                        buyProductsCubit?.placeBid(
+                          amount: amount,
+                          id: widget.id,
+                        );
+                        BulandDarwaza.pop(context);
+                      },
+                    );
+                  },
+                );
               },
               buttonColor:
-                  (state is BidSet) ? AppColors.kPureBlack : AppColors.greyF5,
+                  (amount > int.parse(widget.baseAmount) || state is BidSet)
+                      ? AppColors.kPureBlack
+                      : (state is BidNotSet)
+                          ? AppColors.greyF5
+                          : AppColors.greyF5,
               buttonText: 'Place your bid',
             ),
           );
