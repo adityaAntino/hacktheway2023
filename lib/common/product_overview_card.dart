@@ -36,7 +36,7 @@ class ProductOverviewCard extends StatefulWidget {
     this.statusButtonOnTap,
     this.status = '',
     this.highestBiddingPrice = '',
-    this.statusButtonText = '',
+    this.statusButtonText,
     this.statusButtonColor = AppColors.kPureBlack,
     this.statusButtonTextColor = AppColors.kPureWhite,
     this.productDescription,
@@ -148,95 +148,74 @@ class _ProductOverviewCardState extends State<ProductOverviewCard> {
                             ),
                             SizedBox(height: 25 * SizeConfig.heightMultiplier!),
                           ],
-                        )
-                      : const SizedBox.shrink(),
+                        ),
+                        SizedBox(height: 25 * SizeConfig.heightMultiplier!),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
 
-                  ///BIDING PRICE - isDetailed(TRUE)
-                  (widget.isDetailed)
-                      ? Column(
+              ///BIDDING PRICE - isDetailed(FALSE)
+              (!isDetailed)
+                  ? Column(
+                      children: [
+                        Row(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Base Price: ',
-                                  style: AppTextStyle.f12W400grey80,
-                                ),
-                                Text(
-                                  '₹ ${widget.biddingPrice}',
-                                  style: AppTextStyle.f16W700Black0E,
-                                ),
-                              ],
+                            Text(
+                              'Base Price: ',
+                              style: AppTextStyle.f14W400Grey80,
+
                             ),
                             SizedBox(height: 25 * SizeConfig.heightMultiplier!),
                           ],
                         )
                       : const SizedBox.shrink(),
 
-                  ///BIDDING PRICE - isDetailed(FALSE)
-                  (!widget.isDetailed)
-                      ? Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Base Price: ',
-                                  style: AppTextStyle.f14W400Grey80,
-                                ),
-                                Text(
-                                  '₹ ${widget.biddingPrice}',
-                                  style: AppTextStyle.f16W700Black0E,
-                                )
-                              ],
-                            ),
-                            SizedBox(height: 2 * SizeConfig.heightMultiplier!),
-                          ],
-                        )
-                      : const SizedBox.shrink(),
-
-                  ///BID END TIME - isDetailed(FALSE)
-                  (!widget.isDetailed)
-                      ? Column(
-                          children: [
-                            SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Ends in: ',
-                                  style: AppTextStyle.f14W400Grey80,
-                                ),
-                                (state is ProductTimerLoading) ? const CupertinoActivityIndicator() :
-                                Text(
-                                  remainingTime,
-                                  style: AppTextStyle.f14W500darkGreen500.copyWith(fontSize: 10,color: Colors.red),
-                                ),
-                                const Spacer(),
-                                widget.isBasePrice
-                                    ? PrimaryButton(
-                                        onTap: widget.statusButtonOnTap,
-                                        textColor:
-                                            widget.statusButtonTextColor ??
-                                                AppColors.kPureWhite,
-                                        buttonColor: widget.statusButtonColor ??
-                                            AppColors.kPureBlack,
-                                        buttonText: widget.statusButtonText ??
-                                            'Bid Now',
-                                        borderRadius: 19,
-                                        outerVerticalPadding:
-                                            10 * SizeConfig.heightMultiplier!,
-                                        outerHorizontalPadding:
-                                            10 * SizeConfig.widthMultiplier!,
-                                      )
-                                    : const SizedBox.shrink(),
-                              ],
-                            ),
-                          ],
-                        )
-                      : const SizedBox.shrink()
-                ],
-              ),
-            ),
+              ///BID END TIME - isDetailed(FALSE)
+              (!isDetailed)
+                  ? Column(
+                      children: [
+                        SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                        ((status ?? 'pending').toLowerCase() == 'completed')
+                            ? PrimaryButton(
+                                onTap: statusButtonOnTap,
+                                buttonColor:
+                                    statusButtonColor ?? AppColors.kPureWhite,
+                                buttonText: statusButtonText ?? '-',
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Ends at: ',
+                                    style: AppTextStyle.f14W400Grey80,
+                                  ),
+                                  Text(
+                                    bidEndTime,
+                                    style: AppTextStyle.f14W500darkGreen500,
+                                  ),
+                                  const Spacer(),
+                                  isBasePrice
+                                      ? PrimaryButton(
+                                          onTap: statusButtonOnTap,
+                                          textColor: statusButtonTextColor ??
+                                              AppColors.kPureWhite,
+                                          buttonColor: statusButtonColor ??
+                                              AppColors.kPureBlack,
+                                          buttonText:
+                                              statusButtonText ?? 'Bid Now',
+                                          borderRadius: 19,
+                                          outerVerticalPadding:
+                                              10 * SizeConfig.heightMultiplier!,
+                                          outerHorizontalPadding:
+                                              24 * SizeConfig.widthMultiplier!,
+                                        )
+                                      : const SizedBox.shrink(),
+                                ],
+                              ),
+                      ],
+                    )
+                  : const SizedBox.shrink()
+            ],
           ),
         );
       },

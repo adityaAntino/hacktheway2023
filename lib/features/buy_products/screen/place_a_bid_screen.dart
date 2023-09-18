@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
@@ -90,8 +91,13 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                 SizedBox(height: 8 * SizeConfig.heightMultiplier!),
                 CommonTextField(
                   textEditingController: bidController,
-                  hintText: 'Eg. 500',
+                  hintText: 'Eg. ₹${(widget.baseAmount)}',
                   textInputType: TextInputType.number,
+                  onChanged: (value) {},
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  interactiveSelection: false,
                 ),
                 SizedBox(height: 8 * SizeConfig.heightMultiplier!),
               ],
