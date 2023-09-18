@@ -33,7 +33,6 @@ class _BuyScreenState extends State<BuyScreen> {
   List<getAllAuctionsModal.Datum> listOfAuction = [];
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -53,7 +52,7 @@ class _BuyScreenState extends State<BuyScreen> {
         isLead: false,
         isCustomLead: true,
         onLeadingTap: () {
-            _key.currentState?.openDrawer();
+          _key.currentState?.openDrawer();
         },
       ),
       body: ScrollConfiguration(
@@ -195,7 +194,8 @@ class _BuyScreenState extends State<BuyScreen> {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: 6 * SizeConfig.widthMultiplier!),
+      padding:
+          EdgeInsets.symmetric(horizontal: 6 * SizeConfig.widthMultiplier!),
       color: AppColors.kPureWhite,
       child: Column(
         children: [
@@ -270,7 +270,7 @@ class _BuyScreenState extends State<BuyScreen> {
       String? amount,
       bool isCategory = false}) {
     return SizedBox(
-      height: imageHeight + 84 * SizeConfig.heightMultiplier!,
+      height: imageHeight + 100 * SizeConfig.heightMultiplier!,
       child: ListView.separated(
         separatorBuilder: (context, index) {
           return SizedBox(width: 16 * SizeConfig.widthMultiplier!);
