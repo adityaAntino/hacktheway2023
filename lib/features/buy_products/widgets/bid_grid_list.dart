@@ -18,23 +18,20 @@ class BidGridList extends StatefulWidget {
 }
 
 class _BidGridListState extends State<BidGridList> {
-  // TODO : change prices to dynamic from the api
-  final List<int> prices = [
-    50,
-    100,
-    500,
-    1000,
-    2000,
-    3000,
-  ];
+  List<int> prices = [];
   int selectedPriceIndex = -1;
+
   @override
   void initState() {
     super.initState();
-    for (var element in prices) {
-      element + widget.basePrice;
-    }
-    print('prices- $prices');
+    prices = [
+      50 + ((widget.basePrice ~/ 10) * 10),
+      100 + ((widget.basePrice ~/ 10) * 10),
+      500 + ((widget.basePrice ~/ 10) * 10),
+      1000 + ((widget.basePrice ~/ 10) * 10),
+      2000 + ((widget.basePrice ~/ 10) * 10),
+      3000 + ((widget.basePrice ~/ 10) * 10),
+    ];
   }
 
   @override

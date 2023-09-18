@@ -62,12 +62,15 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : isCustomLead
-              ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SvgPicture.asset(
-                    leadingIcon ?? '',
+              ? GestureDetector(
+                  onTap: onLeadingTap ?? () => BulandDarwaza.pop(parentContext),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SvgPicture.asset(
+                      leadingIcon ?? '',
+                    ),
                   ),
-              )
+                )
               : null,
     );
   }

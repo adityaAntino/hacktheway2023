@@ -16,7 +16,7 @@ class PlaceBidInitial extends BuyProductsState {}
 
 class PlaceBidLoading extends BuyProductsState {}
 
-class BuyPrioductsLoading extends BuyProductsState {}
+class BuyProductsLoading extends BuyProductsState {}
 
 class BuyProductsEmpty extends BuyProductsState {}
 
@@ -25,6 +25,10 @@ class BuyProductsFailed extends BuyProductsState {}
 class PlaceBidFailed extends BuyProductsState {}
 
 class PlaceBidSuccess extends BuyProductsState {}
+
+class PlaceBidCustomError extends BuyProductsState {}
+
+
 
 class BuyProductsSuccess extends BuyProductsState {
   List<getAllAuctionsModal.Datum>? auctionsList;

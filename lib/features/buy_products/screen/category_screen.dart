@@ -8,6 +8,7 @@ import 'package:hacktheway2023/common/product_overview_card.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
+import 'package:hacktheway2023/constant/string_constant.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
 import 'package:hacktheway2023/features/buy_products/modals/get_all_auctions_modal.dart'
@@ -26,6 +27,7 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   List<GetAllAuctionsModal.Datum> auctionList = [];
   BuyProductsCubit? buyProductsCubit;
+
 
   void initState() {
     buyProductsCubit = BlocProvider.of(context);
@@ -65,7 +67,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 }
               },
               builder: (context, state) {
-                if (state is BuyPrioductsLoading) {
+                if (state is BuyProductsLoading) {
                   return const CustomScreenLoader(size: 50);
                 }
                 if (state is BuyProductsEmpty) {
@@ -89,7 +91,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         vertical: 10 * SizeConfig.heightMultiplier!,
                       ),
                       child: ProductOverviewCard(
-                        imageUrl: ImagePath.placeHolderDisplayImage,
+                        imageUrl: StringConstant().productImage[index],
                         productName:
                             auctionList[index].itemDescription?.itemName ??
                                 'Product XYZ',
@@ -112,10 +114,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             'productDescription':
                                 auctionList[index].itemDescription?.itemInfo ??
                                     'Product XYZ',
-                            'endTime': HelperFunction().parseAndFormatDateTime(
+                            'endTime':
                               auctionList[index].endTime ?? '',
-                            ),
                             'id': auctionList[index].id ?? '-',
+                            'productImage': StringConstant().productImage[index],
                             'ownerName': auctionList[index].auctioneer ?? '-',
                           };
                           BulandDarwaza.pushNamed(
@@ -124,6 +126,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             arguments: {
                               'isMyBid': false,
                               'productDetails': productDetails,
+                              'isWon': false
                             },
                           );
                         },

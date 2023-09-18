@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/common_dialog.dart';
 import 'package:hacktheway2023/common/common_text_field.dart';
+import 'package:hacktheway2023/common/custom_screen_loader.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
+import 'package:hacktheway2023/common/success_alert_dialog.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/app_text_style.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
 import 'package:hacktheway2023/features/buy_products/widgets/bid_grid_list.dart';
+import 'package:hacktheway2023/router/named_route.dart';
 import 'package:hacktheway2023/router/navigation_handler.dart';
 
 class PlaceABidScreen extends StatefulWidget {
@@ -44,6 +48,7 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
   void dispose() {
     super.dispose();
     buyProductsCubit?.resetInitState();
+    bidController.dispose();
   }
 
   @override
@@ -63,6 +68,9 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
             listener: (context, state) {
               if (state is BidSet) {
                 amount = state.amount;
+                if (amount > int.parse(bidController.text.trim())) {
+                  bidController.clear();
+                }
               }
             },
             child: Column(
@@ -75,7 +83,7 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                     basePrice: int.parse(widget.baseAmount),
                   ),
                 ),
-                SizedBox(height: 16 * SizeConfig.heightMultiplier!),
+                SizedBox(height: 34 * SizeConfig.heightMultiplier!),
                 Text(
                   'Custom Bid',
                   style: AppTextStyle.f16W500Black0E,
@@ -83,8 +91,13 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                 SizedBox(height: 8 * SizeConfig.heightMultiplier!),
                 CommonTextField(
                   textEditingController: bidController,
-                  hintText: 'Eg. 500',
+                  hintText: 'Eg. ₹${(widget.baseAmount)}',
                   textInputType: TextInputType.number,
+                  onChanged: (value) {},
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  interactiveSelection: false,
                 ),
                 SizedBox(height: 8 * SizeConfig.heightMultiplier!),
               ],
@@ -94,23 +107,41 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
       ),
       bottomNavigationBar: BlocBuilder<BuyProductsCubit, BuyProductsState>(
         builder: (context, state) {
-          // if (state is BidPlaced) {
-          //   showDialog(
-          //     context: context,
-          //     builder: (context) {
-          //       return SuccessAlertDialog(
-          //         description: 'Your Bid has been successfully placed!',
-          //         title: 'Bid Placed',
-          //         onTap: () {
-          //           BulandDarwaza.pushReplacementNamed(
-          //             context,
-          //             routeName: RouteName.categoryScreen,
-          //           );
-          //         },
-          //       );
-          //     },
-          //   );
-          // }
+          if (state is PlaceBidLoading) {
+            return const CustomScreenLoader();
+          }
+          if (state is PlaceBidCustomError) {
+            Fluttertoast.showToast(
+                msg: 'You cannot place bid in your own auction');
+          }
+          if (state is PlaceBidSuccess) {
+            WidgetsBinding.instance.addPostFrameCallback(
+              (timeStamp) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SuccessAlertDialog(
+                      description: 'Your Bid has been successfully placed!',
+                      title: 'Bid Placed',
+                      onTap: () {
+                        BulandDarwaza.pushReplacementNamed(
+                          context,
+                          routeName: RouteName.dashboardScreen,
+                        );
+                        buyProductsCubit?.emitState(PlaceBidInitial());
+                      },
+                    );
+                  },
+                );
+              },
+            );
+          }
+          if (state is PlaceBidFailed) {
+            Fluttertoast.showToast(
+              msg:
+                  'Failed to place the bid at the moment, please try again later!',
+            );
+          }
           return Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 16 * SizeConfig.widthMultiplier!,
@@ -119,7 +150,12 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
             child: PrimaryButton(
               fontSize: 18 * SizeConfig.textMultiplier!,
               onTap: () {
-                if (state is BidSet) {
+                if (amount < int.parse(widget.baseAmount)) {
+                  Fluttertoast.showToast(
+                    msg:
+                        'Your bid must be greater than ₹${int.parse(widget.baseAmount)}',
+                  );
+                } else if (state is BidSet) {
                   showDialog(
                     context: context,
                     builder: (context) {

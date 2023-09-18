@@ -41,6 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
         child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
           builder: (context, state) {
             if (state is GetUserDetailSuccess) {
+
+
               if ((prefs.getString(StringConstant.accessToken) != null) ||
                   (prefs.getString(StringConstant.accessToken) != "")) {
                 if (state.getUserDetails.data?.name != "" &&
@@ -61,6 +63,13 @@ class _SplashScreenState extends State<SplashScreen> {
                     () => BulandDarwaza.pushReplacementNamed(context,
                         routeName: RouteName.sendOtpScreen));
               }
+              context.read<AuthenticationCubit>().resetState();
+            }
+            if(state is GetUserDetailError){
+              Timer(
+                  const Duration(seconds: 2),
+                      () => BulandDarwaza.pushReplacementNamed(context,
+                      routeName: RouteName.sendOtpScreen));
               context.read<AuthenticationCubit>().resetState();
             }
             return Column(

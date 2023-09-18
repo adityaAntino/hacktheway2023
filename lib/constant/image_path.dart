@@ -18,6 +18,10 @@ class ImagePath {
 
   ///MY BIDS
   static String productImagePng = 'assets/images/product_image.png';
+  static String laptopImage = 'assets/images/laptop.jpeg';
+  static String mobileImage = 'assets/images/mobile.png';
+  static String headphoneImage = 'assets/images/headphone.png';
+  static String propertyImage = 'assets/images/properties.png';
 
   ///SELL PRODUCT
   static String uploadIconSvg = 'assets/images/upload_icon.svg';

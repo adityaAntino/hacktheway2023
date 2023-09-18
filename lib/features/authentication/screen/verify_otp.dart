@@ -4,12 +4,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hacktheway2023/common/common_appbar.dart';
 import 'package:hacktheway2023/common/custom_screen_loader.dart';
 import 'package:hacktheway2023/common/primary_button.dart';
+import 'package:hacktheway2023/config/get_it.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/app_text_style.dart';
 import 'package:hacktheway2023/features/authentication/cubit/authentication_cubit.dart';
 import 'package:hacktheway2023/features/authentication/cubit/authentication_state.dart';
 import 'package:hacktheway2023/features/authentication/widget/auth_otp.dart';
+import 'package:hacktheway2023/features/onboarding/modal/get_user_modal.dart';
 import 'package:hacktheway2023/router/named_route.dart';
 import 'package:hacktheway2023/router/navigation_handler.dart';
 

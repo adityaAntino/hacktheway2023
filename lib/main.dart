@@ -1,14 +1,13 @@
 import 'dart:developer';
 
 // import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hacktheway2023/common/cubit/common_widget_cubit.dart';
+import 'package:hacktheway2023/common/cubit/common_widget_state.dart';
 import 'package:hacktheway2023/config/get_it.dart';
-import 'package:hacktheway2023/config/messaging_service.dart';
 import 'package:hacktheway2023/config/size_config.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/features/authentication/cubit/authentication_cubit.dart';
@@ -16,8 +15,13 @@ import 'package:hacktheway2023/features/authentication/cubit/authentication_stat
 import 'package:hacktheway2023/features/authentication/screen/splash_screen.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
+import 'package:hacktheway2023/features/dashboard/screen/dashboard_screen.dart';
+import 'package:hacktheway2023/features/my_bids/cubit/my_bids_cubit.dart';
+import 'package:hacktheway2023/features/my_bids/cubit/my_bids_state.dart';
 import 'package:hacktheway2023/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:hacktheway2023/features/onboarding/cubit/onboarding_state.dart';
+import 'package:hacktheway2023/features/profile/cubit/profile_cubit.dart';
+import 'package:hacktheway2023/features/profile/cubit/profile_state.dart';
 import 'package:hacktheway2023/features/sell_products/cubit/sell_products_cubit.dart';
 import 'package:hacktheway2023/features/sell_products/cubit/sell_products_state.dart';
 import 'package:hacktheway2023/router/named_route.dart';
@@ -88,6 +92,28 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => BuyProductsCubit(
             BuyProductsInitial(),
+          ),
+        ),
+
+        ///MY BIDS
+        BlocProvider(
+          create: (BuildContext context) => MyBidsCubit(
+            MyBidsInitial(),
+          ),
+        ),
+
+        ///MY PROFILE
+        BlocProvider(
+          create: (BuildContext context) => ProfileCubit(
+            ProfileInitial(),
+          ),
+        ),
+
+
+        ///COMMON WIDGET
+        BlocProvider(
+          create: (BuildContext context) => CommonWidgetCubit(
+            CommonWidgetInitial(),
           ),
         ),
       ],

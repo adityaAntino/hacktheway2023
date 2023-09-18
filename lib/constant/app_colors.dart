@@ -14,12 +14,14 @@ class AppColors {
   static const Color yellowRipe = Color(0xfff5c84c);
   static const Color blue6c = Color(0xff6cadef);
   static const Color baseRed = Color(0xFFFF4949);
+  static const Color red500 = Color(0xFFD12E29);
   static const Color grey80 = Color(0xFF808080);
   static const Color greyF5 = Color(0xFFF5F5F5);
   static const Color black0E = Color(0xFF0E0E0E);
   static const Color darkGreen05 = Color(0xFF019C6C);
   static const Color darkBlue1A = Color(0xFF1A1C3D);
   static const Color transparent = Color(0x00fff6f6);
+  static const Color greyEE = Color(0xffEEEEEE);
   static const Color grey3 = Color.fromRGBO(233, 233, 233, 1);
 
 }
