@@ -125,6 +125,10 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
           if (state is PlaceBidLoading) {
             return const CustomScreenLoader();
           }
+          if (state is PlaceBidCustomError) {
+            Fluttertoast.showToast(
+                msg: 'You cannot place bid in your own auction');
+          }
           if (state is PlaceBidSuccess) {
             WidgetsBinding.instance.addPostFrameCallback(
               (timeStamp) {

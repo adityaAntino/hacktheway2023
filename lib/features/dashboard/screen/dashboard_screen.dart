@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hacktheway2023/common/custom_bottom_navbar_item.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/image_path.dart';
@@ -17,7 +18,9 @@ class DashboardScreeen extends StatefulWidget {
 class _DashboardScreeenState extends State<DashboardScreeen> {
   int currentScreen = 0;
   PageController controller = PageController();
+  DateTime? currentBackPressTime;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   Map<String, String> bottomAppBarItems = {
     'Buy': ImagePath.icBuy,
     'Sell': ImagePath.icSell,
@@ -28,8 +31,8 @@ class _DashboardScreeenState extends State<DashboardScreeen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
-
+      onWillPop: () async {
+        onWillPop();
         return false;
       },
       child: Scaffold(
@@ -89,5 +92,17 @@ class _DashboardScreeenState extends State<DashboardScreeen> {
         ),
       ),
     );
+  }
+
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime ?? DateTime.now()) >
+            const Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: 'Press again to exit');
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 }

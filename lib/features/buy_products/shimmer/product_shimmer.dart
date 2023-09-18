@@ -14,24 +14,27 @@ class ProductShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: imageHeight + 34 * SizeConfig.heightMultiplier!,
-      // width: imageWidth + 0 * SizeConfig.widthMultiplier!,
-      child: ListView.separated(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (context, index) => Container(
-                height: imageHeight,
-                width: imageWidth ,
-                decoration: const BoxDecoration(
-                    color: AppColors.greyEE,
-                    borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              ),
-          separatorBuilder: (context, index) => SizedBox(
-                width: 8 * SizeConfig.widthMultiplier!,
-              ),
-          itemCount: 5),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: imageHeight + 34 * SizeConfig.heightMultiplier!,
+        // width: imageWidth + 0 * SizeConfig.widthMultiplier!,
+        child: ListView.separated(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) => Container(
+                  height: imageHeight,
+                  width: imageWidth ,
+                  decoration: const BoxDecoration(
+                      color: AppColors.greyEE,
+                      borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                ),
+            separatorBuilder: (context, index) => SizedBox(
+                  width: 8 * SizeConfig.widthMultiplier!,
+                ),
+            itemCount: 5),
+      ),
     );
   }
 }

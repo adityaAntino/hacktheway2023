@@ -24,7 +24,11 @@ class BuyProductsRepository {
       }
     } catch (error) {
       log('Get All Auctions Repo Error- ${error.toString()}');
-      return null;
+      return GetAllAuctionsModal(
+        data: [],
+        message: error.toString(),
+        status: 'error'
+      );
     }
   }
 
@@ -37,6 +41,8 @@ class BuyProductsRepository {
       });
       if (response?.statusCode == 200) {
         result = 'success';
+      }else if(response?.statusCode == 406){
+        result = 'alreadyBid';
       }
       return result;
     } catch (e) {

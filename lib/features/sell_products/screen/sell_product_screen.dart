@@ -33,6 +33,8 @@ class _SellProductScreenState extends State<SellProductScreen> {
     "18 hours": 18,
     "36 hours": 36,
     "48 hours": 48,
+    "100 hours": 100,
+    "200 hours" : 200
   };
   String selectedEndDuration = '8 hours'; // O
   @override

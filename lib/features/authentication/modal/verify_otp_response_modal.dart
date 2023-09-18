@@ -38,7 +38,7 @@ class VerifyOtpResponse {
 
 class Data {
   String? token;
-  User? user;
+  UserData? user;
 
   Data({
     this.token,
@@ -47,13 +47,13 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     token: json["token"],
-    user: json["user"] == null ? null : User.fromJson(json["user"]),
+    user: json["user"] == null ? null : UserData.fromJson(json["user"]),
   );
 
 
 }
 
-class User {
+class UserData {
   String? userType;
   String? id;
   String? mobileNo;
@@ -64,7 +64,7 @@ class User {
   String? gender;
   String? name;
 
-  User({
+  UserData({
     this.userType,
     this.id,
     this.mobileNo,
@@ -76,7 +76,7 @@ class User {
     this.name,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserData.fromJson(Map<String, dynamic> json) => UserData(
     userType: json["userType"],
     id: json["_id"],
     mobileNo: json["mobileNo"],
@@ -88,6 +88,15 @@ class User {
     name: json["name"],
   );
 
+  void fromModel(UserData userData){
+    userType = userData.userType;
+    id = userData.id;
+    mobileNo = userData.mobileNo;
+    email = userData.email;
+    gender = userData.gender;
+    name = userData.name;
+    createdAt = userData.createdAt;
+  }
 
 }
 

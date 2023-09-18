@@ -41,6 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
         child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
           builder: (context, state) {
             if (state is GetUserDetailSuccess) {
+
+
               if ((prefs.getString(StringConstant.accessToken) != null) ||
                   (prefs.getString(StringConstant.accessToken) != "")) {
                 if (state.getUserDetails.data?.name != "" &&
