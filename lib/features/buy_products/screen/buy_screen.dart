@@ -133,7 +133,7 @@ class _BuyScreenState extends State<BuyScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 12 * SizeConfig.heightMultiplier!),
+                    // SizedBox(height: 12 * SizeConfig.heightMultiplier!),
 
                     // ENDING SOON
                     Text(
@@ -201,7 +201,6 @@ class _BuyScreenState extends State<BuyScreen> {
 
   Widget buildProducts(
       {required String categoryTitle,
-      // required List<Map<String, String>> categories,
       required double imageHeight,
       required double imageWidth,
       required List<String> productImage,

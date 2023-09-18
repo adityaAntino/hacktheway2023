@@ -24,7 +24,11 @@ class BuyProductsRepository {
       }
     } catch (error) {
       log('Get All Auctions Repo Error- ${error.toString()}');
-      return null;
+      return GetAllAuctionsModal(
+        data: [],
+        message: error.toString(),
+        status: 'error'
+      );
     }
   }
 

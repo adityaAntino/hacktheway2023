@@ -1,6 +1,8 @@
+import 'package:hacktheway2023/features/authentication/modal/verify_otp_response_modal.dart';
+
 class GetUserDetails {
   String? message;
-  Data? data;
+  UserData? data;
   String? name;
   String? status;
   int? code;
@@ -21,7 +23,7 @@ class GetUserDetails {
 
   factory GetUserDetails.fromJson(Map<String, dynamic> json) => GetUserDetails(
     message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    data: json["data"] == null ? null : UserData.fromJson(json["data"]),
     name: json["name"],
     status: json["status"],
     code: json["code"],
@@ -32,7 +34,7 @@ class GetUserDetails {
 
 }
 
-class Data {
+class UserData {
   String? userType;
   String? id;
   String? mobileNo;
@@ -43,7 +45,7 @@ class Data {
   String? gender;
   String? name;
 
-  Data({
+  UserData({
     this.userType,
     this.id,
     this.mobileNo,
@@ -55,7 +57,7 @@ class Data {
     this.name,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory UserData.fromJson(Map<String, dynamic> json) => UserData(
     userType: json["userType"],
     id: json["_id"],
     mobileNo: json["mobileNo"],
@@ -67,6 +69,15 @@ class Data {
     name: json["name"],
   );
 
+  void fromModel(UserData userData){
+    userType = userData.userType;
+    id = userData.id;
+    mobileNo = userData.mobileNo;
+    email = userData.email;
+    gender = userData.gender;
+    name = userData.name;
+    createdAt = userData.createdAt;
+  }
 
 }
 

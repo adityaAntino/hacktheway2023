@@ -99,8 +99,7 @@ class _SellAuctionDetailScreenState extends State<SellAuctionDetailScreen> {
                     biddingPrice:
                         widget.auctionDetail.itemDescription?.initialPrice ??
                             '',
-                    bidEndTime: HelperFunction().parseAndFormatDateTime(
-                        widget.auctionDetail.endTime ?? ''),
+                    bidEndTime: widget.auctionDetail.endTime ?? '',
                     onTap: () {}),
               ],
             ),
