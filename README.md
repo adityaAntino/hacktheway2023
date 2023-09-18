@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/adityaAntino/hacktheway2023/blob/develop/assets/images/app_logo.png" alt="Auction Buddy",width="200" height="200"/>
+  <img src="https://github.com/adityaAntino/hacktheway2023/blob/develop/assets/images/app_splash_logo.png" alt="Auction Buddy",width="200" height="200"/>
   </p>
 
 ## Auction Buddy
