@@ -65,7 +65,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 }
               },
               builder: (context, state) {
-                if (state is BuyPrioductsLoading) {
+                if (state is BuyProductsLoading) {
                   return const CustomScreenLoader(size: 50);
                 }
                 if (state is BuyProductsEmpty) {
@@ -124,6 +124,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             arguments: {
                               'isMyBid': false,
                               'productDetails': productDetails,
+                              'isWon':false
                             },
                           );
                         },

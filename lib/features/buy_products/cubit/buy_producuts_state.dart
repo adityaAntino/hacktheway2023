@@ -16,7 +16,7 @@ class PlaceBidInitial extends BuyProductsState {}
 
 class PlaceBidLoading extends BuyProductsState {}
 
-class BuyPrioductsLoading extends BuyProductsState {}
+class BuyProductsLoading extends BuyProductsState {}
 
 class BuyProductsEmpty extends BuyProductsState {}
 
