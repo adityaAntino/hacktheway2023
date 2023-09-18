@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/constant/app_text_style.dart';
 
@@ -7,14 +8,20 @@ class CommonTextField extends StatelessWidget {
   final String hintText;
   int? maxLines;
   final TextInputType? textInputType;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool? interactiveSelection;
+  final Function(String)? onChanged;
 
-  CommonTextField(
-      {super.key,
-      required this.textEditingController,
-      required this.hintText,
-      this.maxLines = 1,
-      this.textInputType
-      });
+  CommonTextField({
+    super.key,
+    required this.textEditingController,
+    required this.hintText,
+    this.maxLines = 1,
+    this.inputFormatters,
+    this.textInputType,
+    this.interactiveSelection,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +29,9 @@ class CommonTextField extends StatelessWidget {
       maxLines: maxLines,
       controller: textEditingController,
       keyboardType: textInputType ?? TextInputType.text,
+      inputFormatters: inputFormatters,
+      enableInteractiveSelection: interactiveSelection,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: AppTextStyle.f14W600Black9A,

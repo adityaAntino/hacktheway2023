@@ -31,7 +31,7 @@ class ProductOverviewCard extends StatelessWidget {
     this.statusButtonOnTap,
     this.status = '',
     this.highestBiddingPrice = '',
-    this.statusButtonText = '',
+    this.statusButtonText,
     this.statusButtonColor = AppColors.kPureBlack,
     this.statusButtonTextColor = AppColors.kPureWhite,
     this.productDescription,
@@ -144,7 +144,6 @@ class ProductOverviewCard extends StatelessWidget {
                     )
                   : const SizedBox.shrink(),
 
-
               ///BIDDING PRICE - isDetailed(FALSE)
               (!isDetailed)
                   ? Column(
@@ -152,7 +151,7 @@ class ProductOverviewCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                               'Base Price: ',
+                              'Base Price: ',
                               style: AppTextStyle.f14W400Grey80,
                             ),
                             Text(
@@ -171,33 +170,43 @@ class ProductOverviewCard extends StatelessWidget {
                   ? Column(
                       children: [
                         SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Ends at: ',
-                              style: AppTextStyle.f14W400Grey80,
-                            ),
-                            Text(
-                              bidEndTime,
-                              style: AppTextStyle.f14W500darkGreen500,
-                            ),
-                            const Spacer(),
-                            isBasePrice
-                                ? PrimaryButton(
-                                    onTap: statusButtonOnTap,
-                                    textColor: statusButtonTextColor ?? AppColors.kPureWhite,
-                                    buttonColor: statusButtonColor ?? AppColors.kPureBlack,
-                                    buttonText: statusButtonText ?? 'Bid Now',
-                                    borderRadius: 19,
-                                    outerVerticalPadding:
-                                        10 * SizeConfig.heightMultiplier!,
-                                    outerHorizontalPadding:
-                                        24 * SizeConfig.widthMultiplier!,
-                                  )
-                                : const SizedBox.shrink(),
-                          ],
-                        ),
+                        ((status ?? 'pending').toLowerCase() == 'completed')
+                            ? PrimaryButton(
+                                onTap: statusButtonOnTap,
+                                buttonColor:
+                                    statusButtonColor ?? AppColors.kPureWhite,
+                                buttonText: statusButtonText ?? '-',
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Ends at: ',
+                                    style: AppTextStyle.f14W400Grey80,
+                                  ),
+                                  Text(
+                                    bidEndTime,
+                                    style: AppTextStyle.f14W500darkGreen500,
+                                  ),
+                                  const Spacer(),
+                                  isBasePrice
+                                      ? PrimaryButton(
+                                          onTap: statusButtonOnTap,
+                                          textColor: statusButtonTextColor ??
+                                              AppColors.kPureWhite,
+                                          buttonColor: statusButtonColor ??
+                                              AppColors.kPureBlack,
+                                          buttonText:
+                                              statusButtonText ?? 'Bid Now',
+                                          borderRadius: 19,
+                                          outerVerticalPadding:
+                                              10 * SizeConfig.heightMultiplier!,
+                                          outerHorizontalPadding:
+                                              24 * SizeConfig.widthMultiplier!,
+                                        )
+                                      : const SizedBox.shrink(),
+                                ],
+                              ),
                       ],
                     )
                   : const SizedBox.shrink()

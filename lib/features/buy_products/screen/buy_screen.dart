@@ -239,7 +239,7 @@ class _BuyScreenState extends State<BuyScreen> {
                 routeName: RouteName.auctionDetailsScreen,
                 arguments: {
                   'isMyBid': false,
-                  'productDetails': productDetails ?? '',
+                  'productDetails': productDetails,
                   'isWon': false
                 },
               );
@@ -274,7 +274,7 @@ class _BuyScreenState extends State<BuyScreen> {
           return SizedBox(width: 8 * SizeConfig.widthMultiplier!);
         },
         shrinkWrap: true,
-        itemCount: categories.length ?? 0,
+        itemCount: categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return GestureDetector(
