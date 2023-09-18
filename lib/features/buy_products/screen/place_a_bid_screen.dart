@@ -63,59 +63,54 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
         parentContext: context,
       ),
       body: SingleChildScrollView(
-        child: GestureDetector(
-          onTap: () {
-            // FocusScope.of(context).unfocus();
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16 * SizeConfig.widthMultiplier!,
-            ),
-            child: BlocListener<BuyProductsCubit, BuyProductsState>(
-              listener: (context, state) {
-                if (state is BidSet) {
-                  amount = state.amount;
-                  if (bidController.text.isNotEmpty &&
-                      amount > int.parse(bidController.text.trim())) {
-                    bidController.clear();
-                  }
-                }
-                if (state is BidNotSet) {
-                  amount = 0;
-                }
-                if (state is RemoveCustomBid) {
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16 * SizeConfig.widthMultiplier!,
+          ),
+          child: BlocListener<BuyProductsCubit, BuyProductsState>(
+            listener: (context, state) {
+              if (state is BidSet) {
+                amount = state.amount;
+                if (bidController.text.isNotEmpty &&
+                    amount > int.parse(bidController.text.trim())) {
                   bidController.clear();
                 }
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 30 * SizeConfig.heightMultiplier!),
-                  SizedBox(
-                    height: 126 * SizeConfig.heightMultiplier!,
-                    child: BidGridList(
-                      basePrice: int.parse(widget.baseAmount),
-                    ),
+              }
+              if (state is BidNotSet) {
+                amount = 0;
+              }
+              if (state is RemoveCustomBid) {
+                bidController.clear();
+              }
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30 * SizeConfig.heightMultiplier!),
+                SizedBox(
+                  height: 126 * SizeConfig.heightMultiplier!,
+                  child: BidGridList(
+                    basePrice: int.parse(widget.baseAmount),
                   ),
-                  SizedBox(height: 16 * SizeConfig.heightMultiplier!),
-                  Text(
-                    'Custom Bid',
-                    style: AppTextStyle.f16W500Black0E,
-                  ),
-                  SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-                  CommonTextField(
-                    textEditingController: bidController,
-                    hintText: 'Eg. ₹${(widget.baseAmount)}',
-                    textInputType: TextInputType.number,
-                    onChanged: (value) {},
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    interactiveSelection: false,
-                  ),
-                  SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-                ],
-              ),
+                ),
+                SizedBox(height: 16 * SizeConfig.heightMultiplier!),
+                Text(
+                  'Custom Bid',
+                  style: AppTextStyle.f16W500Black0E,
+                ),
+                SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                CommonTextField(
+                  textEditingController: bidController,
+                  hintText: 'Eg. ₹${(widget.baseAmount)}',
+                  textInputType: TextInputType.number,
+                  onChanged: (value) {},
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  interactiveSelection: false,
+                ),
+                SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+              ],
             ),
           ),
         ),
