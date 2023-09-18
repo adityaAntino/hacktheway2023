@@ -173,23 +173,24 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                     msg:
                         'Your bid must be greater than ₹${int.parse(widget.baseAmount)}',
                   );
+                } else if (amount > int.parse(widget.baseAmount)) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CommonDialog(
+                        title: 'Place Bid',
+                        content: 'Are you sure you want to place this bet?',
+                        onTap: () {
+                          buyProductsCubit?.placeBid(
+                            amount: amount,
+                            id: widget.id,
+                          );
+                          BulandDarwaza.pop(context);
+                        },
+                      );
+                    },
+                  );
                 }
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return CommonDialog(
-                      title: 'Place Bid',
-                      content: 'Are you sure you want to place this bet?',
-                      onTap: () {
-                        buyProductsCubit?.placeBid(
-                          amount: amount,
-                          id: widget.id,
-                        );
-                        BulandDarwaza.pop(context);
-                      },
-                    );
-                  },
-                );
               },
               buttonColor:
                   (amount > int.parse(widget.baseAmount) || state is BidSet)
