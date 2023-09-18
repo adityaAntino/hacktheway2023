@@ -124,7 +124,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             arguments: {
                               'isMyBid': false,
                               'productDetails': productDetails,
-                              'isWon':false
+                              'isWon': false
                             },
                           );
                         },

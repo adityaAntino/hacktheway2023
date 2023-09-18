@@ -70,55 +70,59 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
               }
               if (state is MyBidsFailed) {
                 return CustomEmptyScreen(
-                  message:
-                      'You have not bid yet! No bids available',
+                  message: 'You have not bid yet! No bids available',
                 );
               }
               return ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: myBids.length,
-                  separatorBuilder: (context, index) {
-                    return SizedBox(height: 8 * SizeConfig.heightMultiplier!);
-                  },
-                  itemBuilder: (context, index) {
-                    return ProductOverviewCard(
-                      onTap: () {
-                        BulandDarwaza.pushNamed(
-                          context,
-                          routeName: RouteName.auctionDetailsScreen,
-                          arguments: {
-                            'isMyBid': true,
-                            'isWon': (myBids[index].won ?? false),
-                            'productDetails': {
-                              'productName':
-                                  myBids[index].itemDescription?.itemName ??
-                                      '-',
-                              'productDescription':
-                                  myBids[index].itemDescription?.itemInfo ??
-                                      'Product info',
-                              'basePrice':
-                                  myBids[index].itemDescription?.initialPrice ??
-                                      '00',
-                              'endTime': myBids[index].endTime ?? 'End time',
-                              'id': myBids[index].id ?? '-',
-                              'ownerName':
-                                  myBids[index].auctioneer ?? 'Owner Name',
-                              'winningAmount':
-                                  (myBids[index].winningBid?.amount ?? 0)
-                                      .toString()
-                            },
+                shrinkWrap: true,
+                itemCount: myBids.length,
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: 8 * SizeConfig.heightMultiplier!);
+                },
+                itemBuilder: (context, index) {
+                  return ProductOverviewCard(
+                    onTap: () {
+                      BulandDarwaza.pushNamed(
+                        context,
+                        routeName: RouteName.auctionDetailsScreen,
+                        arguments: {
+                          'isMyBid': true,
+                          'isWon': (myBids[index].won ?? false),
+                          'productDetails': {
+                            'productName':
+                                myBids[index].itemDescription?.itemName ?? '-',
+                            'productDescription':
+                                myBids[index].itemDescription?.itemInfo ??
+                                    'Product info',
+                            'basePrice':
+                                myBids[index].itemDescription?.initialPrice ??
+                                    '00',
+                            'endTime': myBids[index].endTime ?? 'End time',
+                            'id': myBids[index].id ?? '-',
+                            'ownerName':
+                                myBids[index].auctioneer ?? 'Owner Name',
+                            'winningAmount':
+                                (myBids[index].winningBid?.amount ?? 0)
+                                    .toString()
                           },
-                        );
-                      },
-                      imageUrl: ImagePath.productImagePng,
-                      productName:
-                          myBids[index].itemDescription?.itemName ?? '-',
-                      biddingPrice:
-                          myBids[index].itemDescription?.initialPrice ?? '0',
-                      bidEndTime: HelperFunction()
-                          .parseAndFormatDateTime(myBids[index].endTime ?? '-'),
-                    );
-                  });
+                        },
+                      );
+                    },
+                    imageUrl: ImagePath.productImagePng,
+                    productName: myBids[index].itemDescription?.itemName ?? '-',
+                    status: myBids[index].status ?? 'pending',
+                    statusButtonText:
+                        (myBids[index].status ?? 'pending').toLowerCase() ==
+                                'completed'
+                            ? 'Completed'
+                            : 'Pending',
+                    biddingPrice:
+                        myBids[index].itemDescription?.initialPrice ?? '0',
+                    bidEndTime: HelperFunction()
+                        .parseAndFormatDateTime(myBids[index].endTime ?? '-'),
+                  );
+                },
+              );
             },
           ),
         ),

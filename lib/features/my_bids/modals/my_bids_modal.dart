@@ -49,6 +49,7 @@ class Datum {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? endTime;
+  String? status;
   int? v;
   bool? won;
   WinningBid? winningBid;
@@ -60,6 +61,7 @@ class Datum {
     this.createdAt,
     this.updatedAt,
     this.endTime,
+    this.status,
     this.v,
     this.won,
     this.winningBid,
@@ -78,6 +80,7 @@ class Datum {
             ? null
             : DateTime.parse(json["updatedAt"]),
         endTime: json['endTime'],
+        status: json['status'],
         v: json["__v"],
         won: json["won"],
         winningBid: json["winningBid"] == null
