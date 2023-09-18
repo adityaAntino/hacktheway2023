@@ -1,7 +1,7 @@
 class ApiRoute {
   // static String baseUrl = 'https://india-legal.antino.ca';
 
-  static String baseUrl = 'https://26df-49-249-44-114.ngrok-free.app';
+  static String baseUrl = 'https://ae9e-2401-4900-1c55-50ef-a9ca-fc87-10c7-a3b3.ngrok-free.app';
 
   static String mainUrl = '$baseUrl/api/v1/';
 

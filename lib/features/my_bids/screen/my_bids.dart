@@ -71,7 +71,7 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
               if (state is MyBidsFailed) {
                 return CustomEmptyScreen(
                   message:
-                      'Something went wrong while fetching your bids, try again later!',
+                      'You have not bid yet! No bids available',
                 );
               }
               return ListView.separated(

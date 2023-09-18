@@ -63,6 +63,13 @@ class _SplashScreenState extends State<SplashScreen> {
               }
               context.read<AuthenticationCubit>().resetState();
             }
+            if(state is GetUserDetailError){
+              Timer(
+                  const Duration(seconds: 2),
+                      () => BulandDarwaza.pushReplacementNamed(context,
+                      routeName: RouteName.sendOtpScreen));
+              context.read<AuthenticationCubit>().resetState();
+            }
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

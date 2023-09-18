@@ -38,7 +38,7 @@ class BuyProductsCubit extends Cubit<BuyProductsState> {
   }
 
   Future<void> getAllAuctions() async {
-    emit(BuyPrioductsLoading());
+    emit(BuyProductsLoading());
     final GetAllAuctionsModal? response =
         await _buyProductsRepo.fetchAuctions();
 
