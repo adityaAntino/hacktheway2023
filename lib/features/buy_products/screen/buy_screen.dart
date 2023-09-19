@@ -269,7 +269,7 @@ class _BuyScreenState extends State<BuyScreen> {
       String? amount,
       bool isCategory = false}) {
     return SizedBox(
-      height: imageHeight + 84 * SizeConfig.heightMultiplier!,
+      height: imageHeight + 100 * SizeConfig.heightMultiplier!,
       child: ListView.separated(
         separatorBuilder: (context, index) {
           return SizedBox(width: 16 * SizeConfig.widthMultiplier!);

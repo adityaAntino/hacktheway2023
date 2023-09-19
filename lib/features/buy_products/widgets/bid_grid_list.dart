@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hacktheway2023/common/primary_button.dart';
-import 'package:hacktheway2023/constant/app_colors.dart';
 import 'package:hacktheway2023/features/buy_products/cubit/buy_products_cubit.dart';
+import 'package:hacktheway2023/features/buy_products/cubit/buy_producuts_state.dart';
 import 'package:hacktheway2023/features/buy_products/widgets/bid_grid_widget.dart';
 
 class BidGridList extends StatefulWidget {
@@ -36,20 +34,32 @@ class _BidGridListState extends State<BidGridList> {
 
   @override
   Widget build(BuildContext context) {
-    return BidGridWidget(
-      prices: prices,
-      onPriceSelect: (selectedAmount) {
-        setState(() {
-          if (selectedPriceIndex == selectedAmount) {
-            selectedPriceIndex = -1;
-            context.read<BuyProductsCubit>().setBid(0);
-          } else {
-            selectedPriceIndex = selectedAmount;
-            context.read<BuyProductsCubit>().setBid(prices[selectedPriceIndex]);
-          }
-        });
+    return BlocConsumer<BuyProductsCubit, BuyProductsState>(
+      listener: (context, state) {
+        if (state is RemoveSuggestedBid) {
+          selectedPriceIndex = -1;
+        }
       },
-      selectedPriceIndex: selectedPriceIndex,
+      builder: (context, state) {
+        return BidGridWidget(
+          prices: prices,
+          onPriceSelect: (selectedAmount) {
+            setState(() {
+              if (selectedPriceIndex == selectedAmount) {
+                selectedPriceIndex = -1;
+                context.read<BuyProductsCubit>().setBid(0);
+              } else {
+                selectedPriceIndex = selectedAmount;
+                context
+                    .read<BuyProductsCubit>()
+                    .setBid(prices[selectedPriceIndex]);
+                context.read<BuyProductsCubit>().emitState(RemoveCustomBid());
+              }
+            });
+          },
+          selectedPriceIndex: selectedPriceIndex,
+        );
+      },
     );
   }
 }

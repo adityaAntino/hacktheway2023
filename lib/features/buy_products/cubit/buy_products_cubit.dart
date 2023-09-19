@@ -9,6 +9,7 @@ class BuyProductsCubit extends Cubit<BuyProductsState> {
   final _buyProductsRepo = BuyProductsRepository();
 
   int bidAmount = 0;
+  int selectedPriceIndex = -1;
 
   void resetInitState() {
     emit(BuyProductsInitial());

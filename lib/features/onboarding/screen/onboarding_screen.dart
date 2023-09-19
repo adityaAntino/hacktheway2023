@@ -88,8 +88,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Text('Email', style: AppTextStyle.f16W600Black0E),
                   SizedBox(height: 8 * SizeConfig.heightMultiplier!),
                   CommonTextField(
-                      textEditingController: _emailCtrl,
-                      hintText: 'e.g something@gmail.com'),
+                    textEditingController: _emailCtrl,
+                    textInputType: TextInputType.emailAddress,
+                    hintText: 'e.g something@gmail.com',
+                  ),
                   SizedBox(height: 16 * SizeConfig.heightMultiplier!),
 
                   ///GENDER

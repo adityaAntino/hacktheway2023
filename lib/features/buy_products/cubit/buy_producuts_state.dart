@@ -8,6 +8,10 @@ class BidSet extends BuyProductsState {
   BidSet(this.amount);
 }
 
+class RemoveSuggestedBid extends BuyProductsState {}
+
+class RemoveCustomBid extends BuyProductsState {}
+
 class BidNotSet extends BuyProductsState {}
 
 class BuyProductsInitial extends BuyProductsState {}

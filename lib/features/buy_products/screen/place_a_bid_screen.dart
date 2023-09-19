@@ -40,7 +40,10 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
     super.initState();
     buyProductsCubit = BlocProvider.of(context);
     bidController.addListener(() {
-      buyProductsCubit?.setBid(int.parse(bidController.text.trim()));
+      if (bidController.text.isNotEmpty) {
+        buyProductsCubit?.setBid(int.parse(bidController.text.trim()));
+        buyProductsCubit?.emitState(RemoveSuggestedBid());
+      }
     });
   }
 
@@ -68,9 +71,16 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
             listener: (context, state) {
               if (state is BidSet) {
                 amount = state.amount;
-                if (amount > int.parse(bidController.text.trim())) {
+                if (bidController.text.isNotEmpty &&
+                    amount > int.parse(bidController.text.trim())) {
                   bidController.clear();
                 }
+              }
+              if (state is BidNotSet) {
+                amount = 0;
+              }
+              if (state is RemoveCustomBid) {
+                bidController.clear();
               }
             },
             child: Column(
@@ -83,7 +93,7 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                     basePrice: int.parse(widget.baseAmount),
                   ),
                 ),
-                SizedBox(height: 34 * SizeConfig.heightMultiplier!),
+                SizedBox(height: 16 * SizeConfig.heightMultiplier!),
                 Text(
                   'Custom Bid',
                   style: AppTextStyle.f16W500Black0E,
@@ -150,12 +160,15 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
             child: PrimaryButton(
               fontSize: 18 * SizeConfig.textMultiplier!,
               onTap: () {
+                if (amount == 0) {
+                  Fluttertoast.showToast(msg: 'Place a bid first!');
+                }
                 if (amount < int.parse(widget.baseAmount)) {
                   Fluttertoast.showToast(
                     msg:
                         'Your bid must be greater than ₹${int.parse(widget.baseAmount)}',
                   );
-                } else if (state is BidSet) {
+                } else if (amount > int.parse(widget.baseAmount)) {
                   showDialog(
                     context: context,
                     builder: (context) {
@@ -172,12 +185,14 @@ class _PlaceABidScreenState extends State<PlaceABidScreen> {
                       );
                     },
                   );
-                } else {
-                  Fluttertoast.showToast(msg: 'Place a bid first!');
                 }
               },
               buttonColor:
-                  (state is BidSet) ? AppColors.kPureBlack : AppColors.greyF5,
+                  (amount > int.parse(widget.baseAmount) || state is BidSet)
+                      ? AppColors.kPureBlack
+                      : (state is BidNotSet)
+                          ? AppColors.greyF5
+                          : AppColors.greyF5,
               buttonText: 'Place your bid',
             ),
           );
